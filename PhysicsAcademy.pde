@@ -9,24 +9,30 @@ FBox box;
 
 void setup() {
   size(1000, 1000);
+
   simulationScreenInitialize();
-  
+
 }
 
-int screenMode = 1;
+int screenMode = 3;
 void draw() {
   switch(screenMode) {
-    
-  case 1: 
+
+  case 1:
     simulationMode();
     break;
-    
-  case 2: 
-  
+
+  case 2:
+
     drawMode();
     break;
-    
+
+  case 3:
+    learnMode();
+    break;
+
   }
+
 }
 
 void drawMode() {
@@ -36,7 +42,7 @@ void drawMode() {
 void keyPressed() {
   if (screenMode == 1) {
     simulationModeKeyActions();
-  } 
+  }
 }
 
 void mousePressed() {
