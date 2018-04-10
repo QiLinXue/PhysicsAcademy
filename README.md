@@ -10,9 +10,7 @@ An all in one physics program where once can gain an intuitive understanding of 
 ### Other
 * Fonts Used: Montserrat-Regular.ttf
 
-## TODO
-
-- # __TODO__ [README.md](README.md)
+## TODO [Original File.md](PhysicsAcademy.md)
 - can't compare strings. Dunno why __NOTE__ [quizMode.pde](quizMode.pde)
 - enable this feature __TODO__ [quizMode.pde](quizMode.pde)
 - implement machine learning alg that learns common mistakes __TODO__ [quizMode.pde](quizMode.pde)
