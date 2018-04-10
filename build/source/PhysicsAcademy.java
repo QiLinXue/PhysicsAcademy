@@ -104,6 +104,7 @@ public float minCoFriction_IP(float radians){
   return tan(radians);
 }
 
+//TODO use same int-string conversion functions
 public String[] problem1(){
     //TODO make bonus sections for common mistakes
     String[] problem = {"question","question type","answer"};
@@ -129,7 +130,8 @@ public String[] problem1(){
     problem[0] = "A book of mass "+mass+"kg is held to a vertical wall by a person's hand applying a "+force+"N force directly toward the wall. The wall has a static friction coefficient of 0."+staticFriction.charAt(0)+" and a kinetic friction coefficient of 0."+kineticFriction.charAt(0)+". With the book held at rest, what is the frictional force keeping the book from sliding down the wall?";
 
     //TODO make answer real (really simple for now)
-    problem[2] = mass;
+
+    problem[2] = Float.toString(PApplet.parseInt(force)*PApplet.parseFloat(staticFriction)*0.1f);
 
     return problem;
 }
@@ -186,6 +188,7 @@ public void learnMode() {
 
 }
 
+//IDEA make input box flash after each correct/incorrect (maybe add sound library for sound effects)
 //NOTE quizModeCorrect and quizMode Incorrect could be integrated below depending on how long the code is
 public void quizModeCorrect(){
     questionData = problem1();
@@ -229,8 +232,9 @@ public void quizModeKeyPressed(){
     //Check answer
 
     if(quizModeInAnswerBox && keyCode == ENTER){
+        println(questionData[2]);
         //NOTE can't compare strings. Dunno why
-        if(Integer.parseInt(quizModeInputtedAnswer) == Integer.parseInt(questionData[2])) quizModeCorrect();
+        if(PApplet.parseFloat(quizModeInputtedAnswer) == PApplet.parseFloat(questionData[2])) quizModeCorrect();
         else quizModeIncorrect();
     }
 }

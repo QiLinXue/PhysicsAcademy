@@ -96,7 +96,7 @@ void quizModeKeyPressed(){
 
     if(quizModeInAnswerBox && keyCode == ENTER){
         //NOTE can't compare strings. Dunno why
-        if(Integer.parseInt(quizModeInputtedAnswer) == Integer.parseInt(questionData[2])) quizModeCorrect();
+        if(float(quizModeInputtedAnswer) == float(questionData[2])) quizModeCorrect();
         else quizModeIncorrect();
     }
 }

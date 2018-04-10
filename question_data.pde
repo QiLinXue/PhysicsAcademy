@@ -1,3 +1,4 @@
+//TODO use same int-string conversion functions
 String[] problem1(){
     //TODO make bonus sections for common mistakes
     String[] problem = {"question","question type","answer"};
@@ -23,7 +24,8 @@ String[] problem1(){
     problem[0] = "A book of mass "+mass+"kg is held to a vertical wall by a person's hand applying a "+force+"N force directly toward the wall. The wall has a static friction coefficient of 0."+staticFriction.charAt(0)+" and a kinetic friction coefficient of 0."+kineticFriction.charAt(0)+". With the book held at rest, what is the frictional force keeping the book from sliding down the wall?";
 
     //TODO make answer real (really simple for now)
-    problem[2] = mass;
+
+    problem[2] = Float.toString(int(force)*float(staticFriction)*0.1);
 
     return problem;
 }
