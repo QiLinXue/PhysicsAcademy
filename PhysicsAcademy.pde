@@ -40,13 +40,14 @@ void keyPressed() {
       case 3:
         quizModeKeyPressed();
         break;
+      case 4: solarSystemKeyPressed(); break;
+
   }
 }
 
 void mousePressed() {
   switch(screenMode){
       case 3: quizModeMousePressed(); break;
-      case 4: solarSystemKeyPressed(); break;
   }
 }
 
