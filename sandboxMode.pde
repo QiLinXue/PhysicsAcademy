@@ -10,7 +10,7 @@ void simulationScreenInitialize() {
   //world.setGrabbable(false);
 
   inclinedPlane = new FPoly();
-    
+
   inclinedPlane.vertex(inclinedPlaneCoordinates[0][0], inclinedPlaneCoordinates[0][1]);
   inclinedPlane.vertex(inclinedPlaneCoordinates[1][0], inclinedPlaneCoordinates[1][1]);
   inclinedPlane.vertex(inclinedPlaneCoordinates[2][0], inclinedPlaneCoordinates[2][1]);
@@ -55,8 +55,8 @@ void simulationMode() {
 int x1, y1, x2, y2, x3, y3;
 String[] defaultTriangle = {"100", "994", "700", "994", "100", "600"};
 
-void simulationModeKeyActions() {
-  if (keyCode == TAB) 
+void sandboxModeKeyActions() {
+  if (keyCode == TAB)
 
   {
 

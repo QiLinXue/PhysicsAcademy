@@ -59,13 +59,36 @@ public void drawMode() {
 }
 
 public void keyPressed() {
-  if (screenMode == 1) {
-    simulationModeKeyActions();
+  switch(screenMode){
+      case 1:
+        sandboxModeKeyActions();
+        break;
+      case 3:
+        quizModeKeyPressed();
+        break;
   }
 }
 
 public void mousePressed() {
-  println(b.getX());
+  switch(screenMode){
+      case 1:
+        //sandboxModeMousePressed();
+        break;
+      case 3:
+        quizModeMousePressed();
+        break;
+  }
+}
+
+public void mouseReleased() {
+  switch(screenMode){
+      case 1:
+        //sandboxModeMouseReleased();
+        break;
+      case 3:
+        quizModeMouseReleased();
+        break;
+ }
 }
 public float angle_triangle(float x1, float y1, float x2, float y2, float x3, float y3) { //Top Left, Bottom Left, Bottom Right
   return atan((y2-y1)/(x3-x2));
@@ -81,36 +104,143 @@ public float minCoFriction_IP(float radians){
   return tan(radians);
 }
 
+public String[] problem1(){
+    //TODO make bonus sections for common mistakes
+    String[] problem = {"question","question type","answer"};
 
-String mass = Integer.toString(floor(random(1,50)));
-String force = Integer.toString(floor(random(1,50))+Integer.parseInt(mass));
-String kineticFriction = Float.toString(PApplet.parseInt(random(1,9)));
-String staticFriction = Float.toString(PApplet.parseInt(random(PApplet.parseInt(kineticFriction)+1,9)));
+    //Question Type
+    problem[1] = "FREE";
 
+    //Stats
+    //TODO: make this more efficient (find easier bug fix)
+    String mass = Integer.toString(floor(random(1,50)));
+    //String mass = tempMass;
 
-String problem1 = "A book of mass "+mass+"kg is held to a vertical wall by a person's hand applying a "+force+"N force directly toward the wall. The wall has a static friction coefficient of 0."+staticFriction.charAt(0)+" and a kinetic friction coefficient of 0."+kineticFriction.charAt(0)+". With the book held at rest, what the is frictional force keeping the book from sliding down the wall?";
+    String force = Integer.toString(floor(random(1,50))+Integer.parseInt(mass));
+    //String force = tempForce;
+
+    String kineticFriction = Float.toString(PApplet.parseInt(random(1,9)));
+    //String kineticFriction = tempKineticFriction;
+
+    String staticFriction = Float.toString(PApplet.parseInt(random(PApplet.parseInt(kineticFriction)+1,9)));
+    //String staticFriction = tempStaticFriction;
+
+    //Question
+    problem[0] = "A book of mass "+mass+"kg is held to a vertical wall by a person's hand applying a "+force+"N force directly toward the wall. The wall has a static friction coefficient of 0."+staticFriction.charAt(0)+" and a kinetic friction coefficient of 0."+kineticFriction.charAt(0)+". With the book held at rest, what is the frictional force keeping the book from sliding down the wall?";
+
+    //TODO make answer real (really simple for now)
+    problem[2] = mass;
+
+    return problem;
+}
 PFont questionfont;
+String[] questionData = problem1();
+Boolean quizModeInAnswerBox = false;
+String quizModeInputtedAnswer = "";
+Boolean failed = false;
+//TODO: make this infinite by loading and uploading a data file
+int[] pastCorrectAnswers = {0,0,0,0,0,0,0,0};
 
 public void learnMode() {
+
+  //background
   background(33, 26, 29);
 
-  textAlign(CENTER);
-  fill(255);
-  textSize(33);
-  questionfont = createFont("Montserrat-Regular.ttf", 30);
-  textFont(questionfont);
+  //History (Past Answers Correct/Incorrect)
+  //TODO: enable this feature
 
-  text(problem1, 0, 210, width, height);
+  //fill(0, 100, 100); //Cyan
+  for (int i=0; i<8; i++) {
+    switch(pastCorrectAnswers[i]){
+        case 0: fill(100); break;
+        case 1: fill(0,255,100); break;
+        case -1: fill(200,0,0); break;
+    }
+    rect(i*120+30, 20, 100, 100);
+  }
 
-  fill(255, 255, 0);
+  //Decor
+  // fill(255, 255, 0); //Yellow
+  fill(0, 100, 100); //Cyan
+
   noStroke();
   rect(0, 500, width, 10);
   rect(0, 150, width, 10);
 
-  fill(0, 200, 200);
-  for (int i=0; i<8; i++) {
-    rect(i*120+30, 20, 100, 100);
-  }
+  // Answer Box
+  fill(150);
+  if(quizModeInAnswerBox) fill(255);
+  rect(300,550,400,80);
+  fill(0);
+
+  textAlign(LEFT,(CENTER));
+  text(quizModeInputtedAnswer,300,560,400,60);
+
+  // Question
+  questionfont = createFont("Montserrat-Regular.ttf", 30);
+  textAlign(CENTER);
+  fill(220);
+  textSize(33);
+  textFont(questionfont);
+  text(questionData[0], 0, 210, width, height);
+
+}
+
+//NOTE quizModeCorrect and quizMode Incorrect could be integrated below depending on how long the code is
+public void quizModeCorrect(){
+    questionData = problem1();
+    quizModeInputtedAnswer = "";
+
+    //Shift history colors down
+    if(!failed){
+        for(int i=0;i<7;i++){
+            pastCorrectAnswers[i] = pastCorrectAnswers[i+1];
+        }
+        pastCorrectAnswers[7] = 1;
+    }
+    else{
+        failed = false;
+    }
+}
+
+//TODO Weed out accidental mistakes
+//TODO implement machine learning alg that learns common mistakes
+public void quizModeIncorrect(){
+    if(!failed) {
+        for(int i=0;i<7;i++){
+            pastCorrectAnswers[i] = pastCorrectAnswers[i+1];
+        }
+        pastCorrectAnswers[7] = -1;
+        failed = true;
+    }
+
+}
+
+
+public void quizModeKeyPressed(){
+
+    //TODO make inputted text more efficient
+    if(quizModeInAnswerBox && keyCode != BACKSPACE && keyCode != CONTROL && keyCode != SHIFT && keyCode != ENTER){
+        quizModeInputtedAnswer += key;
+    } else if(quizModeInAnswerBox && keyCode == BACKSPACE && quizModeInputtedAnswer.length() > 0){
+        quizModeInputtedAnswer = quizModeInputtedAnswer.substring(0, quizModeInputtedAnswer.length() - 1);
+    }
+
+    //Check answer
+
+    if(quizModeInAnswerBox && keyCode == ENTER){
+        //NOTE can't compare strings. Dunno why
+        if(Integer.parseInt(quizModeInputtedAnswer) == Integer.parseInt(questionData[2])) quizModeCorrect();
+        else quizModeIncorrect();
+    }
+}
+
+public void quizModeMousePressed(){
+    quizModeInAnswerBox = (mouseX<700 && mouseX>300 && mouseY>550 && mouseY<630) ? true : false;
+}
+
+public void quizModeMouseReleased(){
+
 }
 int[][] inclinedPlaneCoordinates = {{150,100},{150,994},{500,994}};
 
@@ -124,7 +254,7 @@ public void simulationScreenInitialize() {
   //world.setGrabbable(false);
 
   inclinedPlane = new FPoly();
-    
+
   inclinedPlane.vertex(inclinedPlaneCoordinates[0][0], inclinedPlaneCoordinates[0][1]);
   inclinedPlane.vertex(inclinedPlaneCoordinates[1][0], inclinedPlaneCoordinates[1][1]);
   inclinedPlane.vertex(inclinedPlaneCoordinates[2][0], inclinedPlaneCoordinates[2][1]);
@@ -169,8 +299,8 @@ public void simulationMode() {
 int x1, y1, x2, y2, x3, y3;
 String[] defaultTriangle = {"100", "994", "700", "994", "100", "600"};
 
-public void simulationModeKeyActions() {
-  if (keyCode == TAB) 
+public void sandboxModeKeyActions() {
+  if (keyCode == TAB)
 
   {
 

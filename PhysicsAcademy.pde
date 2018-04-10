@@ -40,11 +40,34 @@ void drawMode() {
 }
 
 void keyPressed() {
-  if (screenMode == 1) {
-    simulationModeKeyActions();
+  switch(screenMode){
+      case 1:
+        sandboxModeKeyActions();
+        break;
+      case 3:
+        quizModeKeyPressed();
+        break;
   }
 }
 
 void mousePressed() {
-  println(b.getX());
+  switch(screenMode){
+      case 1:
+        //sandboxModeMousePressed();
+        break;
+      case 3:
+        quizModeMousePressed();
+        break;
+  }
+}
+
+void mouseReleased() {
+  switch(screenMode){
+      case 1:
+        //sandboxModeMouseReleased();
+        break;
+      case 3:
+        quizModeMouseReleased();
+        break;
+ }
 }
