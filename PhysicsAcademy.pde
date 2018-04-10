@@ -8,28 +8,21 @@ FCircle b;
 FBox box;
 
 void setup() {
-  size(1000, 1000);
-
+  size(1000, 1000, P3D);
   simulationScreenInitialize();
+  solarSystemInitialize();
+
 
 }
 
-int screenMode = 3;
+int screenMode = 4;
 void draw() {
   switch(screenMode) {
 
-  case 1:
-    simulationMode();
-    break;
-
-  case 2:
-
-    drawMode();
-    break;
-
-  case 3:
-    learnMode();
-    break;
+  case 1: simulationMode(); break;
+  case 2: drawMode(); break;   //TODO make drawMode
+  case 3: learnMode(); break;
+  case 4: solarSystemMode(); break;
 
   }
 
@@ -52,22 +45,29 @@ void keyPressed() {
 
 void mousePressed() {
   switch(screenMode){
-      case 1:
-        //sandboxModeMousePressed();
-        break;
-      case 3:
-        quizModeMousePressed();
-        break;
+      case 3: quizModeMousePressed(); break;
+      case 4: solarSystemKeyPressed(); break;
   }
 }
 
 void mouseReleased() {
   switch(screenMode){
-      case 1:
-        //sandboxModeMouseReleased();
-        break;
-      case 3:
-        quizModeMouseReleased();
-        break;
+      case 3: quizModeMouseReleased(); break;
+      case 4: solarSystemMouseReleased(); break;
  }
+}
+
+void mouseWheel(MouseEvent event) {
+    switch(screenMode){
+        case 4:
+            if(spaceMode==1){
+              solarSystemIsScroll = event.getCount();
+              solarSystemZoom = solarSystemZoom + (solarSystemIsScroll/20);
+              if(solarSystemZoom>0){
+                solarSystemZoom = solarSystemZoom - (solarSystemIsScroll/20);
+              }
+              //println(solarSystemZoom);
+            }
+            break;
+   }
 }
