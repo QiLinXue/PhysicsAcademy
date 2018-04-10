@@ -59,13 +59,14 @@ public void keyPressed() {
       case 3:
         quizModeKeyPressed();
         break;
+      case 4: solarSystemKeyPressed(); break;
+
   }
 }
 
 public void mousePressed() {
   switch(screenMode){
       case 3: quizModeMousePressed(); break;
-      case 4: solarSystemKeyPressed(); break;
   }
 }
 
@@ -79,13 +80,13 @@ public void mouseReleased() {
 public void mouseWheel(MouseEvent event) {
     switch(screenMode){
         case 4:
-            if(mode==1){
-              isScroll = event.getCount();
-              zoom = zoom + (isScroll/20);
-              if(zoom>0){
-                zoom = zoom - (isScroll/20);
+            if(spaceMode==1){
+              solarSystemIsScroll = event.getCount();
+              solarSystemZoom = solarSystemZoom + (solarSystemIsScroll/20);
+              if(solarSystemZoom>0){
+                solarSystemZoom = solarSystemZoom - (solarSystemIsScroll/20);
               }
-              //println(zoom);
+              //println(solarSystemZoom);
             }
             break;
    }
@@ -187,7 +188,7 @@ float moonOrbitRadiusScaler = 600000000;
   public void plotOrbit(){
     stroke(255); //color of the orbit line
     noFill(); //ensures the ellipse is transparent
-    strokeWeight(100*exp((3*zoom)-1.5f)+0.25f); //calculated with a table of values at www.desmos.com/calculator/fz1zzieuwa
+    strokeWeight(100*exp((3*solarSystemZoom)-1.5f)+0.25f); //calculated with a table of values at www.desmos.com/calculator/fz1zzieuwa
 
     pushMatrix(); //Begin transformation
 
@@ -229,12 +230,12 @@ float moonOrbitRadiusScaler = 600000000;
 
   //Time Warp
   float differenceAngle = 0;
-  float savedAngle;
+  float solarSystemSavedAngle;
   float timewarp = 100000;
 
   public void changeTimeWarp(){
     //println("works");
-    savedAngle = planetAngle();
+    solarSystemSavedAngle = planetAngle();
 
     if(key == '.'){
       timewarp = timewarp * 1.2f;
@@ -243,7 +244,7 @@ float moonOrbitRadiusScaler = 600000000;
       timewarp = timewarp / 1.2f;
     }
 
-    differenceAngle = differenceAngle + planetAngle() - savedAngle;
+    differenceAngle = differenceAngle + planetAngle() - solarSystemSavedAngle;
 
 
   }
@@ -400,7 +401,7 @@ class Planet{
   public void plotOrbit(){
     stroke(255); //color of the orbit line
     noFill(); //ensures the ellipse is transparent
-    strokeWeight(100*exp((3*zoom)-1.5f)+0.25f); //calculated with a table of values at www.desmos.com/calculator/fz1zzieuwa
+    strokeWeight(100*exp((3*solarSystemZoom)-1.5f)+0.25f); //calculated with a table of values at www.desmos.com/calculator/fz1zzieuwa
 
     pushMatrix(); //Begin transformation
 
@@ -432,12 +433,12 @@ class Planet{
 
   //Time Warp
   float differenceAngle = 0;
-  float savedAngle;
+  float solarSystemSavedAngle;
   float timewarp = 100000;
 
   public void changeTimeWarp(){
     //println("works");
-    savedAngle = angle();
+    solarSystemSavedAngle = angle();
 
     if(key == '.'){
       timewarp = timewarp * 1.2f;
@@ -446,12 +447,14 @@ class Planet{
       timewarp = timewarp / 1.2f;
     }
 
-    differenceAngle = differenceAngle + angle() - savedAngle;
+    differenceAngle = differenceAngle + angle() - solarSystemSavedAngle;
 
 
   }
 
 }
+//TODO replace variable names with more specific ones
+
 Planet Mercury;
 Planet Venus;
 Planet Earth;
@@ -488,7 +491,7 @@ int planetSizeScaler = 600;
 
 
 //0=homescreen, 1=solarSystem, 2=planetSystem
-int mode = 1;
+int spaceMode = 1;
 
 public void solarSystemMode(){
 
@@ -496,7 +499,7 @@ public void solarSystemMode(){
   timeticker++; //global increment that increases each frame
   background(30);
 
-  switch(mode){
+  switch(spaceMode){
     //case 0: homescreen(); break;
     case 1: solarSystem(); break;
     //case 2: planetsystem(); break;
@@ -510,7 +513,7 @@ public void solarSystem(){
 
   pushMatrix(); //Begin Transformation
   translate(width/2,height/2); //Sets the center to the middle of the screen
-  scale(zoom);
+  scale(solarSystemZoom);
 
   enableRotation();
 
@@ -550,8 +553,8 @@ public void solarSystem(){
 }
 
 
-boolean noClick = true; //The mouse is not being clicked down
-float[] savedPositions = {0,0,0,0}; //{x-position,y-position,x-angle,y-angle}
+boolean solarSystemNoClick = true; //The mouse is not being clicked down
+float[] solarSystemSavedPositions = {0,0,0,0}; //{x-position,y-position,x-angle,y-angle}
 
 //Function that allows everything to be rotated
 public void enableRotation(){
@@ -561,50 +564,50 @@ public void enableRotation(){
 
   if(mousePressed){
 
-    //Since there are no booleans that differentiates between mouseClicked and mousePressed, here is a workaround with the global variable noClick
-    if(noClick){ //Checks if the mouse is clicking (and not being held down)
-      noClick = false; //the mouse is no longer clicking, it's being held down
+    //Since there are no booleans that differentiates between mouseClicked and mousePressed, here is a workaround with the global variable solarSystemNoClick
+    if(solarSystemNoClick){ //Checks if the mouse is clicking (and not being held down)
+      solarSystemNoClick = false; //the mouse is no longer clicking, it's being held down
 
       //Gives reference point to original position of mouse
-      savedPositions[0] = mouseX;
-      savedPositions[1] = -mouseY;
+      solarSystemSavedPositions[0] = mouseX;
+      solarSystemSavedPositions[1] = -mouseY;
     }
 
     //Rotates EVERYTHING around the x and y axis by the current x and y position of the mouse
-    rotateY(savedPositions[2]+radians((mouseX-savedPositions[0])/10.8f)); //the 10.8 ensures it takes longer to rotate along y-axis
-    rotateX(savedPositions[3]+radians((-mouseY-savedPositions[1])/5.4f)); //the 5.4 ensures it's easier to rotate along x-axis to see orbital inclination
+    rotateY(solarSystemSavedPositions[2]+radians((mouseX-solarSystemSavedPositions[0])/10.8f)); //the 10.8 ensures it takes longer to rotate along y-axis
+    rotateX(solarSystemSavedPositions[3]+radians((-mouseY-solarSystemSavedPositions[1])/5.4f)); //the 5.4 ensures it's easier to rotate along x-axis to see orbital inclination
 
   } else{
 
     //Rotates EVERYTHING according to the last saved angle
-    rotateY(savedPositions[2]);
-    rotateX(savedPositions[3]);
+    rotateY(solarSystemSavedPositions[2]);
+    rotateX(solarSystemSavedPositions[3]);
   }
 }
 
 public void solarSystemMouseReleased(){
   //Saves positions when rotation is enabled
-  if(noClick == false){ //Ensures this will only be called after rotation
-    savedPositions[2] = savedPositions[2]+radians((mouseX-savedPositions[0])/10.8f);
-    savedPositions[3] = savedPositions[3]+radians((-mouseY-savedPositions[1])/5.4f);
+  if(solarSystemNoClick == false){ //Ensures this will only be called after rotation
+    solarSystemSavedPositions[2] = solarSystemSavedPositions[2]+radians((mouseX-solarSystemSavedPositions[0])/10.8f);
+    solarSystemSavedPositions[3] = solarSystemSavedPositions[3]+radians((-mouseY-solarSystemSavedPositions[1])/5.4f);
 
-    noClick = true;
+    solarSystemNoClick = true;
   }
 }
 
-float zoom = -1;
-float isScroll;
+float solarSystemZoom = -1;
+float solarSystemIsScroll;
 
-//BUG zoom code has to be directly put under PhysicsAcademy.pde
+//BUG solarSystemZoom code has to be directly put under PhysicsAcademy.pde
 /*
 void solarSystemMouseWheel() {
-  if(mode==1){
-    isScroll = event.getCount();
-    zoom = zoom + (isScroll/20);
-    if(zoom>0){
-      zoom = zoom - (isScroll/20);
+  if(spaceMode==1){
+    solarSystemIsScroll = event.getCount();
+    solarSystemZoom = solarSystemZoom + (solarSystemIsScroll/20);
+    if(solarSystemZoom>0){
+      solarSystemZoom = solarSystemZoom - (solarSystemIsScroll/20);
     }
-    //println(zoom);
+    //println(solarSystemZoom);
   }
 }
 */
