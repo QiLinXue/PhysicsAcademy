@@ -1,5 +1,5 @@
 PFont questionfont;
-String[] questionData = problem1();
+String[][] questionData = problem1();
 Boolean quizModeInAnswerBox = false;
 String quizModeInputtedAnswer = "";
 Boolean failed = false;
@@ -43,12 +43,32 @@ void learnMode() {
 
   // Question
   questionfont = createFont("Montserrat-Regular.ttf", 30);
-  textAlign(CENTER);
+  textAlign(CENTER, TOP);
   fill(220);
   textSize(33);
   textFont(questionfont);
-  text(questionData[0], 0, 210, width, height);
+  text(questionData[0][0], 0, 210, width, height);
 
+  //Hints
+      //Style
+      textAlign(CENTER, CENTER);
+
+      //Hint Button
+      for(int i=0;i<4;i++){
+          fill(50,100,175);
+          rect(250*i+25,650,200,50);
+          fill(255);
+          textAlign(CENTER,CENTER);
+          text("Hint "+(i+1),250*i+25,650,200,50);
+      }
+
+      //Actual Hints
+      textSize(22);
+      textAlign(LEFT, TOP);
+      if(hintNum>0) {
+          //println("hello");
+          text(questionData[1][hintNum],25,725,950,250);
+      }
 }
 
 //IDEA make input box flash after each correct/incorrect (maybe add sound library for sound effects)
@@ -67,6 +87,7 @@ void quizModeCorrect(){
     else{
         failed = false;
     }
+    hintNum = 0;
 }
 
 //TODO Weed out accidental mistakes
@@ -79,6 +100,7 @@ void quizModeIncorrect(){
         pastCorrectAnswers[7] = -1;
         failed = true;
     }
+    println(questionData[0][2]);
 
 }
 
@@ -96,15 +118,27 @@ void quizModeKeyPressed(){
 
     if(quizModeInAnswerBox && keyCode == ENTER){
         //NOTE can't compare strings. Dunno why
-        if(float(quizModeInputtedAnswer) == float(questionData[2])) quizModeCorrect();
+        if(abs(float(quizModeInputtedAnswer)-float(questionData[0][2]))<0.01) quizModeCorrect();
         else quizModeIncorrect();
     }
 }
 
+int hintNum=0;
+int viewHintBeforeTrying=1; // 0=yes, 1=no, 2=cancel
 void quizModeMousePressed(){
     quizModeInAnswerBox = (mouseX<700 && mouseX>300 && mouseY>550 && mouseY<630) ? true : false;
+    for(int i=0;i<4;i++){
+        if(mouseX<250*i+225 && mouseX>250*i+25 && mouseY>650 && mouseY<700){
+
+            if(!failed){
+                viewHintBeforeTrying = 1;
+                //JOptionPane.showConfirmDialog(null,"Are you sure you want to view a hint? If you do, this will automatically be marked as incorrect.");
+                if(viewHintBeforeTrying == 1) quizModeIncorrect();
+            }
+            hintNum=i;
+            //break;
+        }
+    }
 }
 
-void quizModeMouseReleased(){
-
-}
+void quizModeMouseReleased(){}

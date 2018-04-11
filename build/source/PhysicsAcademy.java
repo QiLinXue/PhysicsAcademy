@@ -34,7 +34,7 @@ public void setup() {
 
 }
 
-int screenMode = 4;
+int screenMode = 1;
 public void draw() {
   switch(screenMode) {
 
@@ -54,8 +54,8 @@ public void drawMode() {
 public void keyPressed() {
   switch(screenMode){
       case 1:
-        sandboxModeKeyActions();
-        break;
+      sandboxModeKeyActions();
+      break;
       case 3:
         quizModeKeyPressed();
         break;
@@ -73,7 +73,7 @@ public void mousePressed() {
 public void mouseReleased() {
   switch(screenMode){
       case 3: quizModeMouseReleased(); break;
-      case 4: solarSystemMouseReleased(); break;
+      // case 4: solarSystemMouseReleased(); break;
  }
 }
 
@@ -661,38 +661,69 @@ public float angle_IP(){
 public float minCoFriction_IP(float radians){
   return tan(radians);
 }
+public String commonMistakeMessage(String errorCode){
+    String message = "MARGIN TOO SMALL";
+    switch(errorCode){
+        case "FRICTIONTYPE":
+            message = "Make sure to review the different friction types";
+            break;
+        case "NORMALFORCE":
+            message = "Make sure to review the normal force";
+            break;
+    }
+    return message;
+}
 
 //TODO use same int-string conversion functions
-public String[] problem1(){
+public String[][] problem1(){
     //TODO make bonus sections for common mistakes
-    String[] problem = {"question","question type","answer"};
+    String[][] problem =
+    {
+        {"question","question type","answer"}, //Basic Data
+        {"hint1","hint2","hint3","hint4"}, //Hints
+        {"badAns1","badAns2","badAns3","badAns4"}, //Bad Answers
+        {"typeBadAns1","typeBadAns2","typeBadAns3","typeBadAns4"} //Types of bad answer
+    };
 
     //Question Type
-    problem[1] = "FREE";
+    problem[0][1] = "FREE";
 
     //Stats
     //TODO: make this more efficient (find easier bug fix)
     String mass = Integer.toString(floor(random(1,50)));
-    //String mass = tempMass;
-
     String force = Integer.toString(floor(random(1,50))+Integer.parseInt(mass));
-    //String force = tempForce;
-
     String kineticFriction = Float.toString(PApplet.parseInt(random(1,9)));
-    //String kineticFriction = tempKineticFriction;
-
     String staticFriction = Float.toString(PApplet.parseInt(random(PApplet.parseInt(kineticFriction)+1,9)));
-    //String staticFriction = tempStaticFriction;
 
     //Question
-    problem[0] = "A book of mass "+mass+"kg is held to a vertical wall by a person's hand applying a "+force+"N force directly toward the wall. The wall has a static friction coefficient of 0."+staticFriction.charAt(0)+" and a kinetic friction coefficient of 0."+kineticFriction.charAt(0)+". With the book held at rest, what is the frictional force keeping the book from sliding down the wall?";
+    problem[0][0] = "A book of mass "+mass+"kg is held to a vertical wall by a person's hand applying a "+force+"N force directly toward the wall. The wall has a static friction coefficient of 0."+staticFriction.charAt(0)+" and a kinetic friction coefficient of 0."+kineticFriction.charAt(0)+". With the book held at rest, what is the frictional force keeping the book from sliding down the wall?";
 
-    problem[2] = Float.toString(PApplet.parseInt(force)*PApplet.parseFloat(staticFriction)*0.1f);
+    //Answer
+    problem[0][2] = Float.toString(PApplet.parseInt(force)*PApplet.parseFloat(staticFriction)*0.1f);
 
+    //Hints
+    //TODO: Transfer this to data file
+    problem[1][0] = "In this problem, the phrase 'what is the frictional force keeping the book from sliding down the wall' suggests that the box is stationary. Therefore, static friction exists but there is no kinetic friction";
+    problem[1][1] = "Since the wall is perfectly vertical, there will be no normal force that is generated from the weight of the book. Therefore, the mass of the book is irrelevant.";
+    problem[1][2] = "The normal force generated from applying a perpendicular force to the wall is just the force applied. Therefore, the normal force from the force applied is "+force+" Newtons.";
+    problem[1][3] = "The frictional force is equal to product of the coefficient of friction (static/kinetic) and the normal force";
+
+    //Bad Answer
+    problem[2][0] = Float.toString(PApplet.parseInt(force)*PApplet.parseFloat(kineticFriction)*0.1f);
+    problem[3][0] = "FRICTIONTYPE";
+
+    problem[2][1] = Float.toString(PApplet.parseInt(mass)*PApplet.parseFloat(staticFriction)*0.1f);
+    problem[3][1] = "NORMALFORCE";
+
+    problem[2][2] = "99999";
+    problem[3][2] = "NULL";
+
+    problem[2][3] = "99999";
+    problem[3][3] = "NULL";
     return problem;
 }
 PFont questionfont;
-String[] questionData = problem1();
+String[][] questionData = problem1();
 Boolean quizModeInAnswerBox = false;
 String quizModeInputtedAnswer = "";
 Boolean failed = false;
@@ -736,12 +767,32 @@ public void learnMode() {
 
   // Question
   questionfont = createFont("Montserrat-Regular.ttf", 30);
-  textAlign(CENTER);
+  textAlign(CENTER, TOP);
   fill(220);
   textSize(33);
   textFont(questionfont);
-  text(questionData[0], 0, 210, width, height);
+  text(questionData[0][0], 0, 210, width, height);
 
+  //Hints
+      //Style
+      textAlign(CENTER, CENTER);
+
+      //Hint Button
+      for(int i=0;i<4;i++){
+          fill(50,100,175);
+          rect(250*i+25,650,200,50);
+          fill(255);
+          textAlign(CENTER,CENTER);
+          text("Hint "+(i+1),250*i+25,650,200,50);
+      }
+
+      //Actual Hints
+      textSize(22);
+      textAlign(LEFT, TOP);
+      if(hintNum>0) {
+          //println("hello");
+          text(questionData[1][hintNum],25,725,950,250);
+      }
 }
 
 //IDEA make input box flash after each correct/incorrect (maybe add sound library for sound effects)
@@ -760,6 +811,7 @@ public void quizModeCorrect(){
     else{
         failed = false;
     }
+    hintNum = 0;
 }
 
 //TODO Weed out accidental mistakes
@@ -772,6 +824,7 @@ public void quizModeIncorrect(){
         pastCorrectAnswers[7] = -1;
         failed = true;
     }
+    println(questionData[0][2]);
 
 }
 
@@ -789,18 +842,30 @@ public void quizModeKeyPressed(){
 
     if(quizModeInAnswerBox && keyCode == ENTER){
         //NOTE can't compare strings. Dunno why
-        if(PApplet.parseFloat(quizModeInputtedAnswer) == PApplet.parseFloat(questionData[2])) quizModeCorrect();
+        if(abs(PApplet.parseFloat(quizModeInputtedAnswer)-PApplet.parseFloat(questionData[0][2]))<0.01f) quizModeCorrect();
         else quizModeIncorrect();
     }
 }
 
+int hintNum=0;
+int viewHintBeforeTrying=1; // 0=yes, 1=no, 2=cancel
 public void quizModeMousePressed(){
     quizModeInAnswerBox = (mouseX<700 && mouseX>300 && mouseY>550 && mouseY<630) ? true : false;
+    for(int i=0;i<4;i++){
+        if(mouseX<250*i+225 && mouseX>250*i+25 && mouseY>650 && mouseY<700){
+
+            if(!failed){
+                viewHintBeforeTrying = 1;
+                //JOptionPane.showConfirmDialog(null,"Are you sure you want to view a hint? If you do, this will automatically be marked as incorrect.");
+                if(viewHintBeforeTrying == 1) quizModeIncorrect();
+            }
+            hintNum=i;
+            //break;
+        }
+    }
 }
 
-public void quizModeMouseReleased(){
-
-}
+public void quizModeMouseReleased(){}
 int[][] inclinedPlaneCoordinates = {{150,100},{150,994},{500,994}};
 
 public void simulationScreenInitialize() {

@@ -15,7 +15,7 @@ void setup() {
 
 }
 
-int screenMode = 4;
+int screenMode = 1;
 void draw() {
   switch(screenMode) {
 
@@ -35,8 +35,8 @@ void drawMode() {
 void keyPressed() {
   switch(screenMode){
       case 1:
-        sandboxModeKeyActions();
-        break;
+      sandboxModeKeyActions();
+      break;
       case 3:
         quizModeKeyPressed();
         break;
@@ -54,7 +54,7 @@ void mousePressed() {
 void mouseReleased() {
   switch(screenMode){
       case 3: quizModeMouseReleased(); break;
-      case 4: solarSystemMouseReleased(); break;
+      // case 4: solarSystemMouseReleased(); break;
  }
 }
 
