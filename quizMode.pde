@@ -59,8 +59,11 @@ void learnMode() {
   textFont(questionfont);
   text(questionData[0][0], 0, 210, width, height);
 
-  //Sandbox
+  //Back Button
   rect(25,550,85,80);
+
+  //Sandbox
+  rect(140,550,85,80);
 
   //Hints
   //Style
@@ -130,13 +133,7 @@ void quizModeKeyPressed(){
 
     //Saving to CSV
     if(keyCode == TAB){
-        for(int i=0;i<pastAnswers.length;i++){
-            scoreSheetTable.setInt(i, "User 1 Score", pastAnswers[i]);
-            scoreSheetTable.setString(i, "User 1 Problem", pastProblems[i]);
-        }
-
-        saveTable(scoreSheetTable, "data/score.csv" );
-
+        saveQuizDataToCSV();
     }
 
 
@@ -151,8 +148,13 @@ void quizModeMousePressed(){
     //Answer Box
     quizModeInAnswerBox = (mouseX<700 && mouseX>300 && mouseY>550 && mouseY<630) ? true : false;
 
+    //Go back
+    if(mouseX>25 && mouseX<110 && mouseY>550 && mouseY<630){
+        saveQuizDataToCSV();
+        screenMode = 0;
+    }
     //Sandbox
-    if(mouseX>25 && mouseX<100 && mouseY>550 && mouseY<630){
+    if(mouseX>140 && mouseX<225 && mouseY>550 && mouseY<630){
         initializeProblem1(float(questionData[4][0]),float(questionData[4][1]),float(questionData[4][2]));
         screenMode = 1;
         previousScreenMode = 3;
@@ -181,4 +183,14 @@ void generateNewProblem(){
     } else{
         questionData = problem2();
     }
+}
+
+void saveQuizDataToCSV(){
+    for(int i=0;i<pastAnswers.length;i++){
+        scoreSheetTable.setInt(i, "User 1 Score", pastAnswers[i]);
+        scoreSheetTable.setString(i, "User 1 Problem", pastProblems[i]);
+    }
+
+    saveTable(scoreSheetTable, "data/score.csv" );
+
 }
