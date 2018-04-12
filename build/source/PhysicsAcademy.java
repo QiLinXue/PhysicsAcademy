@@ -1,19 +1,19 @@
-import processing.core.*; 
-import processing.data.*; 
-import processing.event.*; 
-import processing.opengl.*; 
+import processing.core.*;
+import processing.data.*;
+import processing.event.*;
+import processing.opengl.*;
 
-import fisica.*; 
-import javax.swing.JOptionPane; 
+import fisica.*;
+import javax.swing.JOptionPane;
 
-import java.util.HashMap; 
-import java.util.ArrayList; 
-import java.io.File; 
-import java.io.BufferedReader; 
-import java.io.PrintWriter; 
-import java.io.InputStream; 
-import java.io.OutputStream; 
-import java.io.IOException; 
+import java.util.HashMap;
+import java.util.ArrayList;
+import java.io.File;
+import java.io.BufferedReader;
+import java.io.PrintWriter;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.IOException;
 
 public class PhysicsAcademy extends PApplet {
 
@@ -26,7 +26,7 @@ FPoly inclinedPlane;
 FBox box;
 
 public void setup() {
-  
+
   //simulationScreenInitialize();
   solarSystemInitialize();
   learnModeInitialize();
@@ -48,7 +48,7 @@ public void draw() {
 }
 
 public void drawMode() {
-  background(255);
+  background(250);
 }
 
 public void keyPressed() {
