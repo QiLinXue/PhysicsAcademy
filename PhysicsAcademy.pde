@@ -4,18 +4,18 @@ import javax.swing.JOptionPane;
 //Sandbox Objects
 FWorld world;
 FPoly inclinedPlane;
-FCircle b;
 FBox box;
 
 void setup() {
   size(1000, 1000, P3D);
-  simulationScreenInitialize();
+  //simulationScreenInitialize();
   solarSystemInitialize();
 
 
 }
 
-int screenMode = 1;
+int screenMode = 4;
+int previousScreenMode;
 void draw() {
   switch(screenMode) {
 
@@ -35,7 +35,7 @@ void drawMode() {
 void keyPressed() {
   switch(screenMode){
       case 1:
-      sandboxModeKeyActions();
+      //sandboxModeKeyActions();
       break;
       case 3:
         quizModeKeyPressed();

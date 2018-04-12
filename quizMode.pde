@@ -49,8 +49,11 @@ void learnMode() {
   textFont(questionfont);
   text(questionData[0][0], 0, 210, width, height);
 
+  //Sandbox
+  rect(25,550,85,80);
+
   //Hints
-      //Style
+  //Style
       textAlign(CENTER, CENTER);
 
       //Hint Button
@@ -65,7 +68,7 @@ void learnMode() {
       //Actual Hints
       textSize(22);
       textAlign(LEFT, TOP);
-      if(hintNum>0) {
+      if(hintNum>-1) {
           //println("hello");
           text(questionData[1][hintNum],25,725,950,250);
       }
@@ -87,7 +90,7 @@ void quizModeCorrect(){
     else{
         failed = false;
     }
-    hintNum = 0;
+    hintNum = -1;
 }
 
 //TODO Weed out accidental mistakes
@@ -121,12 +124,27 @@ void quizModeKeyPressed(){
         if(abs(float(quizModeInputtedAnswer)-float(questionData[0][2]))<0.01) quizModeCorrect();
         else quizModeIncorrect();
     }
+
+    //CHEATING
+    if(key == ' ') println(questionData[0][2]);
 }
 
-int hintNum=0;
+int hintNum=-1;
 int viewHintBeforeTrying=1; // 0=yes, 1=no, 2=cancel
+
+
 void quizModeMousePressed(){
+    //Answer Box
     quizModeInAnswerBox = (mouseX<700 && mouseX>300 && mouseY>550 && mouseY<630) ? true : false;
+
+    //Sandbox
+    if(mouseX>25 && mouseX<100 && mouseY>550 && mouseY<630){
+        initializeProblem1(float(questionData[4][0]),float(questionData[4][1]),float(questionData[4][2]));
+        screenMode = 1;
+        previousScreenMode = 3;
+    }
+
+    //Hints
     for(int i=0;i<4;i++){
         if(mouseX<250*i+225 && mouseX>250*i+25 && mouseY>650 && mouseY<700){
 
@@ -136,9 +154,11 @@ void quizModeMousePressed(){
                 if(viewHintBeforeTrying == 1) quizModeIncorrect();
             }
             hintNum=i;
-            //break;
+            break;
         }
     }
+
+
 }
 
 void quizModeMouseReleased(){}

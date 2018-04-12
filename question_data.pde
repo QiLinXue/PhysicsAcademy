@@ -19,7 +19,8 @@ String[][] problem1(){
         {"question","question type","answer"}, //Basic Data
         {"hint1","hint2","hint3","hint4"}, //Hints
         {"badAns1","badAns2","badAns3","badAns4"}, //Bad Answers
-        {"typeBadAns1","typeBadAns2","typeBadAns3","typeBadAns4"} //Types of bad answer
+        {"typeBadAns1","typeBadAns2","typeBadAns3","typeBadAns4"}, //Types of bad answer
+        {"data1","data2","data3"}
     };
 
     //Question Type
@@ -28,9 +29,14 @@ String[][] problem1(){
     //Stats
     //TODO: make this more efficient (find easier bug fix)
     String mass = Integer.toString(floor(random(1,50)));
-    String force = Integer.toString(floor(random(1,50))+Integer.parseInt(mass));
-    String kineticFriction = Float.toString(int(random(1,9)));
-    String staticFriction = Float.toString(int(random(int(kineticFriction)+1,9)));
+    String kineticFriction = Float.toString(int(random(2,7)));
+    String staticFriction = Float.toString(int(random(int(kineticFriction)+1,8)));
+    String force = Integer.toString(floor(random(1,50))+Integer.parseInt(mass)*100/int(staticFriction));
+
+    problem[4][0] = mass;
+    problem[4][1] = Float.toString(float(staticFriction)/10);
+    problem[4][2] = Float.toString(float(kineticFriction)/10);
+
 
     //Question
     problem[0][0] = "A book of mass "+mass+"kg is held to a vertical wall by a person's hand applying a "+force+"N force directly toward the wall. The wall has a static friction coefficient of 0."+staticFriction.charAt(0)+" and a kinetic friction coefficient of 0."+kineticFriction.charAt(0)+". With the book held at rest, what is the frictional force keeping the book from sliding down the wall?";

@@ -23,18 +23,18 @@ public class PhysicsAcademy extends PApplet {
 //Sandbox Objects
 FWorld world;
 FPoly inclinedPlane;
-FCircle b;
 FBox box;
 
 public void setup() {
   
-  simulationScreenInitialize();
+  //simulationScreenInitialize();
   solarSystemInitialize();
 
 
 }
 
-int screenMode = 1;
+int screenMode = 4;
+int previousScreenMode;
 public void draw() {
   switch(screenMode) {
 
@@ -54,7 +54,7 @@ public void drawMode() {
 public void keyPressed() {
   switch(screenMode){
       case 1:
-      sandboxModeKeyActions();
+      //sandboxModeKeyActions();
       break;
       case 3:
         quizModeKeyPressed();
@@ -648,19 +648,21 @@ class Star{
     }
   }
 }
-public float angle_triangle(float x1, float y1, float x2, float y2, float x3, float y3) { //Top Left, Bottom Left, Bottom Right
+/*
+float angle_triangle(float x1, float y1, float x2, float y2, float x3, float y3) { //Top Left, Bottom Left, Bottom Right
   return atan((y2-y1)/(x3-x2));
 }
 
-public float angle_IP(){
+float angle_IP(){
   float rise = (inclinedPlaneCoordinates[1][1]-inclinedPlaneCoordinates[0][1]);
   float run = (inclinedPlaneCoordinates[2][0]-inclinedPlaneCoordinates[1][0]);
   return atan(rise/run);
 }
 
-public float minCoFriction_IP(float radians){
+float minCoFriction_IP(float radians){
   return tan(radians);
 }
+*/
 public String commonMistakeMessage(String errorCode){
     String message = "MARGIN TOO SMALL";
     switch(errorCode){
@@ -682,7 +684,8 @@ public String[][] problem1(){
         {"question","question type","answer"}, //Basic Data
         {"hint1","hint2","hint3","hint4"}, //Hints
         {"badAns1","badAns2","badAns3","badAns4"}, //Bad Answers
-        {"typeBadAns1","typeBadAns2","typeBadAns3","typeBadAns4"} //Types of bad answer
+        {"typeBadAns1","typeBadAns2","typeBadAns3","typeBadAns4"}, //Types of bad answer
+        {"data1","data2","data3"}
     };
 
     //Question Type
@@ -691,9 +694,14 @@ public String[][] problem1(){
     //Stats
     //TODO: make this more efficient (find easier bug fix)
     String mass = Integer.toString(floor(random(1,50)));
-    String force = Integer.toString(floor(random(1,50))+Integer.parseInt(mass));
-    String kineticFriction = Float.toString(PApplet.parseInt(random(1,9)));
-    String staticFriction = Float.toString(PApplet.parseInt(random(PApplet.parseInt(kineticFriction)+1,9)));
+    String kineticFriction = Float.toString(PApplet.parseInt(random(2,7)));
+    String staticFriction = Float.toString(PApplet.parseInt(random(PApplet.parseInt(kineticFriction)+1,8)));
+    String force = Integer.toString(floor(random(1,50))+Integer.parseInt(mass)*100/PApplet.parseInt(staticFriction));
+
+    problem[4][0] = mass;
+    problem[4][1] = Float.toString(PApplet.parseFloat(staticFriction)/10);
+    problem[4][2] = Float.toString(PApplet.parseFloat(kineticFriction)/10);
+
 
     //Question
     problem[0][0] = "A book of mass "+mass+"kg is held to a vertical wall by a person's hand applying a "+force+"N force directly toward the wall. The wall has a static friction coefficient of 0."+staticFriction.charAt(0)+" and a kinetic friction coefficient of 0."+kineticFriction.charAt(0)+". With the book held at rest, what is the frictional force keeping the book from sliding down the wall?";
@@ -773,8 +781,11 @@ public void learnMode() {
   textFont(questionfont);
   text(questionData[0][0], 0, 210, width, height);
 
+  //Sandbox
+  rect(25,550,85,80);
+
   //Hints
-      //Style
+  //Style
       textAlign(CENTER, CENTER);
 
       //Hint Button
@@ -789,7 +800,7 @@ public void learnMode() {
       //Actual Hints
       textSize(22);
       textAlign(LEFT, TOP);
-      if(hintNum>0) {
+      if(hintNum>-1) {
           //println("hello");
           text(questionData[1][hintNum],25,725,950,250);
       }
@@ -811,7 +822,7 @@ public void quizModeCorrect(){
     else{
         failed = false;
     }
-    hintNum = 0;
+    hintNum = -1;
 }
 
 //TODO Weed out accidental mistakes
@@ -845,12 +856,27 @@ public void quizModeKeyPressed(){
         if(abs(PApplet.parseFloat(quizModeInputtedAnswer)-PApplet.parseFloat(questionData[0][2]))<0.01f) quizModeCorrect();
         else quizModeIncorrect();
     }
+
+    //CHEATING
+    if(key == ' ') println(questionData[0][2]);
 }
 
-int hintNum=0;
+int hintNum=-1;
 int viewHintBeforeTrying=1; // 0=yes, 1=no, 2=cancel
+
+
 public void quizModeMousePressed(){
+    //Answer Box
     quizModeInAnswerBox = (mouseX<700 && mouseX>300 && mouseY>550 && mouseY<630) ? true : false;
+
+    //Sandbox
+    if(mouseX>25 && mouseX<100 && mouseY>550 && mouseY<630){
+        initializeProblem1(PApplet.parseFloat(questionData[4][0]),PApplet.parseFloat(questionData[4][1]),PApplet.parseFloat(questionData[4][2]));
+        screenMode = 1;
+        previousScreenMode = 3;
+    }
+
+    //Hints
     for(int i=0;i<4;i++){
         if(mouseX<250*i+225 && mouseX>250*i+25 && mouseY>650 && mouseY<700){
 
@@ -860,101 +886,117 @@ public void quizModeMousePressed(){
                 if(viewHintBeforeTrying == 1) quizModeIncorrect();
             }
             hintNum=i;
-            //break;
+            break;
         }
     }
+
+
 }
 
 public void quizModeMouseReleased(){}
-int[][] inclinedPlaneCoordinates = {{150,100},{150,994},{500,994}};
+float boxMass, staticFriction, kineticFriction, force, originalStaticFriction, originalKineticFriction;
+int scaler = 100;
+float a, b, c, d;
+boolean startSimul = false;
 
-public void simulationScreenInitialize() {
+public void simulationMode() {
+  if(startSimul) problem1Simulation();
+}
+
+public void initializeProblem1(float mass, float sFriction, float kFriction) {
+
+  boxMass = mass;
+  staticFriction = sFriction;
+  kineticFriction = kFriction;
+  force = staticFriction*boxMass*9.8f+10;
+
+  originalStaticFriction = staticFriction;
+  originalKineticFriction = kineticFriction;
+
+  a = 650;
+  b = 650;
+  c = staticFriction*900+200;
+  d = kineticFriction*900+200;
   Fisica.init(this);
 
   world = new FWorld();
   world.setEdges();
   world.setEdgesRestitution(0);
-  world.setGravity(0, 980);
-  //world.setGrabbable(false);
+  world.setGravity(0, 0);
 
-  inclinedPlane = new FPoly();
-
-  inclinedPlane.vertex(inclinedPlaneCoordinates[0][0], inclinedPlaneCoordinates[0][1]);
-  inclinedPlane.vertex(inclinedPlaneCoordinates[1][0], inclinedPlaneCoordinates[1][1]);
-  inclinedPlane.vertex(inclinedPlaneCoordinates[2][0], inclinedPlaneCoordinates[2][1]);
-  inclinedPlane.setDensity(10000);
-  inclinedPlane.setFill(207, 92, 54);
-  inclinedPlane.setFriction(5);
-  inclinedPlane.setNoStroke();
-  inclinedPlane.setRestitution(0);
-
-  b = new FCircle(100);
-  b.setPosition(width/4, height/6);
-  b.setRestitution(0);
-  b.setNoStroke();
-  b.setFill(119, 125, 167);
-  b.setGrabbable(true);
-  b.setRotatable(true);
-  b.setFriction(0.5f);
-
-
-  box = new FBox(100, 100);
-  box.setPosition(width/4, height/6);
-  box.setRestitution(0);
+  box = new FBox(200, 200);
+  box.setPosition(106, height/6);
+  box.setDensity(1);
   box.setNoStroke();
   box.setFill(119, 125, 167);
   box.setGrabbable(true);
-  box.setDensity(0.1f);
-  box.setRotation(angle_IP());
-  box.setFriction(1);
   box.setRotatable(false);
-
-
+  box.setRestitution(0);
+  box.setVelocity(0, 0);
   world.add(box);
-  world.add(inclinedPlane);
+  startSimul = true;
 }
-
-public void simulationMode() {
+public void problem1Simulation() {
   background(255);
   world.step();
   world.draw();
-}
 
-int x1, y1, x2, y2, x3, y3;
-String[] defaultTriangle = {"100", "994", "700", "994", "100", "600"};
-
-public void sandboxModeKeyActions() {
-  if (keyCode == TAB)
-
-  {
-
-    String[] newObjectSettings = {"vertices"};
-    newObjectSettings[0] = JOptionPane.showInputDialog("How many vertices?", "3");
-    int[] newObjectLocation = new int[Integer.parseInt(newObjectSettings[0])*2];
-    for (int i = 0; i < newObjectLocation.length; i+=2) {
-
-      if (newObjectLocation.length == 6) //If object is a triangle (this is for testing)
-      {
-        String tempCoordinate = JOptionPane.showInputDialog("Please enter x" + Integer.toString(1+i/2) + ", y" + Integer.toString(1+i/2) + " (seperated by a space)", defaultTriangle[i] + " " + defaultTriangle[i+1]);
-        newObjectLocation[i] = Integer.parseInt(tempCoordinate.split(" ")[0]);
-        newObjectLocation[i+1] = Integer.parseInt(tempCoordinate.split(" ")[1]);
-      } else //If object is not a triangle
-      {
-        String tempCoordinate = JOptionPane.showInputDialog("Please enter x" + Integer.toString(1+i+1) + ", y" + Integer.toString(1+i+1) + " (seperated by a space)", Integer.toString(floor(random(0, 1000))) + " " + Integer.toString(floor(random(0, 1000))));
-        newObjectLocation[i] = Integer.parseInt(tempCoordinate.split(" ")[0]);
-        newObjectLocation[i+1] = Integer.parseInt(tempCoordinate.split(" ")[1]);
+  if (keyPressed) {
+    if (key == ' ') {
+      if ((box.getMass()*scaler*9.8f)+(-force*staticFriction*scaler) > 0) {
+        box.addForce(0, box.getMass()*scaler*9.8f);
+        if (box.getVelocityY() == 0) box.addForce(0, -force*staticFriction*scaler);
+        else box.addForce(0, -force*kineticFriction*scaler);
+      } else if (box.getVelocityY()<0) {
+        box.addForce(0, -force*kineticFriction*scaler);
       }
     }
-
-    FPoly myPoly = new FPoly();
-    for (int i=0; i<newObjectLocation.length; i+=2) {
-      myPoly.vertex(newObjectLocation[i], newObjectLocation[i+1]);
-    }
-    myPoly.setDensity(10000);
-    myPoly.setFill(100);
-    myPoly.setNoStroke();
-    world.add(myPoly);
+    if (keyCode == BACKSPACE) screenMode = previousScreenMode;
   }
+  stroke(0);
+
+  //Applied Force
+  rect(350, 500, 600, 20);
+  if (mouseX<950 && mouseX>350 && mouseY>500-10 && mouseY<500+30 && mousePressed) {
+    a=mouseX;
+  }
+  rect(a-20, 500-10, 40, 40);
+  force = ((boxMass*9.8f)/originalStaticFriction+50)+(a-650)*1.05f;
+
+  //Mass
+  rect(350, 600, 600, 20);
+  if (mouseX<950 && mouseX>350 && mouseY>600-10 && mouseY<600+30 && mousePressed) {
+    b=mouseX;
+  }
+  rect(b-20, 600-10, 40, 40);
+  box.setDensity((boxMass/100+(b-650)*0.0005f));
+
+  //staticFriction
+  rect(350, 700, 600, 20);
+  if (mouseX<950 && mouseX>350 && mouseY>700-10 && mouseY<700+30 && mousePressed) {
+    c=mouseX;
+  }
+  rect(c-20, 700-10, 40, 40);
+  staticFriction = (c-200)*0.0011111111111f;
+
+  //KineticFriction
+  rect(350, 800, 600, 20);
+  if (mouseX<950 && mouseX>350 && mouseY>800-10 && mouseY<800+30 && mousePressed) {
+    d=mouseX;
+  }
+  rect(d-20, 800-10, 40, 40);
+  kineticFriction = (d-200)*0.0011111111111f;
+
+  fill(0);
+  textSize(30);
+  text("Static Friction: "+staticFriction, 500, 100, 900, 50);
+  text("Kinetic Friction: "+kineticFriction, 500, 150, 900, 50);
+  text("Mass: "+box.getMass()+" kg", 500, 200, 900, 50);
+  text("Velocity: "+box.getVelocityY()+" m/s", 500, 250, 900, 50);
+  text("Applied Force: "+force+" N", 500, 300, 900, 50);
+
+
+  fill(255);
 }
   public void settings() {  size(1000, 1000, P3D); }
   static public void main(String[] passedArgs) {
