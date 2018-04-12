@@ -983,7 +983,7 @@ public void initializeProblem1(float mass, float sFriction, float kFriction) {
   boxMass = mass;
   staticFriction = sFriction;
   kineticFriction = kFriction;
-  force = staticFriction*boxMass*9.8f+10;
+  force = staticFriction*boxMass*10+10;
 
   originalStaticFriction = staticFriction;
   originalKineticFriction = kineticFriction;
@@ -1011,6 +1011,7 @@ public void initializeProblem1(float mass, float sFriction, float kFriction) {
   world.add(box);
   startSimul = true;
 }
+
 public void problem1Simulation() {
   background(255);
   world.step();
@@ -1018,8 +1019,8 @@ public void problem1Simulation() {
 
   if (keyPressed) {
     if (key == ' ') {
-      if ((box.getMass()*scaler*9.8f)+(-force*staticFriction*scaler) > 0) {
-        box.addForce(0, box.getMass()*scaler*9.8f);
+      if ((box.getMass()*scaler*10)+(-force*staticFriction*scaler) > 0) {
+        box.addForce(0, box.getMass()*scaler*10);
         if (box.getVelocityY() == 0) box.addForce(0, -force*staticFriction*scaler);
         else box.addForce(0, -force*kineticFriction*scaler);
       } else if (box.getVelocityY()<0) {
@@ -1036,7 +1037,7 @@ public void problem1Simulation() {
     a=mouseX;
   }
   rect(a-20, 500-10, 40, 40);
-  force = ((boxMass*9.8f)/originalStaticFriction+50)+(a-650)*1.05f;
+  force = ((boxMass*10)/originalStaticFriction+50)+(a-650)*1.05f;
 
   //Mass
   rect(350, 600, 600, 20);
