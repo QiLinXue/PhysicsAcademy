@@ -19,6 +19,7 @@ int previousScreenMode;
 void draw() {
   switch(screenMode) {
 
+  case 0: homeScreen(); break; //TODO start
   case 1: simulationMode(); break;
   case 2: drawMode(); break;   //TODO make drawMode
   case 3: learnMode(); break;
