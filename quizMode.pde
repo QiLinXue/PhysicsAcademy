@@ -176,5 +176,9 @@ void quizModeMousePressed(){
 void quizModeMouseReleased(){}
 
 void generateNewProblem(){
-    questionData = problem1();
+    if(random(0,100)>50){
+        questionData = problem1();
+    } else{
+        questionData = problem2();
+    }
 }
