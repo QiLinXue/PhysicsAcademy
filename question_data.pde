@@ -16,12 +16,14 @@ String[][] problem1(){
     //TODO make bonus sections for common mistakes
     String[][] problem =
     {
-        {"question","question type","answer"}, //Basic Data
+        {"question","question type","answer","question number"}, //Basic Data
         {"hint1","hint2","hint3","hint4"}, //Hints
         {"badAns1","badAns2","badAns3","badAns4"}, //Bad Answers
         {"typeBadAns1","typeBadAns2","typeBadAns3","typeBadAns4"}, //Types of bad answer
         {"data1","data2","data3"}
     };
+    //Question Number
+    problem[0][3] = "1";
 
     //Question Type
     problem[0][1] = "FREE";

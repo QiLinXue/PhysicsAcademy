@@ -1,10 +1,20 @@
+Table scoreSheetTable;
 PFont questionfont;
-String[][] questionData = problem1();
-Boolean quizModeInAnswerBox = false;
-String quizModeInputtedAnswer = "";
-Boolean failed = false;
-//TODO: make this infinite by loading and uploading a data file
-int[] pastCorrectAnswers = {0,0,0,0,0,0,0,0};
+
+
+String[][] questionData; //Gathers the data for the current question
+Boolean quizModeInAnswerBox = false; //Determines if user mouse has clicked the input box
+String quizModeInputtedAnswer = ""; //Variable for the input user gives
+Boolean quizModeAlreadyFailed = false; //Determines if the user has already failed that question
+int[] pastAnswers; //An infinite list from "score.csv" which displays the validity of past answers
+String[] pastProblems; //An infinite list from "score.csv" which displays the problem number for past problems
+
+void learnModeInitialize(){
+    generateNewProblem();
+    scoreSheetTable = loadTable("score.csv", "header");
+    pastAnswers = scoreSheetTable.getIntColumn("User 1 Score");
+    pastProblems = scoreSheetTable.getStringColumn("User 1 Problem");
+}
 
 void learnMode() {
 
@@ -14,14 +24,14 @@ void learnMode() {
   //History (Past Answers Correct/Incorrect)
   //TODO: enable this feature
 
-  //fill(0, 100, 100); //Cyan
-  for (int i=0; i<8; i++) {
-    switch(pastCorrectAnswers[i]){
+  fill(100);
+  for (int i=pastAnswers.length-1; i>pastAnswers.length-9; i--) {
+    switch(pastAnswers[i]){
         case 0: fill(100); break;
         case 1: fill(0,255,100); break;
         case -1: fill(200,0,0); break;
     }
-    rect(i*120+30, 20, 100, 100);
+    rect((8-pastAnswers.length+i)*120+30, 20, 100, 100);
   }
 
   //Decor
@@ -77,39 +87,33 @@ void learnMode() {
 //IDEA make input box flash after each correct/incorrect (maybe add sound library for sound effects)
 //NOTE quizModeCorrect and quizMode Incorrect could be integrated below depending on how long the code is
 void quizModeCorrect(){
-    questionData = problem1();
+    generateNewProblem();
     quizModeInputtedAnswer = "";
 
     //Shift history colors down
-    if(!failed){
-        for(int i=0;i<7;i++){
-            pastCorrectAnswers[i] = pastCorrectAnswers[i+1];
-        }
-        pastCorrectAnswers[7] = 1;
+    if(!quizModeAlreadyFailed){
+        pastAnswers = (int[])append(pastAnswers,1);
+        pastProblems = (String[])append(pastProblems,questionData[0][3]);
     }
     else{
-        failed = false;
+        quizModeAlreadyFailed = false;
     }
     hintNum = -1;
 }
 
-//TODO Weed out accidental mistakes
 //TODO implement machine learning alg that learns common mistakes
 void quizModeIncorrect(){
-    if(!failed) {
-        for(int i=0;i<7;i++){
-            pastCorrectAnswers[i] = pastCorrectAnswers[i+1];
-        }
-        pastCorrectAnswers[7] = -1;
-        failed = true;
+    if(!quizModeAlreadyFailed) {
+        pastAnswers = (int[])append(pastAnswers,-1);
+        pastProblems = (String[])append(pastProblems,questionData[0][3]);
+        quizModeAlreadyFailed = true;
     }
     println(questionData[0][2]);
-
 }
-
 
 void quizModeKeyPressed(){
 
+    //Inputting Text
     //TODO make inputted text more efficient
     if(quizModeInAnswerBox && keyCode != BACKSPACE && keyCode != CONTROL && keyCode != SHIFT && keyCode != ENTER){
         quizModeInputtedAnswer += key;
@@ -117,13 +121,24 @@ void quizModeKeyPressed(){
         quizModeInputtedAnswer = quizModeInputtedAnswer.substring(0, quizModeInputtedAnswer.length() - 1);
     }
 
-    //Check answer
-
+    //Checking answer
     if(quizModeInAnswerBox && keyCode == ENTER){
         //NOTE can't compare strings. Dunno why
         if(abs(float(quizModeInputtedAnswer)-float(questionData[0][2]))<0.01) quizModeCorrect();
         else quizModeIncorrect();
     }
+
+    //Saving to CSV
+    if(keyCode == TAB){
+        for(int i=0;i<pastAnswers.length;i++){
+            scoreSheetTable.setInt(i, "User 1 Score", pastAnswers[i]);
+            scoreSheetTable.setString(i, "User 1 Problem", pastProblems[i]);
+        }
+
+        saveTable(scoreSheetTable, "data/score.csv" );
+
+    }
+
 
     //CHEATING
     if(key == ' ') println(questionData[0][2]);
@@ -131,7 +146,6 @@ void quizModeKeyPressed(){
 
 int hintNum=-1;
 int viewHintBeforeTrying=1; // 0=yes, 1=no, 2=cancel
-
 
 void quizModeMousePressed(){
     //Answer Box
@@ -148,7 +162,7 @@ void quizModeMousePressed(){
     for(int i=0;i<4;i++){
         if(mouseX<250*i+225 && mouseX>250*i+25 && mouseY>650 && mouseY<700){
 
-            if(!failed){
+            if(!quizModeAlreadyFailed){
                 viewHintBeforeTrying = 1;
                 //JOptionPane.showConfirmDialog(null,"Are you sure you want to view a hint? If you do, this will automatically be marked as incorrect.");
                 if(viewHintBeforeTrying == 1) quizModeIncorrect();
@@ -157,8 +171,10 @@ void quizModeMousePressed(){
             break;
         }
     }
-
-
 }
 
 void quizModeMouseReleased(){}
+
+void generateNewProblem(){
+    questionData = problem1();
+}

@@ -10,11 +10,11 @@ void setup() {
   size(1000, 1000, P3D);
   //simulationScreenInitialize();
   solarSystemInitialize();
-
+  learnModeInitialize();
 
 }
 
-int screenMode = 4;
+int screenMode = 3;
 int previousScreenMode;
 void draw() {
   switch(screenMode) {
