@@ -6,14 +6,16 @@ String[][] questionData; //Gathers the data for the current question
 Boolean quizModeInAnswerBox = false; //Determines if user mouse has clicked the input box
 String quizModeInputtedAnswer = ""; //Variable for the input user gives
 Boolean quizModeAlreadyFailed = false; //Determines if the user has already failed that question
-int[] pastAnswers; //An infinite list from "score.csv" which displays the validity of past answers
+int[] pastAnswerValidity; //An infinite list from "score.csv" which displays the validity of past answers
 String[] pastProblems; //An infinite list from "score.csv" which displays the problem number for past problems
+String[] pastAnswers; //An infinite list from "score.csv" which displays the user submitted answer
 
 void learnModeInitialize(){
     generateNewProblem();
     scoreSheetTable = loadTable("score.csv", "header");
-    pastAnswers = scoreSheetTable.getIntColumn("User 1 Score");
+    pastAnswerValidity = scoreSheetTable.getIntColumn("User 1 Score");
     pastProblems = scoreSheetTable.getStringColumn("User 1 Problem");
+    pastAnswers = scoreSheetTable.getStringColumn("User 1 Answer");
 }
 
 void learnMode() {
@@ -25,13 +27,13 @@ void learnMode() {
   //TODO: enable this feature
 
   fill(100);
-  for (int i=pastAnswers.length-1; i>pastAnswers.length-9; i--) {
-    switch(pastAnswers[i]){
+  for (int i=pastAnswerValidity.length-1; i>pastAnswerValidity.length-9; i--) {
+    switch(pastAnswerValidity[i]){
         case 0: fill(100); break;
         case 1: fill(0,255,100); break;
         case -1: fill(200,0,0); break;
     }
-    rect((8-pastAnswers.length+i)*120+30, 20, 100, 100);
+    rect((8-pastAnswerValidity.length+i)*120+30, 20, 100, 100);
   }
 
   //Decor
@@ -91,24 +93,27 @@ void learnMode() {
 //NOTE quizModeCorrect and quizMode Incorrect could be integrated below depending on how long the code is
 void quizModeCorrect(){
     generateNewProblem();
-    quizModeInputtedAnswer = "";
 
     //Shift history colors down
     if(!quizModeAlreadyFailed){
-        pastAnswers = (int[])append(pastAnswers,1);
+        pastAnswerValidity = (int[])append(pastAnswerValidity,1);
         pastProblems = (String[])append(pastProblems,questionData[0][3]);
+        pastAnswers = (String[])append(pastAnswers,quizModeInputtedAnswer);
     }
     else{
         quizModeAlreadyFailed = false;
     }
     hintNum = -1;
+    quizModeInputtedAnswer = "";
+
 }
 
 //TODO implement machine learning alg that learns common mistakes
 void quizModeIncorrect(){
     if(!quizModeAlreadyFailed) {
-        pastAnswers = (int[])append(pastAnswers,-1);
+        pastAnswerValidity = (int[])append(pastAnswerValidity,-1);
         pastProblems = (String[])append(pastProblems,questionData[0][3]);
+        pastAnswers = (String[])append(pastAnswers,quizModeInputtedAnswer);
         quizModeAlreadyFailed = true;
     }
     println(questionData[0][2]);
@@ -186,9 +191,10 @@ void generateNewProblem(){
 }
 
 void saveQuizDataToCSV(){
-    for(int i=0;i<pastAnswers.length;i++){
-        scoreSheetTable.setInt(i, "User 1 Score", pastAnswers[i]);
+    for(int i=0;i<pastAnswerValidity.length;i++){
+        scoreSheetTable.setInt(i, "User 1 Score", pastAnswerValidity[i]);
         scoreSheetTable.setString(i, "User 1 Problem", pastProblems[i]);
+        scoreSheetTable.setString(i, "User 1 Answer", pastAnswers[i]);
     }
 
     saveTable(scoreSheetTable, "data/score.csv" );
