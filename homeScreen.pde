@@ -1,1 +1,3 @@
-void homeScreen(){}
+void homeScreen(){
+    background(255);
+}
