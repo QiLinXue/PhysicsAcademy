@@ -41,10 +41,10 @@ String[][] problem1(){
 
 
     //Question
-    problem[0][0] = "A book of mass "+mass+"kg is held to a vertical wall by a person's hand applying a "+force+"N force directly toward the wall. The wall has a static friction coefficient of 0."+staticFriction.charAt(0)+" and a kinetic friction coefficient of 0."+kineticFriction.charAt(0)+". With the book held at rest, what is the frictional force keeping the book from sliding down the wall?";
+    problem[0][0] = "A book of mass "+mass+"kg is held to a vertical wall by a person's hand applying a "+force+"N force directly toward the wall. The wall has a static friction coefficient of 0."+staticFriction.charAt(0)+" and a kinetic friction coefficient of 0."+kineticFriction.charAt(0)+". With the book held at rest, what is the frictional force keeping the book from sliding down the wall? Round to the nearest unit";
 
     //Answer
-    problem[0][2] = Float.toString(int(force)*float(staticFriction)*0.1);
+    problem[0][2] = Float.toString(round(int(force)*float(staticFriction)*0.1));
 
     //Hints
     //TODO: Transfer this to data file
@@ -54,10 +54,10 @@ String[][] problem1(){
     problem[1][3] = "The frictional force is equal to product of the coefficient of friction (static/kinetic) and the normal force";
 
     //Bad Answer
-    problem[2][0] = Float.toString(int(force)*float(kineticFriction)*0.1);
+    problem[2][0] = Float.toString(round(int(force)*float(kineticFriction)*0.1));
     problem[3][0] = "FRICTION";
 
-    problem[2][1] = Float.toString(int(mass)*float(staticFriction)*0.1);
+    problem[2][1] = Float.toString(round(int(mass)*float(staticFriction)*0.1));
     problem[3][1] = "NORMALFORCE";
 
     problem[2][2] = "99999";
@@ -97,7 +97,7 @@ String[][] problem2(){
     problem[0][0] = "A box of mass "+mass+"kg is held to a vertical wall by a person's hand applying a force 'F' directly toward the wall. The wall has a static friction coefficient of 0."+staticFriction.charAt(0)+" and a kinetic friction coefficient of 0."+kineticFriction.charAt(0)+". With the book held at rest, what is the minimum force needed to ensure the box is at rest? Assume g = -10m/s^2 and round to the nearest unit.";
 
     //Answer
-    problem[0][2] = Float.toString(int(mass)*100/int(staticFriction));
+    problem[0][2] = Float.toString(round(int(mass)*100/int(staticFriction)));
 
     //Hints
     //TODO: Transfer this to data file
@@ -113,10 +113,10 @@ String[][] problem2(){
     problem[2][1] = Float.toString(int(mass)*10);
     problem[3][1] = "FRICTION";
 
-    problem[2][2] = Float.toString(int(mass)*100/int(kineticFriction));;
+    problem[2][2] = Float.toString(round(int(mass)*100/int(kineticFriction)));
     problem[3][2] = "FRICTION";
 
-    problem[2][3] = Float.toString(int(mass)*10/int(kineticFriction));;
+    problem[2][3] = Float.toString(round(int(mass)*10/int(kineticFriction)));
     problem[3][3] = "WEIGHT";
     return problem;
 }
