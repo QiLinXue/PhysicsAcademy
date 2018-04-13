@@ -22,7 +22,7 @@ void learnModeInitialize(){
     currentUserPassword = nameDataTable.getString(0,activeUser); //Not Needed for now
 
     generateNewProblem(); //Generate New Problem
-    println("current user is: " + activeUser);
+    println("Welcome back " + activeUser + "! It's nice to see you again.");
     scoreSheetTable = loadTable(activeUser+".csv", "header");
     pastAnswerValidity = scoreSheetTable.getIntColumn("Score");
     pastAnswers = scoreSheetTable.getStringColumn("Problem");
@@ -108,29 +108,46 @@ void learnMode() {
 void quizModeCorrect(){
     generateNewProblem();
 
-    //Shift history colors down
+    //Update colors if there were no failed attempts
     if(!quizModeAlreadyFailed){
         pastAnswerValidity = (int[])append(pastAnswerValidity,1);
         pastProblems = (String[])append(pastProblems,questionData[0][3]);
         pastAnswers = (String[])append(pastAnswers,quizModeInputtedAnswer);
     }
+
+    //Changes the question if there has been at least 1 failed attempt
     else{
         quizModeAlreadyFailed = false;
     }
-    hintNum = -1;
-    quizModeInputtedAnswer = "";
+
+    hintNum = -1; //Resets the hint
+    quizModeInputtedAnswer = ""; //Resets the answer box
+
+    //Flash Green
+    fill(0,50,0);
+    rect(0,0,width,height);
+
+    //Update CSV
+    saveQuizDataToCSV();
 
 }
 
 //TODO implement machine learning alg that learns common mistakes
 void quizModeIncorrect(){
+
     if(!quizModeAlreadyFailed) {
         pastAnswerValidity = (int[])append(pastAnswerValidity,-1);
         pastProblems = (String[])append(pastProblems,questionData[0][3]);
         pastAnswers = (String[])append(pastAnswers,quizModeInputtedAnswer);
         quizModeAlreadyFailed = true;
+
+        //Update CSV
+        saveQuizDataToCSV(); //However, this loses progress if user exits the screen or closes program and when the user logs back in, it'll be a different problem.
     }
-    println(questionData[0][2]);
+
+    //Flash Red
+    fill(50,0,0);
+    rect(0,0,width,height);
 }
 
 void quizModeKeyPressed(){
