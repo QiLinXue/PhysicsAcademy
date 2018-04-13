@@ -160,7 +160,7 @@ void quizModeMousePressed(){
     }
     //Sandbox
     if(mouseX>140 && mouseX<225 && mouseY>550 && mouseY<630){
-        initializeProblem1(float(questionData[4][0]),float(questionData[4][1]),float(questionData[4][2]));
+        initializeWallSimulation(float(questionData[4][0]),float(questionData[4][1]),float(questionData[4][2]));
         screenMode = 1;
         previousScreenMode = 3;
     }
