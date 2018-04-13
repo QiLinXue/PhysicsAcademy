@@ -60,9 +60,8 @@ void homeScreenKeyPressed(){
 
     //Login
     if(homeScreenTypeMode == 1){
-        if(keyCode != SHIFT && keyCode != ENTER){
+        if(keyCode != SHIFT && keyCode != ENTER && keyCode != SPACE){
             inputtedUser+=key;
-            println(inputtedUser);
         }
         if(keyCode == ENTER){
              homeScreenTypeMode = 5;
@@ -73,7 +72,7 @@ void homeScreenKeyPressed(){
 
     //Login Password
     if(homeScreenTypeMode == 5){
-        if(keyCode != SHIFT && keyCode != ENTER){
+        if(keyCode != SHIFT && keyCode != ENTER && keyCode != SPACE){
             inputtedPassword+=key;
             println(inputtedPassword);
         }
@@ -100,29 +99,28 @@ void homeScreenKeyPressed(){
 
     //Register
     else if(homeScreenTypeMode == 2){
-        if(keyCode != SHIFT && keyCode != ENTER){
+        if(keyCode != SHIFT && keyCode != ENTER && keyCode != SPACE){
             newUser+=key;
         }
         if(keyCode == ENTER){
-            println("Please set your password. Because QiLin's a shitty programmer, you aren't able to change this.");
+            println("Welcome to the club " + newUser + "!");
+            println("Please set your password. Because QiLin's a shitty programmer, you aren't able to change this yet.");
             homeScreenTypeMode = 6;
         }
     }
 
     //Register Password
     if(homeScreenTypeMode == 6){
-        if(keyCode != SHIFT && keyCode != ENTER){
+        if(keyCode != SHIFT && keyCode != ENTER && keyCode != SPACE){
             newPassword+=key;
         }
         if(keyCode == ENTER && newPassword != ""){
             try{
-                // if(nameDataTable.getString(0,newUser) != "30cna8fjdbr93f"){ //Gibberish. I'm too lazy to find a better way
-                nameDataTable.getString(0,newUser);
-                    println("User is already registered. Please either log in or register");
-                    homeScreenTypeMode = 0;
-                    newUser = "";
-                    newPassword = "";
-                //}
+                nameDataTable.getString(0,newUser); //Checks for errors
+                println("User is already registered. Please either log in or register");
+                homeScreenTypeMode = 0;
+                newUser = "";
+                newPassword = "";
             }
             catch(Exception e){
                 println("Your password is " + newPassword);
