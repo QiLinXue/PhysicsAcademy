@@ -1,4 +1,7 @@
 Table scoreSheetTable;
+Table nameDataTable;
+Table empty;
+
 PFont questionfont;
 
 
@@ -6,16 +9,27 @@ String[][] questionData; //Gathers the data for the current question
 Boolean quizModeInAnswerBox = false; //Determines if user mouse has clicked the input box
 String quizModeInputtedAnswer = ""; //Variable for the input user gives
 Boolean quizModeAlreadyFailed = false; //Determines if the user has already failed that question
-int[] pastAnswerValidity; //An infinite list from "score.csv" which displays the validity of past answers
-String[] pastProblems; //An infinite list from "score.csv" which displays the problem number for past problems
-String[] pastAnswers; //An infinite list from "score.csv" which displays the user submitted answer
+int[] pastAnswerValidity ={}; //An infinite list from activeUser which displays the validity of past answers
+String[] pastProblems={}; //An infinite list from activeUser which displays the problem number for past problems
+String[] pastAnswers={}; //An infinite list from activeUser which displays the user submitted answer
 
+String currentUserPassword;
+int currentUserLength;
 void learnModeInitialize(){
-    generateNewProblem();
-    scoreSheetTable = loadTable("score.csv", "header");
-    pastAnswerValidity = scoreSheetTable.getIntColumn(activeUser + " Score");
-    pastProblems = scoreSheetTable.getStringColumn(activeUser + " Problem");
-    pastAnswers = scoreSheetTable.getStringColumn(activeUser + " Answer");
+    empty = loadTable("empty.csv","header");
+
+    nameDataTable = loadTable("userData.csv", "header");
+    currentUserPassword = nameDataTable.getString(0,activeUser); //Not Needed for now
+
+    generateNewProblem(); //Generate New Problem
+    println(activeUser);
+    scoreSheetTable = loadTable(activeUser+".csv", "header");
+    pastAnswerValidity = scoreSheetTable.getIntColumn("Score");
+    pastAnswers = scoreSheetTable.getStringColumn("Problem");
+    pastProblems = scoreSheetTable.getStringColumn("Answer");
+
+
+
 }
 
 void learnMode() {
@@ -191,12 +205,13 @@ void generateNewProblem(){
 }
 
 void saveQuizDataToCSV(){
-    for(int i=0;i<pastAnswerValidity.length;i++){
-        scoreSheetTable.setInt(i, activeUser + " Score", pastAnswerValidity[i]);
-        scoreSheetTable.setString(i, activeUser + " Problem", pastProblems[i]);
-        scoreSheetTable.setString(i, activeUser + " Answer", pastAnswers[i]);
+    currentUserLength = pastAnswerValidity.length;
+    for(int i=0;i<currentUserLength;i++){
+        scoreSheetTable.setInt(i, "Score", pastAnswerValidity[i]);
+        scoreSheetTable.setString(i, "Problem", pastProblems[i]);
+        scoreSheetTable.setString(i, "Answer", pastAnswers[i]);
     }
 
-    saveTable(scoreSheetTable, "data/score.csv" );
+    saveTable(scoreSheetTable, "data/"+activeUser+".csv" );
 
 }

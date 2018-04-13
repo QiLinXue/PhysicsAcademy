@@ -35,20 +35,34 @@ void homeScreenMousePressed(){
     if(mouseX>290 && mouseX < 490 && mouseY > 50 && mouseY < 110) login();
     if(mouseX>510 && mouseX < 710 && mouseY > 50 && mouseY < 110) register();
 }
-String activeUser = "User 1";
-String inputtedUser = "User 2";
+
+String activeUser = "User1"; //This is the default
+String inputtedUser = "User3"; //This is the user inputted user. TODO currently inputted user cannot be changed in program.
+String newUser = "User3";
+String newPassword = "pw3";
 
 void login(){
-     for(int i=0;i<scoreSheetTable.getColumnCount();i+=3){
-        if(scoreSheetTable.getColumnTitle(i).contains(inputtedUser)){
+     for(int i=0;i<nameDataTable.getColumnCount();i++){
+        if(nameDataTable.getColumnTitle(i).contains(inputtedUser)){
             activeUser = inputtedUser;
-            println(activeUser);
             learnModeInitialize();
             break;
         }
     }
-
 }
 
+void register(){
+    for(int i=0;i<nameDataTable.getColumnCount();i++){
+       if(nameDataTable.getColumnTitle(i).contains(newUser)) break;
+       //println(i,scoreSheetTable.getColumnCount()-1);
+       //The below will activate if there are no matches
+       if(i == nameDataTable.getColumnCount()-1){
+           println("PLACEHOLDER");
+           saveTable(empty,"data/"+newUser+".csv");
+           nameDataTable.addColumn(newUser);
+           nameDataTable.setString(0,i+1,newPassword);
+           saveTable(nameDataTable, "data/userData.csv" );
 
-void register(){}
+       }
+   }
+}
