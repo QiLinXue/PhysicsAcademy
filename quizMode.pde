@@ -22,7 +22,7 @@ void learnModeInitialize(){
     currentUserPassword = nameDataTable.getString(0,activeUser); //Not Needed for now
 
     generateNewProblem(); //Generate New Problem
-    println(activeUser);
+    println("current user is: " + activeUser);
     scoreSheetTable = loadTable(activeUser+".csv", "header");
     pastAnswerValidity = scoreSheetTable.getIntColumn("Score");
     pastAnswers = scoreSheetTable.getStringColumn("Problem");

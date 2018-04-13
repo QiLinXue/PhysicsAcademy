@@ -1,5 +1,4 @@
 import fisica.*;
-import javax.swing.JOptionPane;
 
 //Sandbox Objects
 FWorld world;
@@ -35,6 +34,7 @@ void drawMode() {
 
 void keyPressed() {
   switch(screenMode){
+      case 0: homeScreenKeyPressed(); break;
       case 1:
       //sandboxModeKeyActions();
       break;
