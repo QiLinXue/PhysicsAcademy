@@ -66,7 +66,7 @@ void homeScreenKeyPressed(){
         }
         if(keyCode == ENTER){
              homeScreenTypeMode = 5;
-             println("Please enter your password");
+             println("Hello "+ inputtedUser+ "! Please enter your password");
              //login();
         }
     }
@@ -116,15 +116,16 @@ void homeScreenKeyPressed(){
         }
         if(keyCode == ENTER && newPassword != ""){
             try{
-                if(nameDataTable.getString(0,newUser) != "30cna8fjdbr93f"){ //Gibberish. I'm too lazy to find a better way
+                // if(nameDataTable.getString(0,newUser) != "30cna8fjdbr93f"){ //Gibberish. I'm too lazy to find a better way
+                nameDataTable.getString(0,newUser);
                     println("User is already registered. Please either log in or register");
                     homeScreenTypeMode = 0;
                     newUser = "";
                     newPassword = "";
-                }
+                //}
             }
             catch(Exception e){
-                println("Your password is " newPassword);
+                println("Your password is " + newPassword);
                 inputtedPassword = newPassword;
                 homeScreenTypeMode = 4;
                 register();
