@@ -50,7 +50,7 @@ String activeUser = "EXPERIMENTAL"; //This is the default
 String inputtedUser = ""; //This is the user inputted user.
 String newUser = "";
 String inputtedPassword = ""; //This is the user inputted password.
-String newPassword = "PLACEHOLDER";
+String newPassword = "";
 
 //import javax.swing.JOptionPane;
 
@@ -79,7 +79,7 @@ void homeScreenKeyPressed(){
         }
         if(keyCode == ENTER && inputtedPassword != ""){
             try{
-                if(inputtedPassword.contains(nameDataTable.getString(0,inputtedUser))){
+                if(inputtedPassword.contains(nameDataTable.getString(0,inputtedUser)) && inputtedPassword.length() == nameDataTable.getString(0,inputtedUser).length()){
                     homeScreenTypeMode = 3;
                     login();
                 } else{
@@ -104,8 +104,31 @@ void homeScreenKeyPressed(){
             newUser+=key;
         }
         if(keyCode == ENTER){
-             homeScreenTypeMode = 4;
-             register();
+            println("Please set your password. Because QiLin's a shitty programmer, you aren't able to change this.");
+            homeScreenTypeMode = 6;
+        }
+    }
+
+    //Register Password
+    if(homeScreenTypeMode == 6){
+        if(keyCode != SHIFT && keyCode != ENTER){
+            newPassword+=key;
+        }
+        if(keyCode == ENTER && newPassword != ""){
+            try{
+                if(nameDataTable.getString(0,newUser) != "30cna8fjdbr93f"){ //Gibberish. I'm too lazy to find a better way
+                    println("User is already registered. Please either log in or register");
+                    homeScreenTypeMode = 0;
+                    newUser = "";
+                    newPassword = "";
+                }
+            }
+            catch(Exception e){
+                println("Your password is " newPassword);
+                inputtedPassword = newPassword;
+                homeScreenTypeMode = 4;
+                register();
+            }
         }
     }
 
@@ -140,22 +163,11 @@ void register(){
 
     if(homeScreenTypeMode == 4){
         homeScreenTypeMode = 0;
-        for(int i=0;i<nameDataTable.getColumnCount();i++){
-           if(nameDataTable.getColumnTitle(i).contains(newUser)){
-               println("user already in database");
-               break;
-           }
-
-           //The below will activate if there are no matches
-           if(i == nameDataTable.getColumnCount()-1){
-               activeUser = newUser;
-               saveTable(empty,"data/"+newUser+".csv");
-               nameDataTable.addColumn(newUser);
-               nameDataTable.setString(0,i+1,newPassword);
-               saveTable(nameDataTable, "data/userData.csv" );
-               learnModeInitialize();
-               break;
-           }
-       }
-   }
+        activeUser = newUser;
+        saveTable(empty,"data/"+newUser+".csv");
+        nameDataTable.addColumn(newUser);
+        nameDataTable.setString(0,nameDataTable.getColumnCount()-1,newPassword);
+        saveTable(nameDataTable, "data/userData.csv");
+        learnModeInitialize();
+    }
 }
