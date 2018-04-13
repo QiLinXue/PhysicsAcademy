@@ -14,7 +14,7 @@ void setup() {
 
 }
 
-int screenMode = 3;
+int screenMode = 0;
 int previousScreenMode;
 void draw() {
   switch(screenMode) {
@@ -49,13 +49,14 @@ void keyPressed() {
 void mousePressed() {
   switch(screenMode){
       case 3: quizModeMousePressed(); break;
+      case 0: homeScreenMousePressed(); break;
   }
 }
 
 void mouseReleased() {
   switch(screenMode){
       case 3: quizModeMouseReleased(); break;
-      // case 4: solarSystemMouseReleased(); break;
+      case 4: solarSystemMouseReleased(); break;
  }
 }
 
