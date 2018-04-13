@@ -79,11 +79,17 @@ void wallSimulation() {
   //Text
   fill(0);
   textSize(30);
-  text("Static Friction: "+staticFriction, 500, 100, 900, 50);
-  text("Kinetic Friction: "+kineticFriction, 500, 150, 900, 50);
-  text("Mass: "+box.getMass()+" kg", 500, 200, 900, 50);
-  text("Velocity: "+box.getVelocityY()+" m/s", 500, 250, 900, 50);
-  text("Applied Force: "+force+" N", 500, 300, 900, 50);
+  textAlign(LEFT,CENTER);
+  text("Static Friction: "+staticFriction, 350, 100, 600, 50);
+  text("Kinetic Friction: "+kineticFriction, 350, 150, 600, 50);
+  text("Mass: "+box.getMass()+" kg", 350, 200, 600, 50);
+  text("Velocity: "+box.getVelocityY()+" m/s", 350, 250, 600, 50);
+  text("Applied Force: "+force+" N", 350, 300, 600, 50);
+
+  textAlign(CENTER,CENTER);
+  text("Press r to reset",350,770,600,50);
+  text("Press SPACE to activate forces",360,820,600,50);
+  text("Press BACKSPACE to return",350,870,600,50);
 
 
 
@@ -92,34 +98,34 @@ void wallSimulation() {
 
 void wallForces(){
     //Applied Force
-    rect(350, 500, 600, 20);
+    rect(350, 400, 600, 20);
     if (mouseX<950 && mouseX>350 && mouseY>500-10 && mouseY<500+30 && mousePressed) {
       a=mouseX;
     }
-    rect(a-20, 500-10, 40, 40);
+    rect(a-20, 400-10, 40, 40);
     force = ((boxMass*10)/originalStaticFriction+50)+(a-650)*1.05;
 
     //Mass
-    rect(350, 600, 600, 20);
+    rect(350, 500, 600, 20);
     if (mouseX<950 && mouseX>350 && mouseY>600-10 && mouseY<600+30 && mousePressed) {
       b=mouseX;
     }
-    rect(b-20, 600-10, 40, 40);
+    rect(b-20, 500-10, 40, 40);
     box.setDensity((boxMass/100+(b-650)*0.0005));
 
     //staticFriction
-    rect(350, 700, 600, 20);
+    rect(350, 600, 600, 20);
     if (mouseX<950 && mouseX>350 && mouseY>700-10 && mouseY<700+30 && mousePressed) {
       c=mouseX;
     }
-    rect(c-20, 700-10, 40, 40);
+    rect(c-20, 600-10, 40, 40);
     staticFriction = (c-200)*0.0011111111111;
 
     //KineticFriction
-    rect(350, 800, 600, 20);
+    rect(350, 700, 600, 20);
     if (mouseX<950 && mouseX>350 && mouseY>800-10 && mouseY<800+30 && mousePressed) {
       d=mouseX;
     }
-    rect(d-20, 800-10, 40, 40);
+    rect(d-20, 700-10, 40, 40);
     kineticFriction = (d-200)*0.0011111111111;
 }
