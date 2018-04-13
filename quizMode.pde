@@ -4,7 +4,6 @@ Table empty;
 
 PFont questionfont;
 
-
 String[][] questionData; //Gathers the data for the current question
 Boolean quizModeInAnswerBox = false; //Determines if user mouse has clicked the input box
 String quizModeInputtedAnswer = ""; //Variable for the input user gives
@@ -15,6 +14,7 @@ String[] pastAnswers={}; //An infinite list from activeUser which displays the u
 
 String currentUserPassword;
 int currentUserLength;
+
 void learnModeInitialize(){
     empty = loadTable("empty.csv","header");
 
@@ -26,9 +26,6 @@ void learnModeInitialize(){
     pastAnswerValidity = scoreSheetTable.getIntColumn("Score");
     pastAnswers = scoreSheetTable.getStringColumn("Problem");
     pastProblems = scoreSheetTable.getStringColumn("Answer");
-
-
-
 }
 
 void learnMode() {
