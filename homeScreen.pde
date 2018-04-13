@@ -25,10 +25,13 @@ void homeScreen(){
     fill(0);
     text("Login",290,50,200,60);
     text("Register",510,50,200,60);
-
 }
 
 void homeScreenMousePressed(){
+    if(mouseY > 50 && mouseY < 580){
+        println("login/register failed. Please try again");
+        homeScreenTypeMode = 0; //A cheaty way of resetting the login and register button
+    }
     if(mouseX>50 && mouseX < 950 && mouseY > 500 && mouseY < 580) println("doesn't work");
     if(mouseX>50 && mouseX < 950 && mouseY > 610 && mouseY < 690) screenMode = 3;
     if(mouseX>50 && mouseX < 950 && mouseY > 720 && mouseY < 800) screenMode = 4;
@@ -36,10 +39,10 @@ void homeScreenMousePressed(){
     if(mouseX>510 && mouseX < 710 && mouseY > 50 && mouseY < 110) register();
 }
 
-String activeUser = "User1"; //This is the default
+String activeUser = "EXPERIMENTAL"; //This is the default
 String inputtedUser = ""; //This is the user inputted user. TODO currently inputted user cannot be changed in program.
-String newUser = "User3";
-String newPassword = "pw3";
+String newUser = "";
+String newPassword = "PLACEHOLDER";
 
 //import javax.swing.JOptionPane;
 
@@ -56,7 +59,6 @@ void homeScreenKeyPressed(){
              homeScreenTypeMode = 3;
              login();
         }
-        //println(inputtedUser);
     }
 
     //Register
@@ -68,7 +70,6 @@ void homeScreenKeyPressed(){
              homeScreenTypeMode = 4;
              register();
         }
-        //println(inputtedUser);
     }
 }
 
@@ -84,7 +85,6 @@ void login(){
            if(nameDataTable.getColumnTitle(i).contains(inputtedUser)){
                activeUser = inputtedUser;
                learnModeInitialize();
-               println(homeScreenTypeMode);
                break;
            }
            if(i==nameDataTable.getColumnCount()-1) println("no such user exists");
