@@ -13,9 +13,9 @@ String[] pastAnswers; //An infinite list from "score.csv" which displays the use
 void learnModeInitialize(){
     generateNewProblem();
     scoreSheetTable = loadTable("score.csv", "header");
-    pastAnswerValidity = scoreSheetTable.getIntColumn("User 1 Score");
-    pastProblems = scoreSheetTable.getStringColumn("User 1 Problem");
-    pastAnswers = scoreSheetTable.getStringColumn("User 1 Answer");
+    pastAnswerValidity = scoreSheetTable.getIntColumn(activeUser + " Score");
+    pastProblems = scoreSheetTable.getStringColumn(activeUser + " Problem");
+    pastAnswers = scoreSheetTable.getStringColumn(activeUser + " Answer");
 }
 
 void learnMode() {
@@ -192,9 +192,9 @@ void generateNewProblem(){
 
 void saveQuizDataToCSV(){
     for(int i=0;i<pastAnswerValidity.length;i++){
-        scoreSheetTable.setInt(i, "User 1 Score", pastAnswerValidity[i]);
-        scoreSheetTable.setString(i, "User 1 Problem", pastProblems[i]);
-        scoreSheetTable.setString(i, "User 1 Answer", pastAnswers[i]);
+        scoreSheetTable.setInt(i, activeUser + " Score", pastAnswerValidity[i]);
+        scoreSheetTable.setString(i, activeUser + " Problem", pastProblems[i]);
+        scoreSheetTable.setString(i, activeUser + " Answer", pastAnswers[i]);
     }
 
     saveTable(scoreSheetTable, "data/score.csv" );

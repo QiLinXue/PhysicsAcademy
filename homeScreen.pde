@@ -35,21 +35,19 @@ void homeScreenMousePressed(){
     if(mouseX>290 && mouseX < 490 && mouseY > 50 && mouseY < 110) login();
     if(mouseX>510 && mouseX < 710 && mouseY > 50 && mouseY < 110) register();
 }
-String activeUser = "";
+String activeUser = "User 1";
 String inputtedUser = "User 2";
+
 void login(){
-    //scoreSheetTable = loadTable("score.csv", "header");
-    //println(scoreSheetTable.getColumnCount());
-
-
-
      for(int i=0;i<scoreSheetTable.getColumnCount();i+=3){
         if(scoreSheetTable.getColumnTitle(i).contains(inputtedUser)){
             activeUser = inputtedUser;
             println(activeUser);
+            learnModeInitialize();
             break;
         }
     }
+
 }
 
 
