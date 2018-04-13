@@ -22,7 +22,6 @@ void learnModeInitialize(){
     currentUserPassword = nameDataTable.getString(0,activeUser); //Not Needed for now
 
     generateNewProblem(); //Generate New Problem
-    println("Welcome back " + activeUser + "! It's nice to see you again.");
     scoreSheetTable = loadTable(activeUser+".csv", "header");
     pastAnswerValidity = scoreSheetTable.getIntColumn("Score");
     pastAnswers = scoreSheetTable.getStringColumn("Problem");
@@ -98,7 +97,6 @@ void learnMode() {
       textSize(22);
       textAlign(LEFT, TOP);
       if(hintNum>-1) {
-          //println("hello");
           text(questionData[1][hintNum],25,725,950,250);
       }
 }

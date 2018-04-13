@@ -28,8 +28,15 @@ void homeScreen(){
 }
 
 void homeScreenMousePressed(){
-    if(mouseY > 50 && mouseY < 580){
+    if(mouseY > 500 && mouseY < 800 && homeScreenTypeMode != 0){
         println("login/register failed. Please try again");
+
+        //Reset User Initalizers
+        inputtedUser = "";
+        inputtedPassword = "";
+        newUser = "";
+        newPassword = "";
+
         homeScreenTypeMode = 0; //A cheaty way of resetting the login and register button
     }
     if(mouseX>50 && mouseX < 950 && mouseY > 500 && mouseY < 580) println("doesn't work");
@@ -40,13 +47,14 @@ void homeScreenMousePressed(){
 }
 
 String activeUser = "EXPERIMENTAL"; //This is the default
-String inputtedUser = ""; //This is the user inputted user. TODO currently inputted user cannot be changed in program.
+String inputtedUser = ""; //This is the user inputted user.
 String newUser = "";
+String inputtedPassword = ""; //This is the user inputted password.
 String newPassword = "PLACEHOLDER";
 
 //import javax.swing.JOptionPane;
 
-int homeScreenTypeMode = 0; //1=Login 2=Register 0=null 3=LoginSend 4=RegisterSend
+int homeScreenTypeMode = 0; //1=Login 2=Register 0=null 3=LoginSend 4=RegisterSend 5=LoginPassword 6=RegisterPassword
 
 void homeScreenKeyPressed(){
 
@@ -54,10 +62,39 @@ void homeScreenKeyPressed(){
     if(homeScreenTypeMode == 1){
         if(keyCode != SHIFT && keyCode != ENTER){
             inputtedUser+=key;
+            println(inputtedUser);
         }
         if(keyCode == ENTER){
-             homeScreenTypeMode = 3;
-             login();
+             homeScreenTypeMode = 5;
+             println("Please enter your password");
+             //login();
+        }
+    }
+
+    //Login Password
+    if(homeScreenTypeMode == 5){
+        if(keyCode != SHIFT && keyCode != ENTER){
+            inputtedPassword+=key;
+            println(inputtedPassword);
+        }
+        if(keyCode == ENTER && inputtedPassword != ""){
+            try{
+                if(inputtedPassword.contains(nameDataTable.getString(0,inputtedUser))){
+                    homeScreenTypeMode = 3;
+                    login();
+                } else{
+                    println("Password is wrong. Click log in to try again");
+                    homeScreenTypeMode = 0;
+                    inputtedUser = "";
+                    inputtedPassword = "";
+                }
+            }
+            catch(Exception e){
+                println("Username is wrong. Click log in to try again");
+                homeScreenTypeMode = 0;
+                inputtedUser = "";
+                inputtedPassword = "";
+            }
         }
     }
 
@@ -71,6 +108,7 @@ void homeScreenKeyPressed(){
              register();
         }
     }
+
 }
 
 void login(){
@@ -85,6 +123,7 @@ void login(){
            if(nameDataTable.getColumnTitle(i).contains(inputtedUser)){
                activeUser = inputtedUser;
                learnModeInitialize();
+               println("Welcome back " + activeUser + "! It's nice to see you again.");
                break;
            }
            if(i==nameDataTable.getColumnCount()-1) println("no such user exists");
