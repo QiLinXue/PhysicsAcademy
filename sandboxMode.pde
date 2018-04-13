@@ -61,6 +61,10 @@ void wallSimulation() {
     }
 
     //Reset Location
+    if (key == 'r'){
+        box.setPosition(106, height/6);
+        box.setVelocity(0,0);
+    }
 
     //Move Back
     if (keyCode == BACKSPACE) screenMode = previousScreenMode;
