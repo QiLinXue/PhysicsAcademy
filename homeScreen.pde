@@ -52,15 +52,13 @@ String newUser = "";
 String inputtedPassword = ""; //This is the user inputted password.
 String newPassword = "";
 
-//import javax.swing.JOptionPane;
-
 int homeScreenTypeMode = 0; //1=Login 2=Register 0=null 3=LoginSend 4=RegisterSend 5=LoginPassword 6=RegisterPassword
 
 void homeScreenKeyPressed(){
 
     //Login
     if(homeScreenTypeMode == 1){
-        if(keyCode != SHIFT && keyCode != ENTER && keyCode != SPACE){
+        if(keyCode != SHIFT && keyCode != ENTER && key != " "){
             inputtedUser+=key;
         }
         if(keyCode == ENTER){
@@ -72,7 +70,7 @@ void homeScreenKeyPressed(){
 
     //Login Password
     if(homeScreenTypeMode == 5){
-        if(keyCode != SHIFT && keyCode != ENTER && keyCode != SPACE){
+        if(keyCode != SHIFT && keyCode != ENTER && key != " "){
             inputtedPassword+=key;
             println(inputtedPassword);
         }
@@ -99,7 +97,7 @@ void homeScreenKeyPressed(){
 
     //Register
     else if(homeScreenTypeMode == 2){
-        if(keyCode != SHIFT && keyCode != ENTER && keyCode != SPACE){
+        if(keyCode != SHIFT && keyCode != ENTER && key != " "){
             newUser+=key;
         }
         if(keyCode == ENTER){
@@ -111,7 +109,7 @@ void homeScreenKeyPressed(){
 
     //Register Password
     if(homeScreenTypeMode == 6){
-        if(keyCode != SHIFT && keyCode != ENTER && keyCode != SPACE){
+        if(keyCode != SHIFT && keyCode != ENTER && key != " "){
             newPassword+=key;
         }
         if(keyCode == ENTER && newPassword != ""){
