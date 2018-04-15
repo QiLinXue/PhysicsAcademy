@@ -53,6 +53,7 @@ void mousePressed() {
   switch(screenMode){
       case 3: quizModeMousePressed(); break;
       case 0: homeScreenMousePressed(); break;
+      case 1: simulationMousePressed(); break;
   }
 }
 
