@@ -98,8 +98,6 @@ void learnMode() {
       }
 }
 
-//IDEA make input box flash after each correct/incorrect (maybe add sound library for sound effects)
-//NOTE quizModeCorrect and quizMode Incorrect could be integrated below depending on how long the code is
 void quizModeCorrect(){
     generateNewProblem();
 
@@ -124,7 +122,6 @@ void quizModeCorrect(){
 
     //Update CSV
     saveQuizDataToCSV();
-
 }
 
 //TODO implement machine learning alg that learns common mistakes
@@ -186,7 +183,8 @@ void quizModeMousePressed(){
     }
     //Sandbox
     if(mouseX>140 && mouseX<225 && mouseY>550 && mouseY<630){
-        initializeWallSimulation(float(questionData[4][0]),float(questionData[4][1]),float(questionData[4][2]));
+        simulationType = questionData[5][0];
+        initializeSimulation();
         screenMode = 1;
         previousScreenMode = 3;
     }
