@@ -2,3 +2,8 @@
 /build*
 /build/*
 \build
+
+/Temp Unneeded/
+/Temp Unneeded*
+/Temp Unneeded/*
+\Temp Unneeded
