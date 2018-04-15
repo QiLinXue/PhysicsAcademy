@@ -17,6 +17,7 @@ void setup() {
 
 int screenMode = 0;
 int previousScreenMode;
+
 void draw() {
   switch(screenMode) {
 
