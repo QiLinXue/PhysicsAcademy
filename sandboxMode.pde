@@ -1,10 +1,15 @@
 float boxMass, staticFriction, kineticFriction, force, originalStaticFriction, originalKineticFriction;
 int scaler = 100;
 float a, b, c, d;
-boolean startSimul = false;
+String simulationType = "NULL";
+
+void initializeSimulation(){
+    if(simulationType == "WALL_FRICTION")         initializeWallSimulation(float(questionData[4][0]),float(questionData[4][1]),float(questionData[4][2]));
+    println(simulationType);
+}
 
 void simulationMode() {
-  if(startSimul) wallSimulation();
+  if(simulationType == "WALL_FRICTION") wallSimulation();
 }
 
 void initializeWallSimulation(float mass, float sFriction, float kFriction) {
@@ -38,7 +43,7 @@ void initializeWallSimulation(float mass, float sFriction, float kFriction) {
   box.setRestitution(0);
   box.setVelocity(0, 0);
   world.add(box);
-  startSimul = true;
+  //startSimul = true;
 }
 
 void wallSimulation() {
@@ -99,7 +104,7 @@ void wallSimulation() {
 void wallForces(){
     //Applied Force
     rect(350, 400, 600, 20);
-    if (mouseX<950 && mouseX>350 && mouseY>500-10 && mouseY<500+30 && mousePressed) {
+    if (mouseX<950 && mouseX>350 && mouseY>400-10 && mouseY<400+30 && mousePressed) {
       a=mouseX;
     }
     rect(a-20, 400-10, 40, 40);
@@ -107,7 +112,7 @@ void wallForces(){
 
     //Mass
     rect(350, 500, 600, 20);
-    if (mouseX<950 && mouseX>350 && mouseY>600-10 && mouseY<600+30 && mousePressed) {
+    if (mouseX<950 && mouseX>350 && mouseY>500-10 && mouseY<500+30 && mousePressed) {
       b=mouseX;
     }
     rect(b-20, 500-10, 40, 40);
@@ -115,7 +120,7 @@ void wallForces(){
 
     //staticFriction
     rect(350, 600, 600, 20);
-    if (mouseX<950 && mouseX>350 && mouseY>700-10 && mouseY<700+30 && mousePressed) {
+    if (mouseX<950 && mouseX>350 && mouseY>600-10 && mouseY<600+30 && mousePressed) {
       c=mouseX;
     }
     rect(c-20, 600-10, 40, 40);
@@ -123,7 +128,7 @@ void wallForces(){
 
     //KineticFriction
     rect(350, 700, 600, 20);
-    if (mouseX<950 && mouseX>350 && mouseY>800-10 && mouseY<800+30 && mousePressed) {
+    if (mouseX<950 && mouseX>350 && mouseY>700-10 && mouseY<700+30 && mousePressed) {
       d=mouseX;
     }
     rect(d-20, 700-10, 40, 40);
