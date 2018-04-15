@@ -24,6 +24,10 @@ void initializeKinematicGraphSimulation(float co1, float co2, float co3, float c
     acceleration[1] = 0;
     acceleration[2] = 6*position[0];
     acceleration[3] = 2*position[1];
+
+    scaler = 30;
+    xShift = 0;
+    yShift = 0;
 }
 
 void kinematicGraphSimulation(){
