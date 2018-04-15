@@ -20,13 +20,17 @@ String[][] problem1(){
         {"hint1","hint2","hint3","hint4"}, //Hints
         {"badAns1","badAns2","badAns3","badAns4"}, //Bad Answers
         {"typeBadAns1","typeBadAns2","typeBadAns3","typeBadAns4"}, //Types of bad answer
-        {"data1","data2","data3"} //Important data in order to simulate
+        {"data1","data2","data3"}, //Important data in order to simulate
+        {"simulationType"} //Tells which simulation to run
     };
     //Question Number
     problem[0][3] = "1";
 
     //Question Type
     problem[0][1] = "FREE";
+
+    //Simulation Type
+    problem[5][0] = "WALL_FRICTION";
 
     //Stats
     //TODO: make this more efficient (find easier bug fix)
@@ -76,13 +80,17 @@ String[][] problem2(){
         {"hint1","hint2","hint3","hint4"}, //Hints
         {"badAns1","badAns2","badAns3","badAns4"}, //Bad Answers
         {"typeBadAns1","typeBadAns2","typeBadAns3","typeBadAns4"}, //Types of bad answer
-        {"data1","data2","data3"} //Important data in order to simulate
+        {"data1","data2","data3"}, //Important data in order to simulate
+        {"Simulation Type"}
     };
     //Question Number
     problem[0][3] = "2";
 
     //Question Type
     problem[0][1] = "FREE";
+
+    //Simulation Type
+    problem[5][0] = "WALL_FRICTION";
 
     //Stats
     String mass = Integer.toString(floor(random(1,50)));
