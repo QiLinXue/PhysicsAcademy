@@ -58,7 +58,7 @@ void homeScreenKeyPressed(){
 
     //Login
     if(homeScreenTypeMode == 1){
-        if(keyCode != SHIFT && keyCode != ENTER && key != " "){
+        if(keyCode != SHIFT && keyCode != ENTER && key != ' '){
             inputtedUser+=key;
         }
         if(keyCode == ENTER){
@@ -70,7 +70,7 @@ void homeScreenKeyPressed(){
 
     //Login Password
     if(homeScreenTypeMode == 5){
-        if(keyCode != SHIFT && keyCode != ENTER && key != " "){
+        if(keyCode != SHIFT && keyCode != ENTER && key != ' '){
             inputtedPassword+=key;
             println(inputtedPassword);
         }
@@ -97,19 +97,26 @@ void homeScreenKeyPressed(){
 
     //Register
     else if(homeScreenTypeMode == 2){
-        if(keyCode != SHIFT && keyCode != ENTER && key != " "){
+        if(keyCode != SHIFT && keyCode != ENTER && key != ' '){
             newUser+=key;
         }
         if(keyCode == ENTER){
-            println("Welcome to the club " + newUser + "!");
-            println("Please set your password. Because QiLin's a shitty programmer, you aren't able to change this yet.");
-            homeScreenTypeMode = 6;
+            if(newUser == "empty" || newUser == "userData"){
+                println("Nice try bud. This trick won't work on me");
+                homeScreenTypeMode = 0;
+                newUser = "";
+            }
+            else{
+                println("Welcome to the club " + newUser + "!");
+                println("Please set your password. Because QiLin's a shitty programmer, you aren't able to change this yet.");
+                homeScreenTypeMode = 6;
+            }
         }
     }
 
     //Register Password
     if(homeScreenTypeMode == 6){
-        if(keyCode != SHIFT && keyCode != ENTER && key != " "){
+        if(keyCode != SHIFT && keyCode != ENTER && key != ' '){
             newPassword+=key;
         }
         if(keyCode == ENTER && newPassword != ""){
