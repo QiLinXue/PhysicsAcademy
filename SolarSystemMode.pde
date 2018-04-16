@@ -14,6 +14,7 @@ Moon Moon;
 Star sun;
 
 void solarSystemInitialize(){
+
     sun = new Star(695700,1.989E30,213,182,10);
 
       //plamet radius (km), mass (kg),periapsis (m), apoapsis (m), longitude of peripasis,orbital inclination
@@ -34,25 +35,26 @@ int timeticker = 0;
 int orbitRadiusScaler = 600000000;
 int planetSizeScaler = 600;
 
-
-//0=homescreen, 1=solarSystem, 2=planetSystem
-int spaceMode = 1;
+int spaceMode = 1; //0=homescreen, 1=solarSystem, 2=planetSystem
 
 void solarSystemMode(){
 
-  //time ticker (100 fps)
+  //time ticker
   timeticker++; //global increment that increases each frame
   background(30);
 
   switch(spaceMode){
-    //case 0: homescreen(); break;
     case 1: solarSystem(); break;
-    //case 2: planetsystem(); break;
   }
   fill(255);
+
+  //go back
+  if (keyPressed && keyCode == BACKSPACE) screenMode = 0;
+
 }
 
 void solarSystem(){
+
   sphereDetail(10);
   //pointLight(213,182,10, width/2, height/2, 0);
 
