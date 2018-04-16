@@ -188,3 +188,61 @@ String[][] problem3(){
 
     return problem;
 }
+
+String[][] problem4(){
+    //TODO make bonus sections for common mistakes
+    String[][] problem =
+    {
+        {"question","question type","answer","question number"}, //Basic Data
+        {"hint1","hint2","hint3","hint4"}, //Hints
+        {"badAns1","badAns2","badAns3","badAns4"}, //Bad Answers
+        {"typeBadAns1","typeBadAns2","typeBadAns3","typeBadAns4"}, //Types of bad answer
+        {"data1","data2","data3","3"}, //Important data in order to simulate
+        {"Simulation Type"}
+    };
+    //Question Number
+    problem[0][3] = "4";
+
+    //Question Type
+    problem[0][1] = "FREE";
+
+    //Simulation Type
+    problem[5][0] = "SPACE_SIMULATION";
+
+    //Stats
+    String periapsis = Float.toString((random(1,5)));
+    String apoapsis = Float.toString(float(periapsis)+(random(1,5)));
+    String eccentricity = Float.toString((float(apoapsis)-float(periapsis))/(float(apoapsis)+float(periapsis)));
+
+    problem[4][0] = periapsis;
+    problem[4][1] = apoapsis;
+    problem[4][2] = eccentricity;
+
+    //Question
+    problem[0][0] = "A new asteroid around our un is discovered! Astronomers are able to figure out its perigee is " + periapsis + "E11 metres and it has an eccentricity of " + eccentricity + ". What is the apogee of this rocket?";
+
+    //Answer
+    problem[0][2] = apoapsis;
+
+    //Hints
+    //TODO: Transfer this to data file
+    problem[1][0] = "TBA1";
+    problem[1][1] = "TBA2";
+    problem[1][2] = "TBA3";
+    problem[1][3] = "TBA4";
+
+    //Bad Answer
+    problem[2][0] = "TBA";
+    problem[3][0] = "TBA";
+
+    problem[2][1] = "TBA";
+    problem[3][1] = "TBA";
+
+    problem[2][2] = "TBA";
+    problem[3][2] = "TBA";
+
+    problem[2][3] = "TBA";
+    problem[3][3] = "TBA";
+
+    return problem;
+}
