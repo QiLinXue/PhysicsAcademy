@@ -28,6 +28,10 @@ void homeScreen(){
 }
 
 void homeScreenMousePressed(){
+    //Makes sure following programs can go back
+    previousScreenMode = 1;
+
+    //If an action interrupts the log in / register process
     if(mouseY > 500 && mouseY < 800 && homeScreenTypeMode != 0){
         println("login/register failed. Please try again");
 
@@ -72,7 +76,6 @@ void homeScreenKeyPressed(){
     if(homeScreenTypeMode == 5){
         if(keyCode != SHIFT && keyCode != ENTER && key != ' '){
             inputtedPassword+=key;
-            println(inputtedPassword);
         }
         if(keyCode == ENTER && inputtedPassword != ""){
             try{
