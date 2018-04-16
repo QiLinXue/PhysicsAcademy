@@ -206,10 +206,11 @@ void quizModeMousePressed(){
 void quizModeMouseReleased(){}
 
 void generateNewProblem(){
-    int random = int(random(0,999));
-    if(random>666) questionData = problem1();
-    else if(random>333) questionData = problem2();
-    else if(random>0) questionData = problem3();
+    int random = int(random(0,1000));
+    if(random>750) questionData = problem1();
+    else if(random>500) questionData = problem2();
+    else if(random>255) questionData = problem3();
+    else if(random>0) questionData = problem4();
 }
 
 void saveQuizDataToCSV(){
