@@ -219,7 +219,7 @@ String[][] problem4(){
     problem[4][2] = eccentricity;
 
     //Question
-    problem[0][0] = "A new asteroid around our un is discovered! Astronomers are able to figure out its perigee is " + periapsis + "E11 metres and it has an eccentricity of " + eccentricity + ". What is the apogee of this rocket?";
+    problem[0][0] = "A new asteroid around our un is discovered! Astronomers are able to figure out its perigee is " + periapsis + "E11 metres and it has an eccentricity of " + eccentricity + "E11 metres. What is the apogee of this rocket?";
 
     //Answer
     problem[0][2] = apoapsis;
