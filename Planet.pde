@@ -77,6 +77,7 @@ class Planet{
     // x^2 * b^2 + y^2 * a^2 = a^2 & b^2
     // Replace x = r cos(θ) and y = r sin(θ) to move it into the polar coordinates
     // r = ab/sqrt(a^2 * sin^2(θ) + b^2 * cos^2(θ))
+    /*
     return(
         (periapsis*apoapsis)
         /
@@ -84,6 +85,13 @@ class Planet{
           pow(apoapsis,2)*pow(cos(radians(angle)),2)+pow(periapsis,2)*pow(sin(radians(angle)),2)
         )
       );
+    */
+
+    return(
+        (semiMajor()*(1-(eccentricity()*eccentricity())))
+        /
+        (1+(eccentricity()*cos(radians(180-angle()))))
+        );
   }
 
   float angularvelocity(){
@@ -109,7 +117,7 @@ class Planet{
     //fill(0);
     //ellipse(0,0,100,100);
     //noFill();
-    line(0,0,(cos(radians(periapsisLongitude-90))*semiMinor())/orbitRadiusScaler,(sin(radians(periapsisLongitude-90))*semiMajor())/orbitRadiusScaler);
+    line(0,0,(cos(radians(periapsisLongitude-90))*semiMinor())/orbitRadiusScaler,(sin(radians(periapsisLongitude-90)) *semiMajor())/orbitRadiusScaler);
     popMatrix();
   }
 
