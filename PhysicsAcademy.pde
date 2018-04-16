@@ -76,5 +76,14 @@ void mouseWheel(MouseEvent event) {
               //println(solarSystemZoom);
             }
             break;
+        case 1:
+            if(simulationType == "SPACE_SIMULATION"){
+                solarSystemIsScroll = event.getCount();
+                solarSystemZoom = solarSystemZoom + (solarSystemIsScroll/20);
+                if(solarSystemZoom>0){
+                  solarSystemZoom = solarSystemZoom - (solarSystemIsScroll/20);
+                }
+            }
+
    }
 }
