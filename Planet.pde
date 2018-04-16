@@ -88,9 +88,9 @@ class Planet{
     */
 
     return(
-        (semiMajor()*(1-(eccentricity()*eccentricity())))
+        (semiMajor()*(1-pow(eccentricity()*2,2)))
         /
-        (1+(eccentricity()*cos(radians(180-angle()))))
+        (1+(eccentricity()*2*cos(radians(180-angle()))))
         );
   }
 

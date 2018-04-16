@@ -43,8 +43,7 @@ void solarSystemSimulation(){
   fill(255);
 
   //Information
-  text(AnyPlanet.altitude(AnyPlanet.angle()*2) + " ",50,50,900,200);
-  text(AnyPlanet.eccentricity()*2 + " ",50,150,900,200);
+  text("Altitude: "+(AnyPlanet.altitude(AnyPlanet.angle()*2)) +" metres",50,50,900,200);
 
   if(keyPressed && keyCode == BACKSPACE) screenMode = previousScreenMode;
 }
