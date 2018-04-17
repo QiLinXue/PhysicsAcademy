@@ -8,13 +8,14 @@ FBox box;
 void setup() {
   size(1000, 1000, P3D);
   println("Welcome back " + activeUser + "! It's nice to see you again.");
-
+  homeScreenInputText = ("Welcome back " + activeUser + "! It's nice to see you again.");
+  
   solarSystemInitialize();
   learnModeInitialize();
 
   //Temp
   userAccountIntialize();
-
+  screenMode = 0;
 }
 
 int screenMode = 0;

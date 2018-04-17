@@ -1,5 +1,5 @@
 //import java.lang.*;
-
+String homeScreenInputText = "";
 void homeScreen(){
     background(50);
 
@@ -26,6 +26,9 @@ void homeScreen(){
     fill(0);
     text("Login",290,50,200,60);
     text("Register",510,50,200,60);
+
+    displayBox(50,200,900,200,homeScreenInputText,30);
+
 }
 
 void homeScreenMousePressed(){
@@ -35,7 +38,7 @@ void homeScreenMousePressed(){
     //If an action interrupts the log in / register process
     if(mouseY > 500 && mouseY < 800 && homeScreenTypeMode != 0){
         println("login/register failed. Please try again");
-
+        homeScreenInputText = ("login/register failed. Please try again");
         //Reset User Initalizers
         inputtedUser = "";
         inputtedPassword = "";
@@ -49,6 +52,7 @@ void homeScreenMousePressed(){
     if(mouseX>50 && mouseX < 950 && mouseY > 720 && mouseY < 800) screenMode = 4;
     if(mouseX>290 && mouseX < 490 && mouseY > 50 && mouseY < 110) login();
     if(mouseX>510 && mouseX < 710 && mouseY > 50 && mouseY < 110) register();
+
 }
 
 String activeUser = "EXPERIMENTAL"; //This is the default
@@ -65,10 +69,12 @@ void homeScreenKeyPressed(){
     if(homeScreenTypeMode == 1){
         if(keyCode != SHIFT && keyCode != ENTER && key != ' '){
             inputtedUser+=key;
+            homeScreenInputText = inputtedUser;
         }
         if(keyCode == ENTER){
              homeScreenTypeMode = 5;
              println("Hello "+ inputtedUser+ "! Please enter your password");
+             homeScreenInputText = ("Hello "+ inputtedUser+ "! Please enter your password");
              //login();
         }
     }
@@ -77,6 +83,7 @@ void homeScreenKeyPressed(){
     if(homeScreenTypeMode == 5){
         if(keyCode != SHIFT && keyCode != ENTER && key != ' '){
             inputtedPassword+=key;
+            homeScreenInputText = inputtedPassword;
         }
         if(keyCode == ENTER && inputtedPassword != ""){
             try{
@@ -85,6 +92,7 @@ void homeScreenKeyPressed(){
                     login();
                 } else{
                     println("Password is wrong. Click log in to try again");
+                    homeScreenInputText = ("Password is wrong. Click log in to try again");
                     homeScreenTypeMode = 0;
                     inputtedUser = "";
                     inputtedPassword = "";
@@ -92,6 +100,7 @@ void homeScreenKeyPressed(){
             }
             catch(Exception e){
                 println("Username is wrong. Click log in to try again");
+                homeScreenInputText = ("Username is wrong. Click log in to try again");
                 homeScreenTypeMode = 0;
                 inputtedUser = "";
                 inputtedPassword = "";
@@ -103,16 +112,19 @@ void homeScreenKeyPressed(){
     else if(homeScreenTypeMode == 2){
         if(keyCode != SHIFT && keyCode != ENTER && key != ' '){
             newUser+=key;
+            homeScreenInputText = newUser;
         }
         if(keyCode == ENTER){
-            if(newUser == "empty" || newUser == "userData"){
+            if(newUser.contains("empty") || newUser.contains("userData")){
                 println("Nice try bud. This trick won't work on me");
+                homeScreenInputText = ("Nice try bud. This trick won't work on me");
                 homeScreenTypeMode = 0;
                 newUser = "";
             }
             else{
                 println("Welcome to the club " + newUser + "!");
                 println("Please set your password. Because QiLin's a shitty programmer, you aren't able to change this yet.");
+                homeScreenInputText = ("Welcome to the club " + newUser + "! Please set your password.");
                 homeScreenTypeMode = 6;
             }
         }
@@ -122,17 +134,20 @@ void homeScreenKeyPressed(){
     if(homeScreenTypeMode == 6){
         if(keyCode != SHIFT && keyCode != ENTER && key != ' '){
             newPassword+=key;
+            homeScreenInputText = newPassword;
         }
         if(keyCode == ENTER && newPassword != ""){
             try{
                 nameDataTable.getString(0,newUser); //Checks for errors
                 println("User is already registered. Please either log in or register");
+                homeScreenInputText = ("User is already registered. Please either log in or register");
                 homeScreenTypeMode = 0;
                 newUser = "";
                 newPassword = "";
             }
             catch(Exception e){
                 println("Your password is " + newPassword);
+                homeScreenInputText = ("Your password is " + newPassword);
                 inputtedPassword = newPassword;
                 homeScreenTypeMode = 4;
                 register();
@@ -146,6 +161,7 @@ void login(){
     if(homeScreenTypeMode == 0){
         inputtedUser = "";
         println("input your username");
+        homeScreenInputText = ("input your username");
         homeScreenTypeMode = 1;
     }
     if(homeScreenTypeMode == 3){
@@ -155,6 +171,7 @@ void login(){
                activeUser = inputtedUser;
                learnModeInitialize();
                println("Welcome back " + activeUser + "! It's nice to see you again.");
+               homeScreenInputText = ("Welcome back " + activeUser + "! It's nice to see you again.");
                break;
            }
            if(i==nameDataTable.getColumnCount()-1) println("no such user exists");
@@ -166,6 +183,7 @@ void register(){
     if(homeScreenTypeMode == 0){
         newUser = "";
         println("create your username");
+        homeScreenInputText = ("create your username");
         homeScreenTypeMode = 2;
     }
 
@@ -178,4 +196,14 @@ void register(){
         saveTable(nameDataTable, "data/userData.csv");
         learnModeInitialize();
     }
+}
+
+void displayBox(int x1, int y1, int w, int l, String text, int textSize) {
+  fill(0);
+  rect(x1, y1, w, l, 100);
+
+  fill(255);
+  textSize(textSize);
+  textAlign(CENTER, CENTER);
+  text(text, x1, y1, w, l);
 }
