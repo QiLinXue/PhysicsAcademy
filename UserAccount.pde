@@ -45,6 +45,7 @@ void userAccountIntialize(){
     //More detailed statistics about percentage of failed questions by type
     for(int i=0;i<failPercentages.length;i++)
         failPercentages[i] = 1-(currentUserStats[2+i]/currentUserStats[2+i+3]);
+    screenMode = 5;
 }
 
 void userAccountMode(){

@@ -44,7 +44,7 @@ void homeScreenMousePressed(){
 
         homeScreenTypeMode = 0; //A cheaty way of resetting the login and register button
     }
-    if(mouseX>50 && mouseX < 950 && mouseY > 500 && mouseY < 580) userAccountIntialize(); screenMode = 5;
+    if(mouseX>50 && mouseX < 950 && mouseY > 500 && mouseY < 580) userAccountIntialize(); //screenMode = 5;
     if(mouseX>50 && mouseX < 950 && mouseY > 610 && mouseY < 690) screenMode = 3;
     if(mouseX>50 && mouseX < 950 && mouseY > 720 && mouseY < 800) screenMode = 4;
     if(mouseX>290 && mouseX < 490 && mouseY > 50 && mouseY < 110) login();
