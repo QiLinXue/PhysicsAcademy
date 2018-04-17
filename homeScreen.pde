@@ -27,8 +27,7 @@ void homeScreen(){
     text("Login",290,50,200,60);
     text("Register",510,50,200,60);
 
-    displayBox(50,200,900,200,homeScreenInputText,30);
-
+    displayBox(50,130,900,100,homeScreenInputText,30);
 }
 
 void homeScreenMousePressed(){
@@ -158,7 +157,10 @@ void homeScreenKeyPressed(){
 }
 
 void login(){
-    if(homeScreenTypeMode == 0){
+    if(homeScreenTypeMode == 0 || homeScreenTypeMode == 2 || homeScreenTypeMode == 6){
+        newUser = "";
+        newPassword = "";
+
         inputtedUser = "";
         println("input your username");
         homeScreenInputText = ("input your username");
@@ -180,7 +182,10 @@ void login(){
 }
 
 void register(){
-    if(homeScreenTypeMode == 0){
+    if(homeScreenTypeMode == 0 || homeScreenTypeMode == 1 || homeScreenTypeMode == 5){
+        inputtedUser = "";
+        inputtedPassword = "";
+
         newUser = "";
         println("create your username");
         homeScreenInputText = ("create your username");
