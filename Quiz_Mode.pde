@@ -24,8 +24,8 @@ void learnModeInitialize(){
     generateNewProblem(); //Generate New Problem
     scoreSheetTable = loadTable(activeUser+".csv", "header");
     pastAnswerValidity = scoreSheetTable.getIntColumn("Score");
-    pastAnswers = scoreSheetTable.getStringColumn("Problem");
-    pastProblems = scoreSheetTable.getStringColumn("Answer");
+    pastAnswers = scoreSheetTable.getStringColumn("Answer");
+    pastProblems = scoreSheetTable.getStringColumn("Problem");
 }
 
 void learnMode() {
