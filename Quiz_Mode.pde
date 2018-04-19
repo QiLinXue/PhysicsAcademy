@@ -64,7 +64,6 @@ void learnMode() {
   text(quizModeInputtedAnswer,300,560,400,60);
 
   // Question
-  questionfont = createFont("Montserrat-Regular.ttf", 30);
   textAlign(CENTER, TOP);
   fill(220);
   textSize(33);
@@ -76,6 +75,10 @@ void learnMode() {
 
   //Sandbox
   rect(140,550,85,80);
+
+  
+  //Submit button
+  rect(775,550,85,80);
 
   //Hints
   //Style
@@ -100,7 +103,6 @@ void learnMode() {
 
 void quizModeCorrect(){
     generateNewProblem();
-
     //Update colors if there were no failed attempts
     if(!quizModeAlreadyFailed){
         pastAnswerValidity = (int[])append(pastAnswerValidity,1);
@@ -117,11 +119,16 @@ void quizModeCorrect(){
     quizModeInputtedAnswer = ""; //Resets the answer box
 
     //Flash Green
-    fill(0,50,0);
-    rect(0,0,width,height);
+    flashGreen();
 
     //Update CSV
     saveQuizDataToCSV();
+}
+
+void flashGreen(){
+    //Flash Green
+    fill(0,50,0);
+    rect(0,0,width,height);
 }
 
 //TODO implement machine learning alg that learns common mistakes
@@ -155,7 +162,7 @@ void quizModeKeyPressed(){
     //Checking answer
     if(quizModeInAnswerBox && keyCode == ENTER){
         //NOTE can't compare strings. Dunno why
-        if(abs(float(quizModeInputtedAnswer)-float(questionData[0][2]))<0.01) quizModeCorrect();
+        if(abs(float(quizModeInputtedAnswer)-float(questionData[0][2]))<0.01) flashGreen();
         else quizModeIncorrect();
     }
 
@@ -186,6 +193,11 @@ void quizModeMousePressed(){
         initializeSimulation();
         screenMode = 1;
         previousScreenMode = 3;
+    }
+    //Submit
+    if(mouseX>775 && mouseX<860 && mouseY>550 && mouseY<630){
+      if(abs(float(quizModeInputtedAnswer)-float(questionData[0][2]))<0.01) quizModeCorrect();
+      else quizModeIncorrect();
     }
 
     //Hints
