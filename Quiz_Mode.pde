@@ -12,8 +12,10 @@ int[] pastAnswerValidity ={}; //An infinite list from activeUser which displays 
 String[] pastProblems={}; //An infinite list from activeUser which displays the problem number for past problems
 String[] pastAnswers={}; //An infinite list from activeUser which displays the user submitted answer
 
-String currentUserPassword;
-int currentUserLength;
+String currentUserPassword; //Gets the current password. Currently not needed
+int currentUserLength; //Gets the current user length - used for faster iterations
+
+int[] submitColor = {220,220,220}; //The color of the submit button
 
 void learnModeInitialize(){
     empty = loadTable("empty.csv","header");
@@ -47,10 +49,8 @@ void learnMode() {
   }
 
   //Decor
-  // fill(255, 255, 0); //Yellow
-  fill(0, 100, 100); //Cyan
-
   noStroke();
+  fill(0, 100, 100); //Cyan
   rect(0, 500, width, 10);
   rect(0, 150, width, 10);
 
@@ -76,9 +76,16 @@ void learnMode() {
   //Sandbox
   rect(140,550,85,80);
 
-  
   //Submit button
+  fill(submitColor[0],submitColor[1],submitColor[2]);
   rect(775,550,85,80);
+
+  //Submit Button Text
+  textAlign(CENTER, CENTER);
+  textSize(18);
+  fill(0);
+  text("Submit",775,550,85,80);
+  textSize(33); //Reset text size
 
   //Hints
   //Style
@@ -102,6 +109,7 @@ void learnMode() {
 }
 
 void quizModeCorrect(){
+
     generateNewProblem();
     //Update colors if there were no failed attempts
     if(!quizModeAlreadyFailed){
@@ -121,6 +129,11 @@ void quizModeCorrect(){
     //Flash Green
     flashGreen();
 
+    //Reset submit button color
+    submitColor[0]=220;
+    submitColor[1]=220;
+    submitColor[2]=220;
+
     //Update CSV
     saveQuizDataToCSV();
 }
@@ -129,6 +142,11 @@ void flashGreen(){
     //Flash Green
     fill(0,50,0);
     rect(0,0,width,height);
+
+    //Update Submit Button color
+    submitColor[0]=0;
+    submitColor[1]=255;
+    submitColor[2]=100;
 }
 
 //TODO implement machine learning alg that learns common mistakes
@@ -147,6 +165,11 @@ void quizModeIncorrect(){
     //Flash Red
     fill(50,0,0);
     rect(0,0,width,height);
+
+    //Update Submit Button Color
+    submitColor[0]=200;
+    submitColor[1]=0;
+    submitColor[2]=0;
 }
 
 void quizModeKeyPressed(){
