@@ -44,7 +44,7 @@ void kinematicGraphSimulation(){
     pushMatrix();
     translate(width/2+xShift,height/2+yShift);
     scale(graphScaler);
-    strokeWeight(10/graphScaler);
+    strokeWeight(7/graphScaler);
 
     //Although below code runs fast, it creates overlapping lines which is bad
     /*
