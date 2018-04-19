@@ -80,10 +80,12 @@ void learnMode() {
   fill(submitColor[0],submitColor[1],submitColor[2]);
   rect(775,550,85,80);
 
-  //Submit Button Text
+  //Button Text
   textAlign(CENTER, CENTER);
   textSize(18);
   fill(0);
+  text("Back",25,550,85,80);
+  text("Sandbox",140,550,85,80);
   text("Submit",775,550,85,80);
   textSize(33); //Reset text size
 
