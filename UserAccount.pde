@@ -43,8 +43,10 @@ void userAccountIntialize(){
     }
 
     //More detailed statistics about percentage of failed questions by type
-    for(int i=0;i<failPercentages.length;i++)
-        failPercentages[i] = 1-(currentUserStats[2+i]/currentUserStats[2+i+3]);
+    for(int i=0;i<failPercentages.length;i++){
+        failPercentages[i] = (currentUserStats[2+i]/currentUserStats[2+i+3]);
+        if(currentUserStats[2+i] == 0 && currentUserStats[2+i+3] == 0) failPercentages[i] = 0;
+  }
     screenMode = 5;
 }
 
@@ -92,10 +94,10 @@ void userAccountMode(){
     fill(0);
     textAlign(CENTER,CENTER);
     textSize(25);
-    text("Lifetime Questions: " + (numberOfUserResponses-10),50,500,400,70);
+    text("Lifetime Questions: " + (numberOfUserResponses-8),50,500,400,70);
     text(
         "Total Correct Answers: " +
-            (numberOfUserResponses-10-
+            (numberOfUserResponses-8-
              currentUserStats[2]-
              currentUserStats[3]-
              currentUserStats[4]
