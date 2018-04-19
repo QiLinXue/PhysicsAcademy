@@ -154,6 +154,7 @@ String[][] problem3(){
     String co2 = Float.toString(floor(random(-10,10)));
     String co3 = Float.toString(floor(random(-10,10)));
     String co4 = Float.toString(floor(random(-10,10)));
+    if(float(co1) == 0) co1 = "11"; //Ensures acceleration has an x-intercept
 
     problem[4][0] = co1;
     problem[4][1] = co2;
