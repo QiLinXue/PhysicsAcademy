@@ -151,7 +151,19 @@ void graphButtons(){
 
     rect(50, 50,50,50); rect(110, 50,50,50); rect(170, 50,50,50);
     rect(50,110,50,50); rect(110,110,50,50); rect(170,110,50,50);
-                        rect(110,170,50,50);
+    rect(50,170,50,50); rect(110,170,50,50);
+
+    fill(255);
+    textSize(15);
+    textAlign(CENTER,CENTER);
+    text("Out",50,50,50,50);
+    text("Up",110,50,50,50);
+    text("In",170,50,50,50);
+    text("Left",50,110,50,50);
+    text("Home",110,110,50,50);
+    text("Right",170,110,50,50);
+    text("Back",50,170,50,50);
+    text("Down",110,170,50,50);
 
     fill(255,0,0);
     rect(50,230,170,50);
@@ -164,7 +176,7 @@ void graphButtons(){
 
     fill(0);
     textSize(25);
-    text((mouseX-width/2-xShift)/graphScaler + ", " + (-1*(mouseY-height/2-yShift))/graphScaler,50,410,300,300);
+    text("Mouse Location: "+(mouseX-width/2-xShift)/graphScaler + ", " + (-1*(mouseY-height/2-yShift))/graphScaler,50,410,300,300);
 
     if(mousePressed){
 
@@ -185,6 +197,11 @@ void graphButtons(){
             xShift = 0;
             yShift = 0;
             graphScaler = 30;
+        }
+
+        //Go back
+        if(mouseX>50 && mouseX < 100 && mouseY>170 && mouseY<220){
+            screenMode = 3;
         }
 
         if(mouseButton == RIGHT){
