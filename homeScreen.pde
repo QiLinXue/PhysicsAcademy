@@ -66,8 +66,11 @@ void homeScreenKeyPressed(){
 
     //Login
     if(homeScreenTypeMode == 1){
-        if(keyCode != SHIFT && keyCode != ENTER && key != ' '){
+        if(keyCode != SHIFT && keyCode != ENTER && keyCode != BACKSPACE && key != ' '){
             inputtedUser+=key;
+            homeScreenInputText = inputtedUser;
+        } else if(keyCode == BACKSPACE && inputtedUser.length() > 0){
+            inputtedUser = inputtedUser.substring(0, inputtedUser.length() - 1);
             homeScreenInputText = inputtedUser;
         }
         if(keyCode == ENTER){
@@ -80,8 +83,11 @@ void homeScreenKeyPressed(){
 
     //Login Password
     if(homeScreenTypeMode == 5){
-        if(keyCode != SHIFT && keyCode != ENTER && key != ' '){
+        if(keyCode != SHIFT && keyCode != ENTER && keyCode != BACKSPACE && key != ' '){
             inputtedPassword+=key;
+            homeScreenInputText = inputtedPassword;
+        } else if(keyCode == BACKSPACE && inputtedPassword.length() > 0){
+            inputtedPassword = inputtedPassword.substring(0, inputtedPassword.length() - 1);
             homeScreenInputText = inputtedPassword;
         }
         if(keyCode == ENTER && inputtedPassword != ""){
@@ -109,8 +115,11 @@ void homeScreenKeyPressed(){
 
     //Register
     else if(homeScreenTypeMode == 2){
-        if(keyCode != SHIFT && keyCode != ENTER && key != ' '){
+        if(keyCode != SHIFT && keyCode != ENTER && key != BACKSPACE && key != ' '){
             newUser+=key;
+            homeScreenInputText = newUser;
+        } else if(keyCode == BACKSPACE && newUser.length() > 0){
+            newUser = newUser.substring(0, newUser.length() - 1);
             homeScreenInputText = newUser;
         }
         if(keyCode == ENTER){
@@ -131,8 +140,11 @@ void homeScreenKeyPressed(){
 
     //Register Password
     if(homeScreenTypeMode == 6){
-        if(keyCode != SHIFT && keyCode != ENTER && key != ' '){
+        if(keyCode != SHIFT && keyCode != ENTER && keyCode != BACKSPACE && key != ' '){
             newPassword+=key;
+            homeScreenInputText = newPassword;
+        } else if(keyCode == BACKSPACE && newPassword.length() > 0){
+            newUser = newPassword.substring(0, newPassword.length() - 1);
             homeScreenInputText = newPassword;
         }
         if(keyCode == ENTER && newPassword != ""){
@@ -146,7 +158,7 @@ void homeScreenKeyPressed(){
             }
             catch(Exception e){
                 println("Your password is " + newPassword);
-                homeScreenInputText = ("Your password is " + newPassword);
+                homeScreenInputText = ("Welcome " + newUser);
                 inputtedPassword = newPassword;
                 homeScreenTypeMode = 4;
                 register();
@@ -187,6 +199,7 @@ void register(){
         inputtedPassword = "";
 
         newUser = "";
+        newPassword = "";
         println("create your username");
         homeScreenInputText = ("create your username");
         homeScreenTypeMode = 2;
