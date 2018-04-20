@@ -27,7 +27,7 @@ String[][] problem1(){
     problem[0][3] = "1";
 
     //Question Type
-    problem[0][1] = "FREE";
+    problem[0][1] = "FREE"; //Currently, there are only free responses
 
     //Simulation Type
     problem[5][0] = "WALL_FRICTION";
@@ -87,7 +87,7 @@ String[][] problem2(){
     problem[0][3] = "2";
 
     //Question Type
-    problem[0][1] = "FREE";
+    problem[0][1] = "FREE"; //Currently, there are only free responses
 
     //Simulation Type
     problem[5][0] = "WALL_FRICTION";
@@ -144,7 +144,7 @@ String[][] problem3(){
     problem[0][3] = "3";
 
     //Question Type
-    problem[0][1] = "FREE";
+    problem[0][1] = "FREE"; //Currently, there are only free responses
 
     //Simulation Type
     problem[5][0] = "KINEMATIC_GRAPH";
@@ -205,7 +205,7 @@ String[][] problem4(){
     problem[0][3] = "4";
 
     //Question Type
-    problem[0][1] = "FREE";
+    problem[0][1] = "FREE"; //Currently, there are only free responses
 
     //Simulation Type
     problem[5][0] = "SPACE_SIMULATION";

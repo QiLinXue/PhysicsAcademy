@@ -187,8 +187,11 @@ void quizModeKeyPressed(){
     //Checking answer
     if(quizModeInAnswerBox && keyCode == ENTER){
         //NOTE can't compare strings. Dunno why
-        if(abs(float(quizModeInputtedAnswer)-float(questionData[0][2]))<0.01) flashGreen();
-        else quizModeIncorrect();
+        if(abs(float(quizModeInputtedAnswer)-float(questionData[0][2]))<0.01){
+            if(submitColor[2] == 100) quizModeCorrect();
+            else flashGreen();
+        }
+        else if(submitColor[2] != 100) quizModeIncorrect();
     }
 
     //Saving to CSV
