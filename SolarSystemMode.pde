@@ -132,7 +132,7 @@ void enableRotation(){
   }
 }
 
-void solarSystemMouseReleased(){
+void solarSystemModeMouseReleased(){
   //Saves positions when rotation is enabled
   if(solarSystemNoClick == false){ //Ensures this will only be called after rotation
     solarSystemSavedPositions[2] = solarSystemSavedPositions[2]+radians((mouseX-solarSystemSavedPositions[0])/10.8);
@@ -159,7 +159,7 @@ void solarSystemMouseWheel() {
 }
 */
 
-void solarSystemKeyPressed(){
+void solarSystemModeKeyPressed(){
   Mercury.changeTimeWarp();
   Venus.changeTimeWarp();
   Earth.changeTimeWarp();

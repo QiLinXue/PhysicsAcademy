@@ -30,7 +30,7 @@ void learnModeInitialize(){
     pastProblems = scoreSheetTable.getStringColumn("Problem");
 }
 
-void learnMode() {
+void quizMode() {
 
   //background
   background(33, 26, 29);

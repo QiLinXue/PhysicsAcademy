@@ -1,6 +1,6 @@
 //import java.lang.*;
 String homeScreenInputText = "";
-void homeScreen(){
+void homeScreenMode(){
     background(50);
 
     //Standard Buttons
@@ -30,7 +30,7 @@ void homeScreen(){
     displayBox(50,130,900,100,homeScreenInputText,30);
 }
 
-void homeScreenMousePressed(){
+void homeScreenModeMousePressed(){
     //Makes sure following programs can go back
     previousScreenMode = 1;
 
@@ -62,7 +62,7 @@ String newPassword = "";
 
 int homeScreenTypeMode = 0; //1=Login 2=Register 0=null 3=LoginSend 4=RegisterSend 5=LoginPassword 6=RegisterPassword
 
-void homeScreenKeyPressed(){
+void homeScreenModeKeyPressed(){
 
     //Login
     if(homeScreenTypeMode == 1){

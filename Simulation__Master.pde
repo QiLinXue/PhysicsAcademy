@@ -30,6 +30,6 @@ void simulationMode() {
   if(simulationType == "SPACE_SIMULATION") solarSystemSimulation();
 }
 
-void simulationMousePressed(){
+void simulationModeMousePressed(){
     if(simulationType == "KINEMATIC_GRAPH") kinematicMousePressed();
 }

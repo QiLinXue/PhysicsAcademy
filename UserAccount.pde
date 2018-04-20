@@ -94,7 +94,7 @@ void userAccountMode(){
     fill(0);
     textAlign(CENTER,CENTER);
     textSize(25);
-    text("Lifetime Questions: " + (numberOfUserResponses-8),50,500,400,70);
+    text("Lifetime Questions: " + (numberOfUserResponses-8),50,500,400,70); //Since there are 8 neutral questions at the start, they don't count
     text(
         "Total Correct Answers: " +
             (numberOfUserResponses-8-
@@ -105,14 +105,14 @@ void userAccountMode(){
         ,550,500,400,70
         );
 
+    //Back button
 }
 
 void userAccountKeyPressed(){
     if(keyCode == BACKSPACE) screenMode = 0;
 }
 
-void userAccountMousePressed(){
-
+void userAccountModeMousePressed(){
 }
 
 //Taken off Processing Website. I'm pretty sure I can write a similar code
