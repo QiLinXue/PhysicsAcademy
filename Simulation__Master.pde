@@ -17,7 +17,7 @@ void initializeSimulation(){
         );
     if(simulationType == "SPACE_SIMULATION")
         solarSystemInitialize(
-            6357, //More about visuals than science
+            30000, //More about visuals than science
             5.972E24, //Doesn't matter, placeholder for now
             float(questionData[4][0])*1E11,
             float(questionData[4][1])*1E11

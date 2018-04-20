@@ -39,11 +39,16 @@ void solarSystemSimulation(){
 
   //Warps Time
   if(keyPressed) AnyPlanet.changeTimeWarp();
-  textSize(40);
-  fill(255);
 
   //Information
-  text("Altitude: "+(AnyPlanet.altitude(AnyPlanet.angle()*2)) +" metres",50,50,900,200);
+  fill(255);
+  textSize(40);
+  text("Altitude: "+(AnyPlanet.altitude(AnyPlanet.angle()*2)) +" metres",30,50,900,60);
+
+  //Helpful Description
+  textSize(30);
+  text("Type . or , to speed and slow down",50,100,900,40); //KERBAL SPACE PROGRAM NOTATION :)
+  text("Type . or , to speed and slow down",50,150,900,40); //KERBAL SPACE PROGRAM NOTATION :)
 
   if(keyPressed && keyCode == BACKSPACE) screenMode = previousScreenMode;
 }
