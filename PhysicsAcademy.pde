@@ -32,6 +32,7 @@ void draw() {
   case 3: quizMode(); break;
   case 4: solarSystemMode(); break;
   case 5: userAccountMode(); break;
+  case 6: helpMode(); break;
 
   }
 
