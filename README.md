@@ -26,4 +26,20 @@ Registering and logging in is a fairly straightforward process. The only major c
 After logging in or registering, the appropriate csv file is copied to a giant array. This will speed up run time drastically.
 
 ### Screen Mode 1: Simulation__Master.pde
-Currently, this mode can only be accessed from the quiz mode screen. Depending on how this mode was initialized
+Currently, this mode can only be accessed from the quiz mode screen. Depending on how this mode was initialized from the variable "simulationType" it will redirect to one of three customizable simulations
+
+* "WALL_FRICTION" This screen shows how a normal force affects the motion of a box on a vertical wall with a certain static and kinetic friction. The values of the normal force, mass of box, static & kinetic coefficient is set by the initializing variables but can be modified by the user. This uses the Fisica library.
+* "KINEMATIC_GRAPH" This screen graphs the position velocity acceleration graphs of a moving object whose position is given by a cubic equation. Zooming in, and panning is accomplished through matrix transformations.
+* "SPACE_SIMULATION" This screen shows a planet orbiting around our sun in a highly realistic manner. Real parameters are given, and the altitude and velocity should be exactly identical if it was moved to the real world (looking at it through only classical mechanics of course). This is also achieved through a bunch of equations and matrix transformations.
+
+### Screen Mode 3: Quiz_Mode.pde
+This is the primary mode users will be engaged in. The code for this mode is very simple and relies on randomly generated numbers from the file Quiz_Templates.pde (there's a lot of commenting in that file so there's no need to explain its functionality)
+
+### Screen Mode 4: Space_SolarSystemMode.pde
+This has the same functionality as the "SPACE_SIMULATION" mode above but it includes data for all the planets + Halley's Comet. If my math is correct, the entire simulation is exactly 100000x faster than real time.
+
+### Screen Mode 5: UserAccount_Mode.pde
+This to be finished screen shows some fun statistics about the current user. It has a bunch of arrays that are initialized when the mode is opened and calculates percentages from there.
+
+### Screen Mode 6: Help_Mode.pde
+The simplest and most self explanatory screen. Includes a list of helpful tips + instructions for the user.
