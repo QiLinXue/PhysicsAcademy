@@ -162,17 +162,17 @@ String[][] problem3(){
     problem[4][3] = co4;
 
     //Question
-    problem[0][0] = "Donald Trump accidentally fired a nuclear missile at the US and it's going wild! But don't worry, scientists are able to make it self destruct when there is no acceleration in the x direction. The x-position of the missile can be mapped as x(t)= " + problem[4][0] + "t^3 + " + co2 + "t^2 + " + co3 + "t + " + co4 +". At what time should the scientists make the missile self destruct? Round to two decimal places.";
+    problem[0][0] = "Donald Trump accidentally fired a nuclear missile at the US and it's going wild! But don't worry, scientists are able to make it self destruct when the missile feels no external force in the x direction. The x-position of the missile can be mapped as x(t)= " + problem[4][0] + "t^3 + " + co2 + "t^2 + " + co3 + "t + " + co4 +". At what time should the scientists make the missile self destruct? Round to two decimal places.";
 
     //Answer
     problem[0][2] = Float.toString((-1*float(co2)/float(co1))/3);
 
     //Hints
     //TODO: Transfer this to data file
-    problem[1][0] = "TBA1";
-    problem[1][1] = "TBA2";
-    problem[1][2] = "TBA3";
-    problem[1][3] = "TBA4";
+    problem[1][0] = "The derivative of position with respect to time is velocity. The derivative of velocity with respect to time is acceleration.";
+    problem[1][1] = "Force = mass * acceleration. Thus, the force in the x-direction is zero when the mass is zero or the acceleration is zero. Since the mass stays constant, we have to solve for when the acceleration in the x-direction is 0.";
+    problem[1][2] = "The power rule states that the derivative of ax^n is nax^(n-1)";
+    problem[1][3] = "By taking the derivative both times gives the equation 6ax+b. After setting it to zero, we are able to solve for x, the position at which the acceleration is zero and thus the force is zero.";
 
     //Bad Answer
     problem[2][0] = "TBA";
@@ -227,10 +227,10 @@ String[][] problem4(){
 
     //Hints
     //TODO: Transfer this to data file
-    problem[1][0] = "TBA1";
-    problem[1][1] = "TBA2";
-    problem[1][2] = "TBA3";
-    problem[1][3] = "TBA4";
+    problem[1][0] = "Apoapsis refers to the maximum distance from the planet to the sun and periapsis refers to the minimum distance from the planet to the sun.";
+    problem[1][1] = "Since the planet is in elliptic orbit, the eccentricity is given by the ratio between the sum of the apoapsis (a) and periapsis (p) and their positive difference. In other words, e = (a+p)/(a-p)";
+    problem[1][2] = "Using the equation from hint 2, multiply both sides by (a-p). Expand the left side. Move all terms with apoapsis on one side and move all terms with periapsis on the other side. Finally, factor a and p and rearrange to solve for a.";
+    problem[1][3] = "From hint 2 and 3, the apoapsis (a) is given by the periapsis (p) and eccentricity (e) such that a=(1-e)/(1+e) which gives " + apoapsis + " metres.";
 
     //Bad Answer
     problem[2][0] = "TBA";
