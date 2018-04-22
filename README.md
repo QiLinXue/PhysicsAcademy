@@ -6,5 +6,5 @@ An all in one physics program where once can gain an intuitive understanding of 
 * All fonts/files used are already installed in the data folder
 
 ## Flowchart
-![Diagram](https://github.com/QiLinXue/PhysicsAcademy/blob/master/flowchart/PhysicsAcademy.png)
-<a href="https://www.draw.io/#HQiLinXue%2FPhysicsAcademy%2Fmaster%2FPhysicsAcademy.png" target="_blank">Edit</a>
+![Diagram](https://github.com/QiLinXue/PhysicsAcademy/blob/master/flowchart/PhysicsAcademyFlowchart.png)
+<a href="https://www.draw.io/#HQiLinXue%2FPhysicsAcademy%2Fmaster%2Fflowchart%2FPhysicsAcademyFlowchart.png" target="_blank">Edit</a>
