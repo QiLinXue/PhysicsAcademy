@@ -149,10 +149,12 @@ void graphButtons(){
     fill(0);
     noStroke();
 
+    //Upper Right Matrix Buttons
     rect(50, 50,50,50); rect(110, 50,50,50); rect(170, 50,50,50);
     rect(50,110,50,50); rect(110,110,50,50); rect(170,110,50,50);
     rect(50,170,50,50); rect(110,170,50,50);
 
+    //Matrix Button Text
     fill(255);
     textSize(15);
     textAlign(CENTER,CENTER);
@@ -165,14 +167,16 @@ void graphButtons(){
     text("Back",50,170,50,50);
     text("Down",110,170,50,50);
 
-    fill(255,0,0);
-    rect(50,230,170,50);
+    //Toggle X/V/T Button and Text
+    fill(255,0,0); rect(50,230,170,50); //Position Button
+    fill(0,255,0); rect(50,290,170,50); //Velocity Button
+    fill(0,0,255); rect(50,350,170,50); //Acceleration Button
+    fill(255); //Prepares for the text
+    textSize(18); //Makes it slightly bigger
+    text("Position - Click me",50,230,170,50);
+    text("Velocity - Click me",50,290,170,50);
+    text("Acceleration - Click me",50,350,170,50);
 
-    fill(0,255,0);
-    rect(50,290,170,50);
-
-    fill(0,0,255);
-    rect(50,350,170,50);
 
     fill(0);
     textSize(25);
