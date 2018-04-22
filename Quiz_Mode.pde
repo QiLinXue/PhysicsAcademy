@@ -62,6 +62,10 @@ void quizMode() {
 
   textAlign(LEFT,(CENTER));
   text(quizModeInputtedAnswer,300,560,400,60);
+  if(quizModeInputtedAnswer.length() < 1 && !quizModeInAnswerBox){
+      textAlign(CENTER,CENTER);
+      text("CLICK ME TO ANSWER",300,560,400,60);
+  }
 
   // Question
   textAlign(CENTER, TOP);
@@ -193,6 +197,9 @@ void quizModeKeyPressed(){
         }
         else if(submitColor[2] != 100) quizModeIncorrect();
     }
+
+    //Go back if mouse is not in input box
+    if(!quizModeInAnswerBox) screenMode = 0;
 
     //CHEATING
     if(key == ' ') println(questionData[0][2]);
