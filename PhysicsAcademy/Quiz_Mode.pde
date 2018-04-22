@@ -17,26 +17,30 @@ int currentUserLength; //Gets the current user length - used for faster iteratio
 
 int[] submitColor = {220,220,220}; //The color of the submit button
 
+int overrideHints = 1; //Used to create a safety layer if user accidentally hits sandbox or hint
+
 void learnModeInitialize(){
     empty = loadTable("empty.csv","header");
 
-    nameDataTable = loadTable("userData.csv", "header");
+    nameDataTable = loadTable("userData.csv", "header"); //Initialize name table
     currentUserPassword = nameDataTable.getString(0,activeUser); //Not Needed for now
 
     generateNewProblem(); //Generate New Problem
+
+    //Reinitialize arrays
     scoreSheetTable = loadTable(activeUser+".csv", "header");
     pastAnswerValidity = scoreSheetTable.getIntColumn("Score");
     pastAnswers = scoreSheetTable.getStringColumn("Answer");
     pastProblems = scoreSheetTable.getStringColumn("Problem");
+
+    //Reset overiding hints
+    overrideHints = 1;
 }
 
 void quizMode() {
 
   //background
   background(33, 26, 29);
-
-  //History (Past Answers Correct/Incorrect)
-  //TODO: enable this feature
 
   fill(100);
   for (int i=pastAnswerValidity.length-1; i>pastAnswerValidity.length-9; i--) {
@@ -109,9 +113,13 @@ void quizMode() {
       //Actual Hints
       textSize(22);
       textAlign(LEFT, TOP);
-      if(hintNum>-1) {
+      if(hintNum>-1 && (overrideHints > 2 || submitColor[2] == 100)) {
           text(questionData[1][hintNum],25,725,950,250);
+      } else if(overrideHints == 2){
+          textAlign(CENTER, CENTER);
+          text("ARE YOU SURE YOU WANT A HINT OR ENTER SANDBOX MODE. IF YOU CONTINUE BY CLICKING EITHER A HINT OR THE SANDBOX MODE, IT WILL AUTOMATICALLY BE COUNTED AS INCORRECT. YOUR CHOICE",25,725,950,250);
       }
+
 }
 
 void quizModeCorrect(){
@@ -131,6 +139,7 @@ void quizModeCorrect(){
 
     hintNum = -1; //Resets the hint
     quizModeInputtedAnswer = ""; //Resets the answer box
+    overrideHints = 1; //Resets overriding hint variable
 
     //Flash Green
     flashGreen();
@@ -199,7 +208,10 @@ void quizModeKeyPressed(){
     }
 
     //Go back if mouse is not in input box
-    if(!quizModeInAnswerBox) screenMode = 0;
+    if(!quizModeInAnswerBox && keyCode == BACKSPACE){
+        overrideHints = 1;
+        screenMode = 0;
+    }
 
     //CHEATING
     if(key == ' ') println(questionData[0][2]);
@@ -215,14 +227,20 @@ void quizModeMousePressed(){
     //Go back
     if(mouseX>25 && mouseX<110 && mouseY>550 && mouseY<630){
         saveQuizDataToCSV();
+        overrideHints = 1;
         screenMode = 0;
     }
     //Sandbox
     if(mouseX>140 && mouseX<225 && mouseY>550 && mouseY<630){
-        simulationType = questionData[5][0];
-        initializeSimulation();
-        screenMode = 1;
-        previousScreenMode = 3;
+        if(submitColor[2] != 100) overrideHints++;
+
+        //Ensures it has to be pressed two times
+        if(overrideHints > 2 || submitColor[2] == 100){
+            simulationType = questionData[5][0];
+            initializeSimulation();
+            screenMode = 1;
+            previousScreenMode = 3;
+        }
     }
     //Submit
     if(mouseX>775 && mouseX<860 && mouseY>550 && mouseY<630){
@@ -234,11 +252,11 @@ void quizModeMousePressed(){
     for(int i=0;i<4;i++){
         if(mouseX<250*i+225 && mouseX>250*i+25 && mouseY>650 && mouseY<700){
 
-            if(!quizModeAlreadyFailed){
-                viewHintBeforeTrying = 1;
-                //JOptionPane.showConfirmDialog(null,"Are you sure you want to view a hint? If you do, this will automatically be marked as incorrect.");
-                if(viewHintBeforeTrying == 1) quizModeIncorrect();
+            if(submitColor[2] != 100){
+                overrideHints++;
             }
+            if(overrideHints > 2) quizModeIncorrect();
+
             hintNum=i;
             break;
         }
