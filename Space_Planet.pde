@@ -156,7 +156,7 @@ class Planet{
   void plotOrbit(){
     stroke(255); //color of the orbit line
     noFill(); //ensures the ellipse is transparent
-    strokeWeight(100*exp((3*solarSystemZoom)-1.5)+0.25); //calculated with a table of values at www.desmos.com/calculator/fz1zzieuwa
+    strokeWeight(100*exp((3*solarSystemZoom)-1.5)+0.25); //estimated with a table of values at www.desmos.com/calculator/fz1zzieuwa
 
     pushMatrix(); //Begin transformation
 
