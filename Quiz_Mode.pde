@@ -194,11 +194,6 @@ void quizModeKeyPressed(){
         else if(submitColor[2] != 100) quizModeIncorrect();
     }
 
-    //Saving to CSV
-    if(keyCode == TAB){
-        saveQuizDataToCSV();
-    }
-
     //CHEATING
     if(key == ' ') println(questionData[0][2]);
 }
