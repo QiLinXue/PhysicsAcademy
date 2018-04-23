@@ -49,53 +49,53 @@ void quizMode() {
         case 1: fill(0,255,100); break;
         case -1: fill(200,0,0); break;
     }
-    rect((8-pastAnswerValidity.length+i)*120+30, 20, 100, 100);
+    rect(0.6*((8-pastAnswerValidity.length+i)*120+30), 0.6*20, 0.6*100, 0.6*100);
   }
 
   //Decor
   noStroke();
   fill(0, 100, 100); //Cyan
-  rect(0, 500, width, 10);
-  rect(0, 150, width, 10);
+  rect(0, 0.6*500, width, 0.6*10);
+  rect(0, 0.6*150, width, 0.6*10);
 
   // Answer Box
   fill(150);
   if(quizModeInAnswerBox) fill(255);
-  rect(300,550,400,80);
+  rect(0.6*300,0.6*550,0.6*400,0.6*80);
   fill(0);
 
   textAlign(LEFT,(CENTER));
-  text(quizModeInputtedAnswer,300,560,400,60);
+  text(quizModeInputtedAnswer,0.6*300,0.6*560,0.6*400,0.6*60);
   if(quizModeInputtedAnswer.length() < 1 && !quizModeInAnswerBox){
       textAlign(CENTER,CENTER);
-      text("CLICK ME TO ANSWER",300,560,400,60);
+      text("CLICK ME TO ANSWER",0.6*300,0.6*560,0.6*400,0.6*60);
   }
 
   // Question
   textAlign(CENTER, TOP);
   fill(220);
-  textSize(33);
   textFont(questionfont);
-  text(questionData[0][0], 0, 210, width, height);
+  textSize(0.6*30);
+  text(questionData[0][0], 0, 0.6*210, width, height);
 
   //Back Button
-  rect(25,550,85,80);
+  rect(0.6*25,0.6*550,0.6*85,0.6*80);
 
   //Sandbox
-  rect(140,550,85,80);
+  rect(0.6*140,0.6*550,0.6*85,0.6*80);
 
   //Submit button
   fill(submitColor[0],submitColor[1],submitColor[2]);
-  rect(775,550,85,80);
+  rect(0.6*775,0.6*550,0.6*85,0.6*80);
 
   //Button Text
   textAlign(CENTER, CENTER);
-  textSize(18);
+  textSize(0.6*18);
   fill(0);
-  text("Back",25,550,85,80);
-  text("Sandbox",140,550,85,80);
-  text("Submit",775,550,85,80);
-  textSize(33); //Reset text size
+  text("Back",0.6*25,0.6*550,0.6*85,0.6*80);
+  text("Sandbox",0.6*140,0.6*550,0.6*85,0.6*80);
+  text("Submit",0.6*775,0.6*550,0.6*85,0.6*80);
+  textSize(0.6*33); //Reset text size
 
   //Hints
   //Style
@@ -104,20 +104,20 @@ void quizMode() {
       //Hint Button
       for(int i=0;i<4;i++){
           fill(50,100,175);
-          rect(250*i+25,650,200,50);
+          rect(0.6*(250*i+25),0.6*650,0.6*200,0.6*50);
           fill(255);
           textAlign(CENTER,CENTER);
-          text("Hint "+(i+1),250*i+25,650,200,50);
+          text("Hint "+(i+1),0.6*(250*i+25),0.6*650,0.6*200,0.6*50);
       }
 
       //Actual Hints
-      textSize(22);
+      textSize(0.6*22);
       textAlign(LEFT, TOP);
       if(hintNum>-1 && (overrideHints > 2 || submitColor[2] == 100)) {
-          text(questionData[1][hintNum],25,725,950,250);
+          text(questionData[1][hintNum],0.6*25,0.6*725,0.6*950,0.6*250);
       } else if(overrideHints == 2){
           textAlign(CENTER, CENTER);
-          text("ARE YOU SURE YOU WANT A HINT OR ENTER SANDBOX MODE. IF YOU CONTINUE BY CLICKING EITHER A HINT OR THE SANDBOX MODE, IT WILL AUTOMATICALLY BE COUNTED AS INCORRECT. YOUR CHOICE",25,725,950,250);
+          text("ARE YOU SURE YOU WANT A HINT OR ENTER SANDBOX MODE. IF YOU CONTINUE BY CLICKING EITHER A HINT OR THE SANDBOX MODE, IT WILL AUTOMATICALLY BE COUNTED AS INCORRECT. YOUR CHOICE",0.6*25,0.6*725,0.6*950,0.6*250);
       }
 
 }
@@ -219,16 +219,16 @@ int viewHintBeforeTrying=1; // 0=yes, 1=no, 2=cancel
 
 void quizModeMousePressed(){
     //Answer Box
-    quizModeInAnswerBox = (mouseX<700 && mouseX>300 && mouseY>550 && mouseY<630) ? true : false;
+    quizModeInAnswerBox = (mouseX<0.6*700 && mouseX>0.6*300 && mouseY>0.6*550 && mouseY<0.6*630) ? true : false;
 
     //Go back
-    if(mouseX>25 && mouseX<110 && mouseY>550 && mouseY<630){
+    if(mouseX>0.6*25 && mouseX<0.6*110 && mouseY>0.6*550 && mouseY<0.6*630){
         saveQuizDataToCSV();
         overrideHints = 1;
         screenMode = 0;
     }
     //Sandbox
-    if(mouseX>140 && mouseX<225 && mouseY>550 && mouseY<630){
+    if(mouseX>0.6*140 && mouseX<0.6*225 && mouseY>0.6*550 && mouseY<0.6*630){
         if(submitColor[2] != 100) overrideHints++;
 
         //Ensures it has to be pressed two times
@@ -237,17 +237,18 @@ void quizModeMousePressed(){
             initializeSimulation();
             screenMode = 1;
             previousScreenMode = 3;
+            if(overrideHints > 2) quizModeIncorrect();
         }
     }
     //Submit
-    if(mouseX>775 && mouseX<860 && mouseY>550 && mouseY<630){
+    if(mouseX>0.6*775 && mouseX<0.6*860 && mouseY>0.6*550 && mouseY<0.6*630){
       if(abs(float(quizModeInputtedAnswer)-float(questionData[0][2]))<0.01) quizModeCorrect();
       else quizModeIncorrect();
     }
 
     //Hints
     for(int i=0;i<4;i++){
-        if(mouseX<250*i+225 && mouseX>250*i+25 && mouseY>650 && mouseY<700){
+        if(mouseX<0.6*(250*i+225) && mouseX>0.6*(250*i+25) && mouseY>0.6*650 && mouseY<0.6*700){
 
             if(submitColor[2] != 100){
                 overrideHints++;
@@ -266,7 +267,7 @@ void generateNewProblem(){
     int random = int(random(0,1000));
     if(random>750) questionData = problem1();
     else if(random>500) questionData = problem2();
-    else if(random>255) questionData = problem3();
+    else if(random>250) questionData = problem3();
     else if(random>0) questionData = problem4();
 }
 

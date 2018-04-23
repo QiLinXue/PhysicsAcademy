@@ -5,30 +5,30 @@ void homeScreenMode(){
 
     //Standard Buttons
     fill(255);
-    rect(50,500,900,80,200);
-    rect(50,610,900,80,200);
-    rect(50,720,900,80,200);
-    rect(50,830,900,80,200);
+    rect(0.6*50,0.6*500,0.6*900,0.6*80,0.6*200);
+    rect(0.6*50,0.6*610,0.6*900,0.6*80,0.6*200);
+    rect(0.6*50,0.6*720,0.6*900,0.6*80,0.6*200);
+    rect(0.6*50,0.6*830,0.6*900,0.6*80,0.6*200);
 
     //Text
     textAlign(CENTER,CENTER);
     fill(0);
-    textSize(40);
-    text("User Account",50,500,900,80);
-    text("Quiz",50,610,900,80);
-    text("Solar System",50,720,900,80);
-    text("HELP",50,830,900,80);
+    textSize(0.6*40);
+    text("User Account",0.6*50,0.6*500,0.6*900,0.6*80);
+    text("Quiz",0.6*50,0.6*610,0.6*900,0.6*80);
+    text("Solar System",0.6*50,0.6*720,0.6*900,0.6*80);
+    text("HELP",0.6*50,0.6*830,0.6*900,0.6*80);
 
     //Login Button
     fill(200,250,200);
-    rect(290,50,200,60,50);
-    rect(510,50,200,60,50);
+    rect(0.6*290,0.6*50,0.6*200,0.6*60,0.6*50);
+    rect(0.6*510,0.6*50,0.6*200,0.6*60,0.6*50);
 
     fill(0);
-    text("Login",290,50,200,60);
-    text("Register",510,50,200,60);
+    text("Login",0.6*290,0.6*50,0.6*200,0.6*60);
+    text("Register",0.6*510,0.6*50,0.6*200,0.6*60);
 
-    displayBox(50,130,900,100,homeScreenInputText,30);
+    displayBox(0.6*50,0.6*130,0.6*900,0.6*100,homeScreenInputText,0.6*30);
 }
 
 void homeScreenModeMousePressed(){
@@ -36,7 +36,7 @@ void homeScreenModeMousePressed(){
     previousScreenMode = 1;
 
     //If an action interrupts the log in / register process
-    if(mouseY > 500 && mouseY < 800 && homeScreenTypeMode != 0){
+    if(mouseY > 0.6*500 && mouseY < 0.6*800 && homeScreenTypeMode != 0){
         println("login/register failed. Please try again");
         homeScreenInputText = ("login/register failed. Please try again");
         //Reset User Initalizers
@@ -47,12 +47,12 @@ void homeScreenModeMousePressed(){
 
         homeScreenTypeMode = 0; //A cheaty way of resetting the login and register button
     }
-    if(mouseX>50 && mouseX < 950 && mouseY > 500 && mouseY < 580) userAccountIntialize(); //screenMode = 5;
-    if(mouseX>50 && mouseX < 950 && mouseY > 610 && mouseY < 690) screenMode = 3;
-    if(mouseX>50 && mouseX < 950 && mouseY > 720 && mouseY < 800) screenMode = 4;
-    if(mouseX>50 && mouseX < 950 && mouseY > 830 && mouseY < 910) screenMode = 6;
-    if(mouseX>290 && mouseX < 490 && mouseY > 50 && mouseY < 110) login();
-    if(mouseX>510 && mouseX < 710 && mouseY > 50 && mouseY < 110) register();
+    if(mouseX>0.6*50 && mouseX  < 0.6*950 && mouseY > 0.6*610 && mouseY < 0.6*690) screenMode = 3;
+    if(mouseX>0.6*50 && mouseX  < 0.6*950 && mouseY > 0.6*500 && mouseY < 0.6*580) userAccountIntialize(); //screenMode = 5;
+    if(mouseX>0.6*50 && mouseX  < 0.6*950 && mouseY > 0.6*720 && mouseY < 0.6*800) screenMode = 4;
+    if(mouseX>0.6*50 && mouseX  < 0.6*950 && mouseY > 0.6*830 && mouseY < 0.6*910) screenMode = 6;
+    if(mouseX>0.6*290 && mouseX < 0.6*490 && mouseY > 0.6*50  && mouseY < 0.6*110) login();
+    if(mouseX>0.6*510 && mouseX < 0.6*710 && mouseY > 0.6*50  && mouseY < 0.6*110) register();
 }
 
 String activeUser = "EXPERIMENTAL"; //This is the default
@@ -215,9 +215,9 @@ void register(){
     }
 }
 
-void displayBox(int x1, int y1, int w, int l, String text, int textSize) {
+void displayBox(float x1, float y1, float w, float l, String text, float textSize) {
   fill(0);
-  rect(x1, y1, w, l, 100);
+  rect(x1, y1, w, l, 0.6*100);
 
   fill(255);
   textSize(textSize);

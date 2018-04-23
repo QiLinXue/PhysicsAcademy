@@ -56,45 +56,45 @@ void userAccountMode(){
     //Upper Title
     noStroke();
     fill(150,0,255); //TODO: Better color
-    rect(25,25,950,100,100);
+    rect(0.6*25,0.6*25,0.6*950,0.6*100,0.6*100);
 
     //Title Text
     fill(0);
     textAlign(CENTER,CENTER);
-    textSize(50);
-    text("User Account for " + activeUser,25,25,950,100);
+    textSize(0.6*50);
+    text("User Account for " + activeUser,0.6*25,0.6*25,0.6*950,0.6*100);
 
     //Questions wrong by type graph
-    pieChart(200,300,300,failPercentages);
+    pieChart(0.6*200,0.6*300,0.6*300,failPercentages);
 
     //Questions wrong by type - legend Box
     fill(255);
-    rect(400,150,50,50,100);
+    rect(0.6*400,0.6*150,0.6*50,0.6*50,0.6*100);
 
     fill(255-50);
-    rect(400,210,50,50,100);
+    rect(0.6*400,0.6*210,0.6*50,0.6*50,0.6*100);
 
     fill(255-100);
-    rect(400,270,50,50,100);
+    rect(0.6*400,0.6*270,0.6*50,0.6*50,0.6*100);
 
     //Questions wrong by type - legend Text
     fill(255);
-    textSize(25);
+    textSize(0.6*25);
     textAlign(LEFT,CENTER);
 
-    text("Friction Problems - "  + failPercentages[0]*100 + "% Wrong",460,125,500,100);
-    text("Kinematic Problems - " + failPercentages[1]*100 + "% Wrong",460,185,500,100);
-    text("Space Problems - "     + failPercentages[2]*100 + "% Wrong",460,245,500,100);
+    text("Friction Problems - "  + failPercentages[0]*100 + "% Wrong",0.6*460,0.6*125,0.6*500,0.6*100);
+    text("Kinematic Problems - " + failPercentages[1]*100 + "% Wrong",0.6*460,0.6*185,0.6*500,0.6*100);
+    text("Space Problems - "     + failPercentages[2]*100 + "% Wrong",0.6*460,0.6*245,0.6*500,0.6*100);
 
     //Overall Statistics
     fill(255);
-    rect(50,500,400,70,100); //Lifetime Questions
-    rect(550,500,400,70,100); //Total Correct Answers
+    rect(0.6*50, 0.6*500,0.6*400,0.6*70,0.6*100); //Lifetime Questions
+    rect(0.6*550,0.6*500,0.6*400,0.6*70,0.6*100); //Total Correct Answers
 
     fill(0);
     textAlign(CENTER,CENTER);
-    textSize(25);
-    text("Lifetime Questions: " + (numberOfUserResponses-8),50,500,400,70); //Since there are 8 neutral questions at the start, they don't count
+    textSize(0.6*25);
+    text("Lifetime Questions: " + (numberOfUserResponses-8),0.6*50,0.6*500,0.6*400,0.6*70); //Since there are 8 neutral questions at the start, they don't count
     text(
         "Total Correct Answers: " +
             (numberOfUserResponses-8-
@@ -102,7 +102,7 @@ void userAccountMode(){
              currentUserStats[3]-
              currentUserStats[4]
             )
-        ,550,500,400,70
+        ,0.6*550,0.6*500,0.6*400,0.6*70
         );
 
     //Back button
@@ -116,7 +116,7 @@ void userAccountModeMousePressed(){
 }
 
 //Taken off Processing Website. I'm pretty sure I can write a similar code
-void pieChart(int x, int y, float diameter, float[] data) {
+void pieChart(float x, float y, float diameter, float[] data) {
 
   //Local Variables
   float sum = 0;
