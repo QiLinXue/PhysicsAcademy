@@ -1,5 +1,3 @@
-//TODO replace variable names with more specific ones
-
 Planet Mercury;
 Planet Venus;
 Planet Earth;

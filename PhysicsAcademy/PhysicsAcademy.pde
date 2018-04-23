@@ -28,7 +28,6 @@ void draw() {
 
   case 0: homeScreenMode(); break;
   case 1: simulationMode(); break;
-  case 2: drawMode(); break;   //TODO make drawMode
   case 3: quizMode(); break;
   case 4: solarSystemMode(); break;
   case 5: userAccountMode(); break;

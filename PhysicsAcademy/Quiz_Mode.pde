@@ -164,7 +164,6 @@ void flashGreen(){
     submitColor[2]=100;
 }
 
-//TODO implement machine learning alg that learns common mistakes
 void quizModeIncorrect(){
 
     if(!quizModeAlreadyFailed) {
@@ -190,7 +189,6 @@ void quizModeIncorrect(){
 void quizModeKeyPressed(){
 
     //Inputting Text
-    //TODO make inputted text more efficient
     if(quizModeInAnswerBox && keyCode != BACKSPACE && keyCode != CONTROL && keyCode != SHIFT && keyCode != ENTER){
         quizModeInputtedAnswer += key;
     } else if(quizModeInAnswerBox && keyCode == BACKSPACE && quizModeInputtedAnswer.length() > 0){
@@ -199,7 +197,6 @@ void quizModeKeyPressed(){
 
     //Checking answer
     if(quizModeInAnswerBox && keyCode == ENTER){
-        //NOTE can't compare strings. Dunno why
         if(abs(float(quizModeInputtedAnswer)-float(questionData[0][2]))<0.01){
             if(submitColor[2] == 100) quizModeCorrect();
             else flashGreen();

@@ -1,5 +1,5 @@
-//import java.lang.*;
 String homeScreenInputText = "";
+
 void homeScreenMode(){
     background(50);
 
@@ -53,7 +53,6 @@ void homeScreenModeMousePressed(){
     if(mouseX>50 && mouseX < 950 && mouseY > 830 && mouseY < 910) screenMode = 6;
     if(mouseX>290 && mouseX < 490 && mouseY > 50 && mouseY < 110) login();
     if(mouseX>510 && mouseX < 710 && mouseY > 50 && mouseY < 110) register();
-
 }
 
 String activeUser = "EXPERIMENTAL"; //This is the default
@@ -61,7 +60,6 @@ String inputtedUser = ""; //This is the user inputted user.
 String newUser = "";
 String inputtedPassword = ""; //This is the user inputted password.
 String newPassword = "";
-
 int homeScreenTypeMode = 0; //1=Login 2=Register 0=null 3=LoginSend 4=RegisterSend 5=LoginPassword 6=RegisterPassword
 
 void homeScreenModeKeyPressed(){
@@ -167,7 +165,6 @@ void homeScreenModeKeyPressed(){
             }
         }
     }
-
 }
 
 void login(){

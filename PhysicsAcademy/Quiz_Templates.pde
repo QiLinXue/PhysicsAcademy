@@ -1,5 +1,5 @@
 String commonMistakeMessage(String errorCode){
-    String message = "MARGIN TOO SMALL";
+    String message = "";
     switch(errorCode){
         case "FRICTION":
             message = "Make sure to review the different friction types";
@@ -11,9 +11,7 @@ String commonMistakeMessage(String errorCode){
     return message;
 }
 
-//TODO use same int-string conversion functions
 String[][] problem1(){
-    //TODO make bonus sections for common mistakes
     String[][] problem =
     {
         {"question","question type","answer","question number"}, //Basic Data
@@ -33,11 +31,10 @@ String[][] problem1(){
     problem[5][0] = "WALL_FRICTION";
 
     //Stats
-    //TODO: make this more efficient (find easier bug fix)
     String mass = Integer.toString(floor(random(1,50)));
     String kineticFriction = Float.toString(int(random(2,7)));
     String staticFriction = Float.toString(int(random(int(kineticFriction)+1,8)));
-    String force = Integer.toString(floor(random(1,50))+Integer.parseInt(mass)*100/int(staticFriction));
+    String force = Integer.toString(floor(random(1,50))+int(mass)*100/int(staticFriction));
 
     problem[4][0] = mass;
     problem[4][1] = Float.toString(float(staticFriction)/10);
@@ -51,7 +48,7 @@ String[][] problem1(){
     problem[0][2] = Float.toString(round(int(force)*float(staticFriction)*0.1));
 
     //Hints
-    //TODO: Transfer this to data file
+    //NOTE: Is it possible to transfer this to data file
     problem[1][0] = "In this problem, the phrase 'what is the frictional force keeping the book from sliding down the wall' suggests that the box is stationary. Therefore, static friction exists but there is no kinetic friction";
     problem[1][1] = "Since the wall is perfectly vertical, there will be no normal force that is generated from the weight of the book. Therefore, the mass of the book is irrelevant.";
     problem[1][2] = "The normal force generated from applying a perpendicular force to the wall is just the force applied. Therefore, the normal force from the force applied is "+force+" Newtons.";
@@ -130,7 +127,6 @@ String[][] problem2(){
 }
 
 String[][] problem3(){
-    //TODO make bonus sections for common mistakes
     String[][] problem =
     {
         {"question","question type","answer","question number"}, //Basic Data
@@ -168,7 +164,6 @@ String[][] problem3(){
     problem[0][2] = Float.toString((-1*float(co2)/float(co1))/3);
 
     //Hints
-    //TODO: Transfer this to data file
     problem[1][0] = "The derivative of position with respect to time is velocity. The derivative of velocity with respect to time is acceleration.";
     problem[1][1] = "Force = mass * acceleration. Thus, the force in the x-direction is zero when the mass is zero or the acceleration is zero. Since the mass stays constant, we have to solve for when the acceleration in the x-direction is 0.";
     problem[1][2] = "The power rule states that the derivative of ax^n is nax^(n-1)";
@@ -191,7 +186,6 @@ String[][] problem3(){
 }
 
 String[][] problem4(){
-    //TODO make bonus sections for common mistakes
     String[][] problem =
     {
         {"question","question type","answer","question number"}, //Basic Data
@@ -226,7 +220,6 @@ String[][] problem4(){
     problem[0][2] = apoapsis;
 
     //Hints
-    //TODO: Transfer this to data file
     problem[1][0] = "Apoapsis refers to the maximum distance from the planet to the sun and periapsis refers to the minimum distance from the planet to the sun.";
     problem[1][1] = "Since the planet is in elliptic orbit, the eccentricity is given by the ratio between the sum of the apoapsis (a) and periapsis (p) and their positive difference. In other words, e = (a+p)/(a-p)";
     problem[1][2] = "Using the equation from hint 2, multiply both sides by (a-p). Expand the left side. Move all terms with apoapsis on one side and move all terms with periapsis on the other side. Finally, factor a and p and rearrange to solve for a.";
