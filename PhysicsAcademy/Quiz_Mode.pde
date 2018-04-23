@@ -49,26 +49,26 @@ void quizMode() {
         case 1: fill(0,255,100); break;
         case -1: fill(200,0,0); break;
     }
-    rect(0.6*((8-pastAnswerValidity.length+i)*120+30), 0.6*20, 60, 60);
+    rect(0.6*((8-pastAnswerValidity.length+i)*120+30), 12, 60, 60);
   }
 
   //Decor
   noStroke();
   fill(0, 100, 100); //Cyan
-  rect(0, 300, width, 0.6*10);
-  rect(0, 0.6*150, width, 0.6*10);
+  rect(0, 300, width, 6);
+  rect(0, 90, width, 6);
 
   // Answer Box
   fill(150);
   if(quizModeInAnswerBox) fill(255);
-  rect(180,0.6*550,240,48);
+  rect(180,330,240,48);
   fill(0);
 
   textAlign(LEFT,(CENTER));
-  text(quizModeInputtedAnswer,180,0.6*560,240,36);
+  text(quizModeInputtedAnswer,180,336,240,36);
   if(quizModeInputtedAnswer.length() < 1 && !quizModeInAnswerBox){
       textAlign(CENTER,CENTER);
-      text("CLICK ME TO ANSWER",180,0.6*560,240,36);
+      text("CLICK ME TO ANSWER",180,336,240,36);
   }
 
   // Question
@@ -76,25 +76,25 @@ void quizMode() {
   fill(220);
   textFont(questionfont);
   textSize(18);
-  text(questionData[0][0], 0, 0.6*210, width, height);
+  text(questionData[0][0], 0, 126, width, height);
 
   //Back Button
-  rect(0.6*25,0.6*550,0.6*85,48);
+  rect(15,330,51,48);
 
   //Sandbox
-  rect(0.6*140,0.6*550,0.6*85,48);
+  rect(84,330,51,48);
 
   //Submit button
   fill(submitColor[0],submitColor[1],submitColor[2]);
-  rect(0.6*775,0.6*550,0.6*85,48);
+  rect(465,330,51,48);
 
   //Button Text
   textAlign(CENTER, CENTER);
-  textSize(0.6*18);
+  textSize(11);
   fill(0);
-  text("Back",0.6*25,0.6*550,0.6*85,48);
-  text("Sandbox",0.6*140,0.6*550,0.6*85,48);
-  text("Submit",0.6*775,0.6*550,0.6*85,48);
+  text("Back",15,330,51,48);
+  text("Sandbox",84,330,51,48);
+  text("Submit",465,330,51,48);
   textSize(0.6*33); //Reset text size
 
   //Hints
@@ -104,20 +104,20 @@ void quizMode() {
       //Hint Button
       for(int i=0;i<4;i++){
           fill(50,100,175);
-          rect(0.6*(250*i+25),0.6*650,120,30);
+          rect(0.6*(250*i+25),390,120,30);
           fill(255);
           textAlign(CENTER,CENTER);
-          text("Hint "+(i+1),0.6*(250*i+25),0.6*650,120,30);
+          text("Hint "+(i+1),0.6*(250*i+25),390,120,30);
       }
 
       //Actual Hints
-      textSize(0.6*22);
+      textSize(13);
       textAlign(LEFT, TOP);
       if(hintNum>-1 && (overrideHints > 2 || submitColor[2] == 100)) {
-          text(questionData[1][hintNum],0.6*25,0.6*725,570,0.6*250);
+          text(questionData[1][hintNum],15,435,570,150);
       } else if(overrideHints == 2){
           textAlign(CENTER, CENTER);
-          text("ARE YOU SURE YOU WANT A HINT OR ENTER SANDBOX MODE. IF YOU CONTINUE BY CLICKING EITHER A HINT OR THE SANDBOX MODE, IT WILL AUTOMATICALLY BE COUNTED AS INCORRECT. YOUR CHOICE",0.6*25,0.6*725,570,0.6*250);
+          text("ARE YOU SURE YOU WANT A HINT OR ENTER SANDBOX MODE. IF YOU CONTINUE BY CLICKING EITHER A HINT OR THE SANDBOX MODE, IT WILL AUTOMATICALLY BE COUNTED AS INCORRECT. YOUR CHOICE",15,435,570,150);
       }
 
 }
@@ -219,16 +219,16 @@ int viewHintBeforeTrying=1; // 0=yes, 1=no, 2=cancel
 
 void quizModeMousePressed(){
     //Answer Box
-    quizModeInAnswerBox = (mouseX<420 && mouseX>180 && mouseY>0.6*550 && mouseY<378) ? true : false;
+    quizModeInAnswerBox = (mouseX<420 && mouseX>180 && mouseY>330 && mouseY<378) ? true : false;
 
     //Go back
-    if(mouseX>0.6*25 && mouseX<66 && mouseY>0.6*550 && mouseY<378){
+    if(mouseX>15 && mouseX<66 && mouseY>330 && mouseY<378){
         saveQuizDataToCSV();
         overrideHints = 1;
         screenMode = 0;
     }
     //Sandbox
-    if(mouseX>0.6*140 && mouseX<0.6*225 && mouseY>0.6*550 && mouseY<378){
+    if(mouseX>84 && mouseX<135 && mouseY>330 && mouseY<378){
         if(submitColor[2] != 100) overrideHints++;
 
         //Ensures it has to be pressed two times
@@ -241,14 +241,14 @@ void quizModeMousePressed(){
         }
     }
     //Submit
-    if(mouseX>0.6*775 && mouseX<0.6*860 && mouseY>0.6*550 && mouseY<378){
+    if(mouseX>465 && mouseX<0.6*860 && mouseY>330 && mouseY<378){
       if(abs(float(quizModeInputtedAnswer)-float(questionData[0][2]))<0.01) quizModeCorrect();
       else quizModeIncorrect();
     }
 
     //Hints
     for(int i=0;i<4;i++){
-        if(mouseX<0.6*(250*i+225) && mouseX>0.6*(250*i+25) && mouseY>0.6*650 && mouseY<420){
+        if(mouseX<0.6*(250*i+225) && mouseX>0.6*(250*i+25) && mouseY>390 && mouseY<420){
 
             if(submitColor[2] != 100){
                 overrideHints++;

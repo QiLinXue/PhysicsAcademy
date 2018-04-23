@@ -3,11 +3,11 @@ void helpMode(){
     background(33, 26, 29);
 
     fill(255);
-    textSize(0.6*35);
+    textSize(21);
     textAlign(CENTER,TOP);
     text("To read documentation (flowchart included) in a more accessible manner, go to the readme markdown files in the github folder.",0,30,width,300);
 
-    textSize(0.6*22);
+    textSize(13);
     textAlign(LEFT,CENTER);
     text("Press BACKSPACE to go to the previous page in any screen.",0,180,width,180);
     if(keyPressed && keyCode == BACKSPACE) screenMode = 0; //Go back

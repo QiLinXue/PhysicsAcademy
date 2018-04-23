@@ -25,7 +25,7 @@ void initializeWallSimulation(float mass, float sFriction, float kFriction) {
   world.setGravity(0, 0);
 
   box = new FBox(120, 120);
-  box.setPosition(0.6*106, height/6);
+  box.setPosition(66, height/6);
   box.setDensity(1);
   box.setNoStroke();
   box.setFill(119, 125, 167);
@@ -59,7 +59,7 @@ void wallSimulation() {
 
     //Reset Location
     if (key == 'r'){
-        box.setPosition(0.6*106, height/6);
+        box.setPosition(66, height/6);
         box.setVelocity(0,0);
     }
 
@@ -78,13 +78,13 @@ void wallSimulation() {
   textSize(18);
   textAlign(LEFT,CENTER);
   text("Static Friction: "+staticFriction, 210, 60, 360, 30);
-  text("Kinetic Friction: "+kineticFriction, 210, 0.6*150, 360, 30);
+  text("Kinetic Friction: "+kineticFriction, 210, 90, 360, 30);
   text("Mass: "+box.getMass()+" kg", 210, 120, 360, 30);
-  text("Velocity: "+box.getVelocityY()+" m/s", 210, 0.6*250, 360, 30);
+  text("Velocity: "+box.getVelocityY()+" m/s", 210, 150, 360, 30);
   text("Applied Force: "+force+" N", 210, 180, 360, 30);
 
   textAlign(CENTER,CENTER);
-  text("Press r to reset",210,0.6*770,360,30);
+  text("Press r to reset",210,470,360,30);
   text("Press SPACE to activate forces",0.6*360,0.6*820,360,30);
   text("Press BACKSPACE to return",210,0.6*870,360,30);
 

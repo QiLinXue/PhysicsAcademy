@@ -56,45 +56,45 @@ void userAccountMode(){
     //Upper Title
     noStroke();
     fill(150,0,255); //TODO: Better color
-    rect(0.6*25,0.6*25,570,60,60);
+    rect(15,15,570,60,60);
 
     //Title Text
     fill(0);
     textAlign(CENTER,CENTER);
     textSize(30);
-    text("User Account for " + activeUser,0.6*25,0.6*25,570,60);
+    text("User Account for " + activeUser,15,15,570,60);
 
     //Questions wrong by type graph
     pieChart(120,180,180,failPercentages);
 
     //Questions wrong by type - legend Box
     fill(255);
-    rect(240,0.6*150,30,30,60);
+    rect(240,90,30,30,60);
 
     fill(255-50);
-    rect(240,0.6*210,30,30,60);
+    rect(240,126,30,30,60);
 
     fill(255-100);
     rect(240,0.6*270,30,30,60);
 
     //Questions wrong by type - legend Text
     fill(255);
-    textSize(0.6*25);
+    textSize(15);
     textAlign(LEFT,CENTER);
 
-    text("Friction Problems - "  + failPercentages[0]*100 + "% Wrong",0.6*460,0.6*125,300,60);
-    text("Kinematic Problems - " + failPercentages[1]*100 + "% Wrong",0.6*460,0.6*185,300,60);
-    text("Space Problems - "     + failPercentages[2]*100 + "% Wrong",0.6*460,0.6*245,300,60);
+    text("Friction Problems - "  + failPercentages[0]*100 + "% Wrong",276,0.6*125,300,60);
+    text("Kinematic Problems - " + failPercentages[1]*100 + "% Wrong",276,115,300,60);
+    text("Space Problems - "     + failPercentages[2]*100 + "% Wrong",276,0.6*245,300,60);
 
     //Overall Statistics
     fill(255);
-    rect(30, 300,240,0.6*70,60); //Lifetime Questions
-    rect(0.6*550,300,240,0.6*70,60); //Total Correct Answers
+    rect(30, 300,240,40,60); //Lifetime Questions
+    rect(330,300,240,40,60); //Total Correct Answers
 
     fill(0);
     textAlign(CENTER,CENTER);
-    textSize(0.6*25);
-    text("Lifetime Questions: " + (numberOfUserResponses-8),30,300,240,0.6*70); //Since there are 8 neutral questions at the start, they don't count
+    textSize(15);
+    text("Lifetime Questions: " + (numberOfUserResponses-8),30,300,240,40); //Since there are 8 neutral questions at the start, they don't count
     text(
         "Total Correct Answers: " +
             (numberOfUserResponses-8-
@@ -102,7 +102,7 @@ void userAccountMode(){
              currentUserStats[3]-
              currentUserStats[4]
             )
-        ,0.6*550,300,240,0.6*70
+        ,330,300,240,40
         );
 
     //Back button
