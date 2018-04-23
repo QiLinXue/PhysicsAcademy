@@ -85,8 +85,8 @@ void wallSimulation() {
 
   textAlign(CENTER,CENTER);
   text("Press r to reset",210,470,360,30);
-  text("Press SPACE to activate forces",0.6*360,0.6*820,360,30);
-  text("Press BACKSPACE to return",210,0.6*870,360,30);
+  text("Press SPACE to activate forces",216,492,360,30);
+  text("Press BACKSPACE to return",210,522,360,30);
 
 
 

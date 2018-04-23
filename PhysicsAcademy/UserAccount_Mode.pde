@@ -75,16 +75,16 @@ void userAccountMode(){
     rect(240,126,30,30,60);
 
     fill(255-100);
-    rect(240,0.6*270,30,30,60);
+    rect(240,162,30,30,60);
 
     //Questions wrong by type - legend Text
     fill(255);
     textSize(15);
     textAlign(LEFT,CENTER);
 
-    text("Friction Problems - "  + failPercentages[0]*100 + "% Wrong",276,0.6*125,300,60);
+    text("Friction Problems - "  + failPercentages[0]*100 + "% Wrong",276,75,300,60);
     text("Kinematic Problems - " + failPercentages[1]*100 + "% Wrong",276,115,300,60);
-    text("Space Problems - "     + failPercentages[2]*100 + "% Wrong",276,0.6*245,300,60);
+    text("Space Problems - "     + failPercentages[2]*100 + "% Wrong",276,147,300,60);
 
     //Overall Statistics
     fill(255);

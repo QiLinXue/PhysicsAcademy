@@ -95,7 +95,7 @@ void quizMode() {
   text("Back",15,330,51,48);
   text("Sandbox",84,330,51,48);
   text("Submit",465,330,51,48);
-  textSize(0.6*33); //Reset text size
+  textSize(19); //Reset text size
 
   //Hints
   //Style
@@ -241,7 +241,7 @@ void quizModeMousePressed(){
         }
     }
     //Submit
-    if(mouseX>465 && mouseX<0.6*860 && mouseY>330 && mouseY<378){
+    if(mouseX>465 && mouseX<516 && mouseY>330 && mouseY<378){
       if(abs(float(quizModeInputtedAnswer)-float(questionData[0][2]))<0.01) quizModeCorrect();
       else quizModeIncorrect();
     }

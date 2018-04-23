@@ -35,7 +35,7 @@ void kinematicGraphSimulation(){
 
     //Y and X Axis
     stroke(0);
-    strokeWeight(0.6*1);
+    strokeWeight(1);
     line(-1000+xShift,height/2+yShift,width+1000+xShift,height/2+yShift);
     line(width/2+xShift,1000+yShift,width/2+xShift,-1000+height+yShift);
 
