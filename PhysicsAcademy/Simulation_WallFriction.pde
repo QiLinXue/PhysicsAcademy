@@ -24,7 +24,7 @@ void initializeWallSimulation(float mass, float sFriction, float kFriction) {
   world.setEdgesRestitution(0);
   world.setGravity(0, 0);
 
-  box = new FBox(0.6*200, 0.6*200);
+  box = new FBox(120, 120);
   box.setPosition(0.6*106, height/6);
   box.setDensity(1);
   box.setNoStroke();
@@ -75,18 +75,18 @@ void wallSimulation() {
 
   //Text
   fill(0);
-  textSize(0.6*30);
+  textSize(18);
   textAlign(LEFT,CENTER);
-  text("Static Friction: "+staticFriction, 0.6*350, 0.6*100, 0.6*600, 0.6*50);
-  text("Kinetic Friction: "+kineticFriction, 0.6*350, 0.6*150, 0.6*600, 0.6*50);
-  text("Mass: "+box.getMass()+" kg", 0.6*350, 0.6*200, 0.6*600, 0.6*50);
-  text("Velocity: "+box.getVelocityY()+" m/s", 0.6*350, 0.6*250, 0.6*600, 0.6*50);
-  text("Applied Force: "+force+" N", 0.6*350, 0.6*300, 0.6*600, 0.6*50);
+  text("Static Friction: "+staticFriction, 210, 60, 360, 30);
+  text("Kinetic Friction: "+kineticFriction, 210, 0.6*150, 360, 30);
+  text("Mass: "+box.getMass()+" kg", 210, 120, 360, 30);
+  text("Velocity: "+box.getVelocityY()+" m/s", 210, 0.6*250, 360, 30);
+  text("Applied Force: "+force+" N", 210, 180, 360, 30);
 
   textAlign(CENTER,CENTER);
-  text("Press r to reset",0.6*350,0.6*770,0.6*600,0.6*50);
-  text("Press SPACE to activate forces",0.6*360,0.6*820,0.6*600,0.6*50);
-  text("Press BACKSPACE to return",0.6*350,0.6*870,0.6*600,0.6*50);
+  text("Press r to reset",210,0.6*770,360,30);
+  text("Press SPACE to activate forces",0.6*360,0.6*820,360,30);
+  text("Press BACKSPACE to return",210,0.6*870,360,30);
 
 
 
@@ -95,34 +95,34 @@ void wallSimulation() {
 
 void wallForces(){
     //Applied Force
-    rect(0.6*350, 0.6*400, 0.6*600, 0.6*20);
-    if (mouseX<0.6*950 && mouseX>0.6*350 && mouseY>0.6*390 && mouseY<0.6*430 && mousePressed) {
+    rect(210, 240, 360, 12);
+    if (mouseX<570 && mouseX>210 && mouseY>234 && mouseY<258 && mousePressed) {
       a=mouseX;
     }
-    rect((a-0.6*20), 0.6*390, 0.6*40, 0.6*40);
-    force = (((boxMass*10)/originalStaticFriction+0.6*50)+(a-390)*1.05);
+    rect((a-12), 234, 24, 24);
+    force = (((boxMass*10)/originalStaticFriction+30)+(a-390)*1.05);
     //println(boxMass,originalStaticFriction);
     //Mass
-    rect(0.6*350, 0.6*500, 0.6*600, 0.6*20);
-    if (mouseX<0.6*950 && mouseX>0.6*350 && mouseY>0.6*490 && mouseY<0.6*530 && mousePressed) {
+    rect(210, 300, 360, 12);
+    if (mouseX<570 && mouseX>210 && mouseY>294 && mouseY<318 && mousePressed) {
       b=mouseX;
     }
-    rect((b-0.6*20), 0.6*490, 0.6*40, 0.6*40);
-    box.setDensity((boxMass/(100*0.6*0.6)+(b-390)*0.0005));
+    rect((b-12), 294, 24, 24);
+    box.setDensity((boxMass/(100*0.36)+(b-390)*0.0005));
 
     //staticFriction
-    rect(0.6*350, 0.6*600, 0.6*600, 0.6*20);
-    if (mouseX<0.6*950 && mouseX>0.6*350 && mouseY>0.6*590 && mouseY<0.6*630 && mousePressed) {
+    rect(210, 360, 360, 12);
+    if (mouseX<570 && mouseX>210 && mouseY>354 && mouseY<378 && mousePressed) {
       c=mouseX;
     }
-    rect(c-0.6*20, 0.6*590, 0.6*40, 0.6*40);
+    rect(c-12, 354, 24, 24);
     staticFriction = (c-200)/380;
 
     //KineticFriction
-    rect(0.6*350, 0.6*700, 0.6*600, 0.6*20);
-    if (mouseX<0.6*950 && mouseX>0.6*350 && mouseY>0.6*690 && mouseY<0.6*730 && mousePressed) {
+    rect(210, 420, 360, 12);
+    if (mouseX<570 && mouseX>210 && mouseY>414 && mouseY<438 && mousePressed) {
       d=mouseX;
     }
-    rect(d-0.6*20, 0.6*690, 0.6*40, 0.6*40);
+    rect(d-12, 414, 24, 24);
     kineticFriction = (d-200)/380;
 }

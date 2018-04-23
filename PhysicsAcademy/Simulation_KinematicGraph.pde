@@ -1,4 +1,4 @@
-float graphScaler = 0.6*30;
+float graphScaler = 18;
 float xShift = 0;
 float yShift = 0;
 
@@ -150,66 +150,66 @@ void graphButtons(){
     noStroke();
 
     //Upper Right Matrix Buttons
-    rect(0.6*50, 0.6*50,0.6*50,0.6*50);
-    rect(0.6*110, 0.6*50,0.6*50,0.6*50);
-    rect(0.6*170, 0.6*50,0.6*50,0.6*50);
-    rect(0.6*50,0.6*110,0.6*50,0.6*50);
-    rect(0.6*110,0.6*110,0.6*50,0.6*50);
-    rect(0.6*170,0.6*110,0.6*50,0.6*50);
-    rect(0.6*50,0.6*170,0.6*50,0.6*50);
-    rect(0.6*110,0.6*170,0.6*50,0.6*50);
+    rect(30, 30,30,30);
+    rect(66, 30,30,30);
+    rect(0.6*170, 30,30,30);
+    rect(30,66,30,30);
+    rect(66,66,30,30);
+    rect(0.6*170,66,30,30);
+    rect(30,0.6*170,30,30);
+    rect(66,0.6*170,30,30);
 
     //Matrix Button Text
     fill(255);
     textSize(0.6*15);
     textAlign(CENTER,CENTER);
-    text("Out",0.6*50,0.6*50,0.6*50,0.6*50);
-    text("Up",0.6*110,0.6*50,0.6*50,0.6*50);
-    text("In",0.6*170,0.6*50,0.6*50,0.6*50);
-    text("Left",0.6*50,0.6*110,0.6*50,0.6*50);
-    text("Home",0.6*110,0.6*110,0.6*50,0.6*50);
-    text("Right",0.6*170,0.6*110,0.6*50,0.6*50);
-    text("Back",0.6*50,0.6*170,0.6*50,0.6*50);
-    text("Down",0.6*110,0.6*170,0.6*50,0.6*50);
+    text("Out",30,30,30,30);
+    text("Up",66,30,30,30);
+    text("In",0.6*170,30,30,30);
+    text("Left",30,66,30,30);
+    text("Home",66,66,30,30);
+    text("Right",0.6*170,66,30,30);
+    text("Back",30,0.6*170,30,30);
+    text("Down",66,0.6*170,30,30);
 
     //Toggle X/V/T Button and Text
-    fill(255,0,0); rect(0.6*50,0.6*230,0.6*170,0.6*50); //Position Button
-    fill(0,255,0); rect(0.6*50,0.6*290,0.6*170,0.6*50); //Velocity Button
-    fill(0,0,255); rect(0.6*50,0.6*350,0.6*170,0.6*50); //Acceleration Button
+    fill(255,0,0); rect(30,0.6*230,0.6*170,30); //Position Button
+    fill(0,255,0); rect(30,174,0.6*170,30); //Velocity Button
+    fill(0,0,255); rect(30,210,0.6*170,30); //Acceleration Button
     fill(255); //Prepares for the text
     textSize(0.6*18); //Makes it slightly bigger
-    text("Position - Click me",0.6*50,0.6*230,0.6*170,0.6*50);
-    text("Velocity - Click me",0.6*50,0.6*290,0.6*170,0.6*50);
-    text("Acceleration - Click me",0.6*50,0.6*350,0.6*170,0.6*50);
+    text("Position - Click me",30,0.6*230,0.6*170,30);
+    text("Velocity - Click me",30,174,0.6*170,30);
+    text("Acceleration - Click me",30,210,0.6*170,30);
 
 
     fill(0);
     textSize(0.6*25);
-    text("Mouse Location: "+(mouseX-width/2-xShift)/graphScaler + ", " + (-1*(mouseY-height/2-yShift))/graphScaler,0.6*50,0.6*410,0.6*300,0.6*300);
+    text("Mouse Location: "+(mouseX-width/2-xShift)/graphScaler + ", " + (-1*(mouseY-height/2-yShift))/graphScaler,30,0.6*410,180,180);
 
     if(mousePressed){
 
         //Zoom Out or In
-        if(mouseX>0.6*50 && mouseX<0.6*100 && mouseY>0.6*50 && mouseY<0.6*100 && graphScaler > 1) graphScaler--;
-        if(mouseX>0.6*170 && mouseX<0.6*220 && mouseY>0.6*50 && mouseY<0.6*100) graphScaler++;
+        if(mouseX>30 && mouseX<60 && mouseY>30 && mouseY<60 && graphScaler > 1) graphScaler--;
+        if(mouseX>0.6*170 && mouseX<0.6*220 && mouseY>30 && mouseY<60) graphScaler++;
 
         //Scale Up or Down
-        if(mouseX>0.6*110 && mouseX<0.6*160 && mouseY>0.6*50 && mouseY<0.6*100) yShift+=10;
-        if(mouseX>0.6*110 && mouseX<0.6*160 && mouseY>0.6*170 && mouseY<0.6*220) yShift-=10;
+        if(mouseX>66 && mouseX<0.6*160 && mouseY>30 && mouseY<60) yShift+=10;
+        if(mouseX>66 && mouseX<0.6*160 && mouseY>0.6*170 && mouseY<0.6*220) yShift-=10;
 
         //Scale Left or Right
-        if(mouseX>0.6*50 && mouseX<0.6*100 && mouseY>0.6*110 && mouseY<0.6*160) xShift+=10;
-        if(mouseX>0.6*170 && mouseX<0.6*220 && mouseY>0.6*110 && mouseY<0.6*160) xShift-=10;
+        if(mouseX>30 && mouseX<60 && mouseY>66 && mouseY<0.6*160) xShift+=10;
+        if(mouseX>0.6*170 && mouseX<0.6*220 && mouseY>66 && mouseY<0.6*160) xShift-=10;
 
         //Reset
-        if(mouseX>0.6*110 && mouseX<0.6*160 && mouseY>0.6*110 && mouseY<0.6*160){
+        if(mouseX>66 && mouseX<0.6*160 && mouseY>66 && mouseY<0.6*160){
             xShift = 0;
             yShift = 0;
-            graphScaler = 0.6*30;
+            graphScaler = 18;
         }
 
         //Go back
-        if(mouseX>0.6*50 && mouseX < 0.6*100 && mouseY>0.6*170 && mouseY<0.6*220){
+        if(mouseX>30 && mouseX < 60 && mouseY>0.6*170 && mouseY<0.6*220){
             screenMode = 3;
         }
 
@@ -224,9 +224,9 @@ void graphButtons(){
 
 void kinematicMousePressed(){
     //Toggle Plotted Lines
-    if(mouseX>0.6*50 && mouseX<0.6*220 && mouseY>0.6*230 && mouseY < 0.6*280) pShow = !pShow;
-    if(mouseX>0.6*50 && mouseX<0.6*220 && mouseY>0.6*290 && mouseY < 0.6*340) vShow = !vShow;
-    if(mouseX>0.6*50 && mouseX<0.6*220 && mouseY>0.6*350 && mouseY < 0.6*400) aShow = !aShow;
+    if(mouseX>30 && mouseX<0.6*220 && mouseY>0.6*230 && mouseY < 0.6*280) pShow = !pShow;
+    if(mouseX>30 && mouseX<0.6*220 && mouseY>174 && mouseY < 0.6*340) vShow = !vShow;
+    if(mouseX>30 && mouseX<0.6*220 && mouseY>210 && mouseY < 240) aShow = !aShow;
 
 }
 
